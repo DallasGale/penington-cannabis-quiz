@@ -24,4 +24,4 @@ pnpm-debug.log*
 .idea/
 
 
-src/lib/__tests__
+src/lib/__tests__/
