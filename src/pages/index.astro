@@ -1,14 +1,27 @@
 ---
 import DynamicHead from '../components/dynamicHead.astro';
 
-
-
+// Get and decode the URL parameters server-side
 const url = new URL(Astro.request.url);
 const params = url.searchParams;
 const hasResults = params.has('q1');
+
+// Generate OG image URL
 const ogImageUrl = hasResults 
   ? `${url.origin}/api/og${url.search}`
   : `${url.origin}/default-og.png`;
+
+// If this is a bot request (like social media crawlers), don't redirect
+const userAgent = Astro.request.headers.get('user-agent')?.toLowerCase() || '';
+const isBot = userAgent.includes('bot') || 
+              userAgent.includes('crawler') || 
+              userAgent.includes('preview');
+
+// For bots, we'll render the page normally
+// For real users, we can optimize by returning a redirect
+if (hasResults && !isBot) {
+  return Astro.redirect('/', 302);
+}
 ---
 
 <html>
@@ -22,22 +35,11 @@ const ogImageUrl = hasResults
     />
   </head>
   <body>
-    <div id="debug"></div>
-
-    <script>
-      // Get current URL without clearing it
-      const currentUrl = window.location.href;
-      const debugInfo = {
-        url: currentUrl,
-        search: window.location.search,
-        params: Object.fromEntries(new URLSearchParams(window.location.search)),
-        referrer: document.referrer
-      };
-
-        
-      // document.getElementById('debug').innerHTML = `
-      //   <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
-      // `;
-    </script>
+    <!-- Your content here -->
+    {!isBot && (
+      <script>
+        // No need for client-side URL clearing as we're handling it server-side
+      </script>
+    )}
   </body>
 </html>
