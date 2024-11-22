@@ -1,5 +1,13 @@
 ---
+const searchParams = Astro.url.searchParams;
+const hasResults = searchParams.has('q1'); // Check if we have quiz results
 
+// Only generate OG image URL if we have results
+const ogImageUrl = hasResults 
+  ? `${Astro.url.origin}/api/og?${Array.from(searchParams.entries())
+      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+      .join('&')}`
+  : `${Astro.url.origin}/default-og.png`; // Your default OG i
 ---
 
 <html lang="en">
@@ -9,8 +17,24 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
+    <!-- Dynamic OG tags based on whether we have results -->
+    <meta property="og:title" content={hasResults ? "My Quiz Results" : "Take the Quiz!"} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:description" content={hasResults ? "Check out my quiz results!" : "Test your knowledge with our quiz"} />
 	</head>
 	<body>
-		<h1>Astro</h1>
+		 <!-- Your homepage content -->
+     {hasResults && (
+      <script>
+        {/* // Optional: Clear the URL parameters after the page loads
+        // Only if you want to remove them from the address bar */}
+        if (window.history.replaceState) {
+          window.history.replaceState({}, document.title, "/");
+        }
+      </script>
+    )}
 	</body>
 </html>
