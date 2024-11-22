@@ -8,4 +8,5 @@ import react from "@astrojs/react";
 export default defineConfig({
   integrations: [react()],
   output: "server",
+  adapter: vercel(),
 });
