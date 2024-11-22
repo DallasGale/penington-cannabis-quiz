@@ -2,12 +2,42 @@
 import type { APIRoute } from "astro";
 import { Resvg } from "@resvg/resvg-js";
 
-export const get: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request }) => {
+  console.log("OG Image API called:", request.url);
+
   const url = new URL(request.url);
+  console.log(
+    "Raw search params:",
+    Object.fromEntries(url.searchParams.entries())
+  );
+
+  // Safely decode parameters with error handling
+  function safeDecodeURIComponent(str: string): string {
+    try {
+      // First decode
+      const firstDecode = decodeURIComponent(str);
+      // Check if we need a second decode (for double-encoded strings)
+      if (firstDecode.includes("%")) {
+        return decodeURIComponent(firstDecode);
+      }
+      return firstDecode;
+    } catch (e) {
+      console.error("Error decoding:", str, e);
+      return str;
+    }
+  }
+
   const answers = Array.from({ length: 5 }, (_, i) => {
     const result = url.searchParams.get(`q${i + 1}`);
-    return result ? decodeURIComponent(result) : null;
+    if (!result) return null;
+
+    // Safely decode the parameter
+    const decoded = safeDecodeURIComponent(result);
+    console.log(`Decoded q${i + 1}:`, decoded);
+    return decoded;
   });
+
+  console.log("Processed answers:", answers);
 
   const svg = `
     <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
@@ -50,16 +80,17 @@ export const get: APIRoute = async ({ request }) => {
   `;
 
   try {
-    // Convert SVG to PNG
+    console.log("Converting SVG to PNG...");
     const resvg = new Resvg(svg, {
       font: {
-        loadSystemFonts: true, // Load system fonts
+        loadSystemFonts: true,
       },
       background: "white",
     });
 
     const pngData = resvg.render();
     const pngBuffer = pngData.asPng();
+    console.log("PNG generated successfully");
 
     return new Response(pngBuffer, {
       headers: {
@@ -69,6 +100,9 @@ export const get: APIRoute = async ({ request }) => {
     });
   } catch (error) {
     console.error("Error generating PNG:", error);
-    return new Response("Error generating image", { status: 500 });
+    return new Response("Error generating image", {
+      status: 500,
+      statusText: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 };
