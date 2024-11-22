@@ -9,8 +9,4 @@ export default defineConfig({
   integrations: [react()],
   output: "server",
   adapter: vercel(),
-  endpoints: {
-    // Explicitly allow /api routes
-    "/api/*": { path: "/api", mode: "server" },
-  },
 });
