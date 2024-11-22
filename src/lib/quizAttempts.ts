@@ -14,11 +14,14 @@ export function getAttempts(): QuizAttempt[] {
   try {
     const cookieData = Cookies.get(COOKIE_NAME);
 
+    console.log({ cookieData });
     if (!cookieData) {
       return [];
     }
 
     const parsed = JSON.parse(cookieData);
+
+    console.log({ parsed });
     if (!Array.isArray(parsed)) {
       console.error("Invalid cookie data format");
       Cookies.remove(COOKIE_NAME);
@@ -60,6 +63,7 @@ export function recordAttempt(quizId: string): void {
 export function hasAttemptedQuiz(quizId: string): boolean {
   try {
     const attemps = getAttempts();
+    console.log({ attemps });
     return attemps.some((attempt) => attempt.quizId === quizId);
   } catch (error) {
     console.error("Error checking for quiz attempts", error);
