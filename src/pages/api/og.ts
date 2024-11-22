@@ -1,4 +1,6 @@
+// src/pages/api/og.ts
 import type { APIRoute } from "astro";
+import { Resvg } from "@resvg/resvg-js";
 
 export const get: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
@@ -47,10 +49,26 @@ export const get: APIRoute = async ({ request }) => {
     </svg>
   `;
 
-  return new Response(svg, {
-    headers: {
-      "Content-Type": "image/svg+xml",
-      "Cache-Control": "public, max-age=31536000, immutable",
-    },
-  });
+  try {
+    // Convert SVG to PNG
+    const resvg = new Resvg(svg, {
+      font: {
+        loadSystemFonts: true, // Load system fonts
+      },
+      background: "white",
+    });
+
+    const pngData = resvg.render();
+    const pngBuffer = pngData.asPng();
+
+    return new Response(pngBuffer, {
+      headers: {
+        "Content-Type": "image/png",
+        "Cache-Control": "public, max-age=31536000, immutable",
+      },
+    });
+  } catch (error) {
+    console.error("Error generating PNG:", error);
+    return new Response("Error generating image", { status: 500 });
+  }
 };
