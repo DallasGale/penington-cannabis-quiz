@@ -2,10 +2,8 @@
   "name": "penington",
   "type": "module",
   "version": "0.0.1",
-  {
-    "engines": {
-      "node": "18.x"
-    }
+  "engines": {
+    "node": "18.x"
   },
   "scripts": {
     "dev": "astro dev",
