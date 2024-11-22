@@ -1,86 +1,43 @@
 ---
-import DynamicHead from "../components/dynamicHead.astro";
+import DynamicHead from '../components/dynamicHead.astro';
 
-// Access the raw request URL
-const requestUrl = Astro.request.url;
-console.log('Request URL:', requestUrl);
 
-// Parse the URL manually to ensure we get the parameters
-const fullUrl = new URL(requestUrl);
-const rawParams = fullUrl.searchParams;
 
-console.log('=== Server-Side Processing ===');
-console.log('1. Full URL:', fullUrl.toString());
-console.log('2. Search string:', fullUrl.search);
-console.log('3. Raw params:', Object.fromEntries(rawParams.entries()));
-
-// Create decoded parameters
-const decodedParams = new URLSearchParams();
-for (const [key, value] of rawParams.entries()) {
-  decodedParams.set(key, decodeURIComponent(value));
-}
-
-const hasResults = decodedParams.has('q1');
-console.log('4. Has results:', hasResults);
-console.log('5. Decoded params:', Object.fromEntries(decodedParams.entries()));
-
-// Generate OG image URL using the raw search string to preserve encoding
+const url = new URL(Astro.request.url);
+const params = url.searchParams;
+const hasResults = params.has('q1');
 const ogImageUrl = hasResults 
-  ? `${fullUrl.origin}/api/og${fullUrl.search}`
-  : `${fullUrl.origin}/default-og.png`;
-
-console.log('6. OG Image URL:', ogImageUrl);
----
-
+  ? `${url.origin}/api/og${url.search}`
+  : `${url.origin}/default-og.png`;
 ---
 
 <html>
   <head>
-     <!-- Add default meta tags that won't change -->
-     <meta charset="utf-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1" />
-     
-     <!-- Dynamic OG tags -->
-     <DynamicHead 
-       ogImageUrl={ogImageUrl}
-       hasResults={hasResults}
-     />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <DynamicHead 
+      ogImageUrl={ogImageUrl}
+      hasResults={hasResults}
+    />
   </head>
   <body>
-
     <div id="debug"></div>
 
-    <script define:vars={{ hasResults, ogImageUrl, requestUrl }}>
-      // Get the parameters before they're cleared
-      const currentUrl = new URL(window.location.href);
-      const params = currentUrl.searchParams;
-      
+    <script>
+      // Get current URL without clearing it
+      const currentUrl = window.location.href;
       const debugInfo = {
-        serverSide: {
-          requestUrl,
-          hasResults,
-          ogImageUrl
-        },
-        clientSide: {
-          currentUrl: window.location.href,
-          searchString: window.location.search,
-          params: Object.fromEntries(params.entries()),
-          hasQ1: params.has('q1')
-        }
+        url: currentUrl,
+        search: window.location.search,
+        params: Object.fromEntries(new URLSearchParams(window.location.search)),
+        referrer: document.referrer
       };
 
-      document.getElementById('debug').innerHTML = `
-        <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
-      `;
-
-      // Clear URL only after we've captured the parameters
-      // if (hasResults && window.history.replaceState) {
-      //   window.history.replaceState(
-      //     { params: Object.fromEntries(decodedParams.entries()) }, 
-      //     document.title, 
-      //     "/"
-      //   );
-      // }
+        
+      // document.getElementById('debug').innerHTML = `
+      //   <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
+      // `;
     </script>
   </body>
 </html>
