@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 
-const COOKIE_NAME = "quiz_attempts";
-const COOKIE_EXPIRY_DAYS = 90;
-const QUIZ_ID = "cannabis";
+export const COOKIE_NAME = "quiz_attempts";
+export const COOKIE_EXPIRY_DAYS = 90;
+export const QUIZ_ID = "cannabis";
 
 interface QuizAttempt {
   quizId: string;
