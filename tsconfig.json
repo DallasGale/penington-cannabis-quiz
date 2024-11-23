@@ -4,6 +4,7 @@
     "jsx": "react-jsx",
     "strict": true,
     "skipLibCheck": true,
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "types": ["react"]
   }
 }
