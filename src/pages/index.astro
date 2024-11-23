@@ -1,27 +1,30 @@
 ---
-import DynamicHead from '../components/dynamicHead.astro';
+import DynamicHead from "../components/dynamicHead.astro";
 
-// Get and decode the URL parameters server-side
-const url = new URL(Astro.request.url);
-const params = url.searchParams;
-const hasResults = params.has('q1');
+// Access the raw request URL
+const requestUrl = Astro.request.url;
+const fullUrl = new URL(requestUrl);
+const rawParams = fullUrl.searchParams;
 
-// Generate OG image URL
+console.log('=== Server-Side Processing ===');
+console.log('1. Full URL:', fullUrl.toString());
+console.log('2. Search string:', fullUrl.search);
+console.log('3. Raw params:', Object.fromEntries(rawParams.entries()));
+
+// Instead of trying to decode the values (which are already decoded by URLSearchParams),
+// just use them as-is for the decodedParams
+const decodedParams = new URLSearchParams(rawParams);
+
+const hasResults = decodedParams.has('q1');
+console.log('4. Has results:', hasResults);
+console.log('5. Decoded params:', Object.fromEntries(decodedParams.entries()));
+
+// Use the raw search string for the OG image URL to preserve encoding
 const ogImageUrl = hasResults 
-  ? `${url.origin}/api/og${url.search}`
-  : `${url.origin}/default-og.png`;
+  ? `${fullUrl.origin}/api/og${fullUrl.search}`
+  : `${fullUrl.origin}/default-og.png`;
 
-// If this is a bot request (like social media crawlers), don't redirect
-const userAgent = Astro.request.headers.get('user-agent')?.toLowerCase() || '';
-const isBot = userAgent.includes('bot') || 
-              userAgent.includes('crawler') || 
-              userAgent.includes('preview');
-
-// For bots, we'll render the page normally
-// For real users, we can optimize by returning a redirect
-if (hasResults && !isBot) {
-  return Astro.redirect('/', 302);
-}
+console.log('6. OG Image URL:', ogImageUrl);
 ---
 
 <html>
@@ -35,11 +38,30 @@ if (hasResults && !isBot) {
     />
   </head>
   <body>
-    <!-- Your content here -->
-    {!isBot && (
-      <script>
-        // No need for client-side URL clearing as we're handling it server-side
-      </script>
-    )}
+    <div id="debug"></div>
+
+    <script define:vars={{ hasResults, ogImageUrl, requestUrl }}>
+      // Get the parameters before they're cleared
+      const currentUrl = new URL(window.location.href);
+      const params = currentUrl.searchParams;
+      
+      const debugInfo = {
+        serverSide: {
+          requestUrl,
+          hasResults,
+          ogImageUrl
+        },
+        clientSide: {
+          currentUrl: window.location.href,
+          searchString: window.location.search,
+          params: Object.fromEntries(params.entries()),
+          hasQ1: params.has('q1')
+        }
+      };
+
+      document.getElementById('debug').innerHTML = `
+        <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
+      `;
+    </script>
   </body>
 </html>
