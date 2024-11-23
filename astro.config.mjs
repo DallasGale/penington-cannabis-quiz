@@ -8,8 +8,9 @@ import react from "@astrojs/react";
 export default defineConfig({
   integrations: [react()],
   output: "server",
-  adapter: vercel({
-    functionPerRoute: true,
-    maxDuration: 10,
-  }),
+  adapter: vercel(),
+  // adapter: vercel({
+  //   functionPerRoute: true,
+  //   maxDuration: 10,
+  // }),
 });
