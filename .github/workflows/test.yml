@@ -20,7 +20,18 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
+
+      - name: Debug environment
+        run: |
+          echo "Current directory contents:"
+          ls -la
+          echo "\nPNPM version:"
+          pnpm --version
+          echo "\nNode version:"
+          node --version
+          echo "\nLockfile contents (if exists):"
+          cat pnpm-lock.yaml || echo "Lockfile not found"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
