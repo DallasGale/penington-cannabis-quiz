@@ -5,26 +5,26 @@ import DynamicHead from "../components/dynamicHead.astro";
 const requestUrl = Astro.request.url;
 const fullUrl = new URL(requestUrl);
 const rawParams = fullUrl.searchParams;
+const decodedParams = new URLSearchParams(rawParams);
+const hasResults = decodedParams.has('q1');
+const ogImageUrl = hasResults 
+  ? `${fullUrl.origin}/api/og${fullUrl.search}`
+  : `${fullUrl.origin}/default-og.jpg`;
 
-console.log('=== Server-Side Processing ===');
-console.log('1. Full URL:', fullUrl.toString());
-console.log('2. Search string:', fullUrl.search);
-console.log('3. Raw params:', Object.fromEntries(rawParams.entries()));
+// console.log('=== Server-Side Processing ===');
+// console.log('1. Full URL:', fullUrl.toString());
+// console.log('2. Search string:', fullUrl.search);
+// console.log('3. Raw params:', Object.fromEntries(rawParams.entries()));
 
 // Instead of trying to decode the values (which are already decoded by URLSearchParams),
 // just use them as-is for the decodedParams
-const decodedParams = new URLSearchParams(rawParams);
 
-const hasResults = decodedParams.has('q1');
-console.log('4. Has results:', hasResults);
-console.log('5. Decoded params:', Object.fromEntries(decodedParams.entries()));
+// console.log('4. Has results:', hasResults);
+// console.log('5. Decoded params:', Object.fromEntries(decodedParams.entries()));
 
 // Use the raw search string for the OG image URL to preserve encoding
-const ogImageUrl = hasResults 
-  ? `${fullUrl.origin}/api/og${fullUrl.search}`
-  : `${fullUrl.origin}/default-og.png`;
 
-console.log('6. OG Image URL:', ogImageUrl);
+// console.log('6. OG Image URL:', ogImageUrl);
 ---
 
 <html>
