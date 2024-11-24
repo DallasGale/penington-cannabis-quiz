@@ -2,9 +2,9 @@
   "name": "penington",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@9.1.4",
   "engines": {
     "node": "18.x",
-    "pnpm": "9.1.4"
   },
   "scripts": {
     "dev": "astro dev",
