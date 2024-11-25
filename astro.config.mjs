@@ -9,8 +9,16 @@ export default defineConfig({
   integrations: [react()],
   output: "server",
   adapter: vercel(),
-  // adapter: vercel({
-  //   functionPerRoute: true,
-  //   maxDuration: 10,
-  // }),
+  vite: {
+    ssr: {
+      noExternal: ["webcoreui"],
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+        },
+      },
+    },
+  },
 });

@@ -1,0 +1,52 @@
+---
+import DynamicHead from "./dynamicHead.astro";
+const requestUrl = Astro.request.url;
+const fullUrl = new URL(requestUrl);
+const rawParams = fullUrl.searchParams;
+const decodedParams = new URLSearchParams(rawParams);
+const hasResults = decodedParams.has('q1');
+const ogImageUrl = hasResults 
+  ? `${fullUrl.origin}/api/og${fullUrl.search}`
+  : `${fullUrl.origin}/default-og.jpg`;
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <DynamicHead 
+      ogImageUrl={ogImageUrl}
+      hasResults={hasResults}
+    />
+  </head>
+    <body>
+        <slot />
+    </body>
+</html>
+
+<script define:vars={{ hasResults, ogImageUrl, requestUrl }}>
+  // Get the parameters before they're cleared
+  const currentUrl = new URL(window.location.href);
+  const params = currentUrl.searchParams;
+  
+  const debugInfo = {
+    serverSide: {
+      requestUrl,
+      hasResults,
+      ogImageUrl
+    },
+    clientSide: {
+      currentUrl: window.location.href,
+      searchString: window.location.search,
+      params: Object.fromEntries(params.entries()),
+      hasQ1: params.has('q1')
+    }
+  };
+
+  document.getElementById('debug').innerHTML = `
+    <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
+  `;
+</script>
