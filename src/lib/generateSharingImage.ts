@@ -1,4 +1,4 @@
-export function generateSharingUrl(results: any[]) {
+export function generateSharingImage(results: any[]) {
   const baseUrl = "/";
   const params = new URLSearchParams();
 

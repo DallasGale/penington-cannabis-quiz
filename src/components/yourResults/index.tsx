@@ -6,6 +6,7 @@ import {
   type QuizAttemptProps,
 } from "../../lib/quizAttempts";
 import type { ResultsType } from "../../lib/firebase/utils";
+import { generateSharingImage } from "../../lib/generateSharingImage";
 
 interface SharedResultsProps {
   score: string;
@@ -35,6 +36,7 @@ const YourResults = () => {
 
   // shareable url
   const [sharingUrl, setSharingUrl] = useState<string>("");
+  const [sharingImage, setSharingImage] = useState<string>("");
   const handleGenerateSharingUrl = (results: ResultsType) => {
     const fmtResults = [
       { score: `${results.q1}%`, description: "Question 1" },
@@ -45,7 +47,11 @@ const YourResults = () => {
 
     console.log({ fmtResults });
     setSharingUrl(generateSharingUrl(fmtResults));
+    setSharingImage(generateSharingImage(fmtResults));
   };
+
+  console.log({ sharingImage });
+
   return (
     <div>
       {results && (
@@ -61,12 +67,17 @@ const YourResults = () => {
           </ul>
           {/* 2. Shareable url */}
           <h2>Here is your shareable results image</h2>
+          {sharingImage && (
+            <img
+              src={`http://localhost:4321/api/og${sharingImage}`}
+              alt="Your results"
+            />
+          )}
           <div>
             <button onClick={() => handleGenerateSharingUrl(results)}>
               Generate Share Url
             </button>
           </div>
-          <img src="https://via.placeholder.com/150" alt="Your results" />
           <h2>Here is your social share url</h2>
           {sharingUrl && (
             <code>

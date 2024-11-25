@@ -27,6 +27,7 @@ const QuizForm = () => {
 
   useEffect(() => {
     const checkPreviousAttempt = () => {
+      console.log("checking");
       try {
         const attempted = hasAttemptedQuiz(QUIZ_ID);
         if (attempted) {
