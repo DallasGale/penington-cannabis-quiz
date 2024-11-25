@@ -7,6 +7,7 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
   try {
     const url = new URL(request.url);
 
+    console.log({ url });
     function safeDecodeURIComponent(str: string): string {
       try {
         const firstDecode = decodeURIComponent(str);
@@ -20,8 +21,9 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
       }
     }
 
-    const answers = Array.from({ length: 5 }, (_, i) => {
+    const answers = Array.from({ length: 4 }, (_, i) => {
       const result = url.searchParams.get(`q${i + 1}`);
+      console.log({ result });
       if (!result) return null;
       const decoded = safeDecodeURIComponent(result);
       return decoded;

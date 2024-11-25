@@ -1,16 +1,18 @@
 import Cookies from "js-cookie";
+import type { ResultsType } from "./firebase/utils";
 
 export const COOKIE_NAME = "quiz_attempts";
 export const COOKIE_EXPIRY_DAYS = 90;
 export const QUIZ_ID = "cannabis";
 
-interface QuizAttempt {
+export interface QuizAttemptProps {
   quizId: string;
+  results: ResultsType;
   timestamp: number;
 }
 
 // Cookie stuff
-export function getAttempts(): QuizAttempt[] {
+export function getAttempts(): QuizAttemptProps[] {
   try {
     const cookieData = Cookies.get(COOKIE_NAME);
 
@@ -39,12 +41,13 @@ export function getAttempts(): QuizAttempt[] {
   }
 }
 
-export function recordAttempt(quizId: string): void {
+export function recordAttempt(quizId: string, results: ResultsType): void {
   try {
     let attempts = getAttempts();
 
-    const newAttempt: QuizAttempt = {
+    const newAttempt: QuizAttemptProps = {
       quizId,
+      results,
       timestamp: Date.now(),
     };
 
