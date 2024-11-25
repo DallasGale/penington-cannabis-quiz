@@ -9,8 +9,6 @@ const ogImageUrl = hasResults
   ? `${fullUrl.origin}/api/og${fullUrl.search}`
   : `${fullUrl.origin}/default-og.jpg`;
 
-  console.log({fullUrl});
-
 ---
 
 <!doctype html>
@@ -26,34 +24,34 @@ const ogImageUrl = hasResults
   </head>
     <body>
       <div id="debug"></div>
-      <script define:vars={{ hasResults, ogImageUrl, requestUrl }}>
-        // Get the parameters before they're cleared
-        const currentUrl = new URL(window.location.href);
-        const params = currentUrl.searchParams;
-        
-        const debugInfo = {
-          serverSide: {
-            requestUrl,
-            hasResults,
-            ogImageUrl
-          },
-          clientSide: {
-            currentUrl: window.location.href,
-            searchString: window.location.search,
-            params: Object.fromEntries(params.entries()),
-            hasQ1: params.has('q1')
-          }
-        };
-  
-        document.getElementById('debug').innerHTML = `
-          <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
-        `;
-      </script>
 
         <slot />
     </body>
 </html>
 
+<script define:vars={{ hasResults, ogImageUrl, requestUrl }}>
+  // Get the parameters before they're cleared
+  const currentUrl = new URL(window.location.href);
+  const params = currentUrl.searchParams;
+  
+  const debugInfo = {
+    serverSide: {
+      requestUrl,
+      hasResults,
+      ogImageUrl
+    },
+    clientSide: {
+      currentUrl: window.location.href,
+      searchString: window.location.search,
+      params: Object.fromEntries(params.entries()),
+      hasQ1: params.has('q1')
+    }
+  };
+
+  document.getElementById('debug').innerHTML = `
+    <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
+  `;
+</script>
 
 
 

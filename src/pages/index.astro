@@ -1,17 +1,15 @@
 ---
-import Layout from "../components/layout.astro";
-
-// import DynamicHead from "../components/dynamicHead.astro";
+import DynamicHead from "../components/dynamicHead.astro";
 
 // Access the raw request URL
-// const requestUrl = Astro.request.url;
-// const fullUrl = new URL(requestUrl);
-// const rawParams = fullUrl.searchParams;
-// const decodedParams = new URLSearchParams(rawParams);
-// const hasResults = decodedParams.has('q1');
-// const ogImageUrl = hasResults 
-//   ? `${fullUrl.origin}/api/og${fullUrl.search}`
-//   : `${fullUrl.origin}/default-og.jpg`;
+const requestUrl = Astro.request.url;
+const fullUrl = new URL(requestUrl);
+const rawParams = fullUrl.searchParams;
+const decodedParams = new URLSearchParams(rawParams);
+const hasResults = decodedParams.has('q1');
+const ogImageUrl = hasResults 
+  ? `${fullUrl.origin}/api/og${fullUrl.search}`
+  : `${fullUrl.origin}/default-og.jpg`;
 
 // console.log('=== Server-Side Processing ===');
 // console.log('1. Full URL:', fullUrl.toString());
@@ -28,7 +26,42 @@ import Layout from "../components/layout.astro";
 
 // console.log('6. OG Image URL:', ogImageUrl);
 ---
-<Layout>
-  Page 1
-</Layout>
 
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <DynamicHead 
+      ogImageUrl={ogImageUrl}
+      hasResults={hasResults}
+    />
+  </head>
+  <body>
+    <div id="debug"></div>
+
+    <script define:vars={{ hasResults, ogImageUrl, requestUrl }}>
+      // Get the parameters before they're cleared
+      const currentUrl = new URL(window.location.href);
+      const params = currentUrl.searchParams;
+      
+      const debugInfo = {
+        serverSide: {
+          requestUrl,
+          hasResults,
+          ogImageUrl
+        },
+        clientSide: {
+          currentUrl: window.location.href,
+          searchString: window.location.search,
+          params: Object.fromEntries(params.entries()),
+          hasQ1: params.has('q1')
+        }
+      };
+
+      document.getElementById('debug').innerHTML = `
+        <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
+      `;
+    </script>
+  </body>
+</html>
