@@ -2,7 +2,7 @@ name: Test Suite
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev] # Add dev branch here
   pull_request:
     branches: [main]
 
@@ -12,25 +12,28 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Debug package.json
+        run: |
+          echo "Git status:"
+          git status
+          echo "\nPackage.json contents:"
+          cat package.json
+          echo "\nGit log (last 3 commits):"
+          git log -3
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
       - name: Enable Corepack
         run: corepack enable
-        
+
       - name: Setup pnpm
         run: corepack prepare pnpm@9.1.4 --activate
-          cat pnpm-lock.yaml || echo "Lockfile not found"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Run tests
         run: pnpm test
