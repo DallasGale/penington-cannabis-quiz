@@ -87,20 +87,6 @@ const QuizForm = () => {
     }
   };
 
-  const results = [
-    { score: "85%", description: "Great job!" },
-    { score: "65%", description: "Good effort" },
-    { score: "55%", description: "Keep practicing" },
-    { score: "35%", description: "Needs work" },
-    { score: "25%", description: "Study more" },
-  ];
-
-  const [sharingUrl, setSharingUrl] = useState("");
-  const handleGenerateSharingUrl = (results: any[]) => {
-    console.log({ results });
-    setSharingUrl(generateSharingUrl(results));
-  };
-
   // ----------------------------------------------------------------
   // Form Submission
   // ----------------------------------------------------------------
@@ -170,29 +156,16 @@ const QuizForm = () => {
         <button onClick={reset}>Clear Attempts</button>
       </div>
       <br />
-      <div>
-        {cookieMessage}
-        <button onClick={() => handleGenerateSharingUrl(results)}>
-          Generate Share Url
-        </button>
-      </div>
-      Use this URL: {sharingUrl}
+      <div>{cookieMessage}</div>
+      {/* Use this URL: {sharingUrl} */}
       {quizAttempted ? (
-        <>
-          <h2>Sorry, you have already attempted the quiz</h2>
-          {/* <h3>Your results were:</h3>
-          <ul>
-            <li>Q1: {formData.results.q1}</li>
-            <li>Q2: {formData.results.q2}</li>
-            <li>Q3: {formData.results.q3}</li>
-            <li>Q4: {formData.results.q4}</li>
-          </ul> */}
-        </>
+        <h2>Sorry, you have already attempted the quiz</h2>
       ) : (
         <form onSubmit={handleSubmit}>
           <div className={styles.fieldGroup}>
             <label htmlFor="q1">Q1 Result</label>
             <input
+              required
               id="q1"
               value={q1Result}
               onChange={(e) => setQ1Result(parseInt(e.target.value))}
@@ -201,6 +174,7 @@ const QuizForm = () => {
           <div className={styles.fieldGroup}>
             <label htmlFor="q2">Q2 Result</label>
             <input
+              required
               id="q2"
               value={q2Result}
               onChange={(e) => setQ2Result(parseInt(e.target.value))}
@@ -209,6 +183,7 @@ const QuizForm = () => {
           <div className={styles.fieldGroup}>
             <label htmlFor="q3">Q3 Result</label>
             <input
+              required
               id="q3"
               value={q3Result}
               onChange={(e) => setQ3Result(parseInt(e.target.value))}
@@ -217,6 +192,7 @@ const QuizForm = () => {
           <div className={styles.fieldGroup}>
             <label htmlFor="q4">Q4 Result</label>
             <input
+              required
               id="q4"
               value={q4Result}
               onChange={(e) => setQ4Result(parseInt(e.target.value))}
@@ -224,6 +200,7 @@ const QuizForm = () => {
           </div>
           <br />
           <input
+            required
             placeholder="Post Code"
             type="text"
             value={postCode}
