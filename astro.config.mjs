@@ -9,8 +9,10 @@ export default defineConfig({
   integrations: [react()],
   output: "server",
   adapter: vercel(),
-  // adapter: vercel({
-  //   functionPerRoute: true,
-  //   maxDuration: 10,
-  // }),
+  vite: {
+    envPrefix: "NEXT_PUBLIC_",
+    ssr: {
+      noExternal: ["webcoreui"],
+    },
+  },
 });

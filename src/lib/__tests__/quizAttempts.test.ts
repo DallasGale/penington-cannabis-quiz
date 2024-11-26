@@ -16,6 +16,13 @@ const COOKIE_NAME = "quiz_attempts";
 const COOKIE_EXPIRY_DAYS = 90;
 const QUIZ_ID = "cannabis";
 
+const results = {
+  q1: 25,
+  q2: 50,
+  q3: 75,
+  q4: 100,
+};
+
 describe("Quiz Attempt Tracking", () => {
   beforeEach(() => {
     // Clear all mocks
@@ -87,11 +94,11 @@ describe("Quiz Attempt Tracking", () => {
       const now = Date.now();
       vi.setSystemTime(now);
 
-      recordAttempt(QUIZ_ID);
+      recordAttempt(QUIZ_ID, results);
 
       expect(Cookies.set).toHaveBeenCalledWith(
         COOKIE_NAME,
-        JSON.stringify([{ quizId: QUIZ_ID, timestamp: now }]),
+        JSON.stringify([{ quizId: QUIZ_ID, results: results, timestamp: now }]),
         {
           expires: 90,
           sameSite: "strict",
@@ -114,13 +121,13 @@ describe("Quiz Attempt Tracking", () => {
       const newTimestamp = 1732242224774;
       vi.setSystemTime(newTimestamp);
 
-      recordAttempt(QUIZ_ID);
+      recordAttempt(QUIZ_ID, results);
 
       expect(Cookies.set).toHaveBeenCalledWith(
         COOKIE_NAME,
         JSON.stringify([
           existingAttempt,
-          { quizId: QUIZ_ID, timestamp: newTimestamp },
+          { quizId: QUIZ_ID, results, timestamp: newTimestamp },
         ]),
         {
           expires: COOKIE_EXPIRY_DAYS,
