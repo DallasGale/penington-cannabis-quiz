@@ -7,7 +7,6 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
   try {
     const url = new URL(request.url);
 
-    console.log({ url });
     function safeDecodeURIComponent(str: string): string {
       try {
         const firstDecode = decodeURIComponent(str);
@@ -21,9 +20,8 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
       }
     }
 
-    const answers = Array.from({ length: 4 }, (_, i) => {
-      const result = url.searchParams.get(`q${i + 1}`);
-      console.log({ result });
+    const answers = Array.from({ length: 3 }, (_, i) => {
+      const result = url.searchParams.get(`r${i + 1}`);
       if (!result) return null;
       const decoded = safeDecodeURIComponent(result);
       return decoded;
@@ -65,7 +63,7 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
               margin: "0 0 40px 0",
             },
           },
-          "Quiz Results"
+          "Quiz Results",
         ),
         answers.map((answer, index) => {
           const [result, description] = (answer || ",").split(",");
@@ -99,7 +97,7 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
                     color: "#0066cc",
                   },
                 },
-                `Question ${index + 1}`
+                `Question ${index + 1}`,
               ),
               React.createElement(
                 "span",
@@ -110,8 +108,8 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
                     color: "#0066cc",
                   },
                 },
-                result || "N/A"
-              )
+                result || "N/A",
+              ),
             ),
             React.createElement(
               "p",
@@ -122,11 +120,11 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
                   margin: "10px 0 0 0",
                 },
               },
-              description || ""
-            )
+              description || "",
+            ),
           );
-        })
-      )
+        }),
+      ),
     );
 
     return new ImageResponse(element, {

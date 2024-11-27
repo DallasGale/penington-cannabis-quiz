@@ -1,34 +1,40 @@
 ---
 import Layout from "../components/layout.astro";
-
-// import DynamicHead from "../components/dynamicHead.astro";
-
-// Access the raw request URL
-// const requestUrl = Astro.request.url;
-// const fullUrl = new URL(requestUrl);
-// const rawParams = fullUrl.searchParams;
-// const decodedParams = new URLSearchParams(rawParams);
-// const hasResults = decodedParams.has('q1');
-// const ogImageUrl = hasResults 
-//   ? `${fullUrl.origin}/api/og${fullUrl.search}`
-//   : `${fullUrl.origin}/default-og.jpg`;
-
-// console.log('=== Server-Side Processing ===');
-// console.log('1. Full URL:', fullUrl.toString());
-// console.log('2. Search string:', fullUrl.search);
-// console.log('3. Raw params:', Object.fromEntries(rawParams.entries()));
-
-// Instead of trying to decode the values (which are already decoded by URLSearchParams),
-// just use them as-is for the decodedParams
-
-// console.log('4. Has results:', hasResults);
-// console.log('5. Decoded params:', Object.fromEntries(decodedParams.entries()));
-
-// Use the raw search string for the OG image URL to preserve encoding
-
-// console.log('6. OG Image URL:', ogImageUrl);
+import Header from "../components/header/index.tsx";
+import PrimaryCta from "../components/buttons/primaryCta";
+import Clock from "../assets/icons/clock.svg";
 ---
+
+<script></script>
+
 <Layout>
-  Page 1
+  <Header />
+  <div class="content">
+    <h1 class="display1">Take the cannabis test.</h1>
+    <!-- <div> -->
+    <img src={Clock.src} width="24" height="24" />
+    <p class="body">
+      In 2 minutes you’ll find out how your views on cannabis regulation
+      compare.
+    </p>
+    <PrimaryCta client:load label="Get Started" isLink link="/quiz" />
+    <!-- </div> -->
+  </div>
+
+  <footer class="footer">
+    <small class="smallPrint"
+      >All information gathered is anonymous and confidential. This microsite
+      does not promote cannabis use but serves as a public policy platform for
+      discussion and information.</small
+    >
+  </footer>
 </Layout>
 
+<style lang="scss">
+  .content {
+    align-items: center;
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+  }
+</style>

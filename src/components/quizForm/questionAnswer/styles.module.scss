@@ -1,0 +1,26 @@
+.buttonGroup {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  gap: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 24px 40px;
+  box-sizing: border-box;
+}
+
+.unAnswered {
+  transition: var(--transition08);
+  transform-origin: top;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.answered {
+  transition: var(--transition08);
+  transform-origin: top;
+  transform: scale(0.8);
+  opacity: 0.3;
+}

@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 25px;
+  width: 100%;
+  left: 0;
+  right: 0;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+}
+.step {
+  height: 4px;
+  width: 100%;
+  background-color: var(--primary25);
+}
