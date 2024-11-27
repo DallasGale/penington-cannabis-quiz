@@ -52,7 +52,8 @@ const ogImageUrl = hasResults
   `;
 </script> -->
 
-<style is:global>
+<style is:global lang="scss">
+  @import "../styles/breakpoints.scss";
   @import "../styles/fonts.css";
 
   :root {
@@ -155,11 +156,15 @@ const ogImageUrl = hasResults
 
   .smallPrint {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 12px;
+    display: block;
     font-weight: 400;
-    line-height: 100%;
+    line-height: 150%;
     font-family: "PT Sans", sans-serif;
     color: var(--primary50);
+    @include respond-to(mobile) {
+      font-size: 16px;
+    }
   }
   .color-primary {
     color: var(--primary);
