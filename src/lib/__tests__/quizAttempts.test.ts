@@ -17,10 +17,9 @@ const COOKIE_EXPIRY_DAYS = 90;
 const QUIZ_ID = "cannabis";
 
 const results = {
-  q1: 25,
-  q2: 50,
-  q3: 75,
-  q4: 100,
+  r1: 25,
+  r2: 50,
+  r3: 75,
 };
 
 describe("Quiz Attempt Tracking", () => {
@@ -51,7 +50,7 @@ describe("Quiz Attempt Tracking", () => {
         },
       ];
       vi.mocked(Cookies.get).mockReturnValue(
-        JSON.stringify(mockAttempts) as unknown as { [key: string]: string }
+        JSON.stringify(mockAttempts) as unknown as { [key: string]: string },
       );
 
       const result = hasAttemptedQuiz(QUIZ_ID);
@@ -63,7 +62,7 @@ describe("Quiz Attempt Tracking", () => {
     it("should return false for different quiz ID", () => {
       const mockAttempts = [{ quizId: "other-quiz", timestamp: Date.now() }];
       vi.mocked(Cookies.get).mockReturnValue(
-        JSON.stringify(mockAttempts) as unknown as { [key: string]: string }
+        JSON.stringify(mockAttempts) as unknown as { [key: string]: string },
       );
 
       const result = hasAttemptedQuiz(QUIZ_ID);
@@ -74,7 +73,7 @@ describe("Quiz Attempt Tracking", () => {
 
     it("should handle invalid cookie data", () => {
       vi.mocked(Cookies.get).mockReturnValue(
-        JSON.stringify("invalid-json") as unknown as { [key: string]: string }
+        JSON.stringify("invalid-json") as unknown as { [key: string]: string },
       );
 
       const result = hasAttemptedQuiz(QUIZ_ID);
@@ -89,7 +88,7 @@ describe("Quiz Attempt Tracking", () => {
   describe("recordAttempt", () => {
     it("should record first attempt correctly", () => {
       vi.mocked(Cookies.get).mockReturnValue(
-        JSON.stringify(undefined) as unknown as { [key: string]: string }
+        JSON.stringify(undefined) as unknown as { [key: string]: string },
       );
       const now = Date.now();
       vi.setSystemTime(now);
@@ -102,7 +101,7 @@ describe("Quiz Attempt Tracking", () => {
         {
           expires: 90,
           sameSite: "strict",
-        }
+        },
       );
     });
 
@@ -115,7 +114,7 @@ describe("Quiz Attempt Tracking", () => {
       vi.mocked(Cookies.get).mockReturnValue(
         JSON.stringify([existingAttempt]) as unknown as {
           [key: string]: string;
-        }
+        },
       );
 
       const newTimestamp = 1732242224774;
@@ -132,7 +131,7 @@ describe("Quiz Attempt Tracking", () => {
         {
           expires: COOKIE_EXPIRY_DAYS,
           sameSite: "strict",
-        }
+        },
       );
     });
   });
@@ -143,7 +142,7 @@ describe("Quiz Attempt Tracking", () => {
         { quizId: QUIZ_ID, timestamp: timestamp.toString() },
       ];
       vi.mocked(Cookies.get).mockReturnValue(
-        JSON.stringify(mockAttempts) as unknown as { [key: string]: string }
+        JSON.stringify(mockAttempts) as unknown as { [key: string]: string },
       );
 
       const result = hasAttemptedQuiz(QUIZ_ID);
@@ -153,7 +152,7 @@ describe("Quiz Attempt Tracking", () => {
 
     it("should handle invalid JSON", () => {
       vi.mocked(Cookies.get).mockReturnValue(
-        JSON.stringify("invalid-json") as unknown as { [key: string]: string }
+        JSON.stringify("invalid-json") as unknown as { [key: string]: string },
       );
 
       const result = hasAttemptedQuiz(QUIZ_ID);
