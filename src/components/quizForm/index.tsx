@@ -20,13 +20,24 @@ import QuestionAnswer from "./questionAnswer";
 // Data
 import { quizData } from "../../data/quiz";
 import PrimaryCta from "../buttons/primaryCta";
+import Header from "./header";
+import { motion, AnimatePresence } from "motion/react";
 
 type PostCodeInputType = string | number | readonly string[] | undefined;
 
 const QuizForm = () => {
   // ----------------------------------------------------------------
   // Question/Answers Flow
-  const [currentQuesion, setCurrentQuestion] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const handleExitComplete = () => {
+    setCurrentQuestion(currentQuestion + 1);
+    setIsTransitioning(false);
+  };
+  const handleNextQuestion = (id: number) => {
+    setIsTransitioning(true);
+  };
 
   // ----------------------------------------------------------------
   // PostCode Form
@@ -241,77 +252,13 @@ const QuizForm = () => {
   //   return "Checking...";
   // }
 
-  console.log({ postCodeValues });
   return (
     <div className={styles.container}>
-      {/* <h1>Quiz</h1> */}
-      <div className={styles.fieldGroup}>
-        <button onClick={checkAttempt}>Check Attempt</button>
-        <button onClick={makeAttempt}>Record Attempt</button>
-        <button onClick={reset}>Clear Attempts</button>
-      </div>
-      <br />
-      <div>{cookieMessage}</div>
-      {/* Use this URL: {sharingUrl} */}
-
-      {/*  */}
-      {/* {quizAttempted ? (
-        <h2>Sorry, you have already attempted the quiz</h2>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div className={styles.fieldGroup}>
-            <label htmlFor="q1">Q1 Result</label>
-            <input
-              required
-              id="q1"
-              value={q1Result}
-              onChange={(e) => setQ1Result(parseInt(e.target.value))}
-            />
-          </div>
-          <div className={styles.fieldGroup}>
-            <label htmlFor="q2">Q2 Result</label>
-            <input
-              required
-              id="q2"
-              value={q2Result}
-              onChange={(e) => setQ2Result(parseInt(e.target.value))}
-            />
-          </div>
-          <div className={styles.fieldGroup}>
-            <label htmlFor="q3">Q3 Result</label>
-            <input
-              required
-              id="q3"
-              value={q3Result}
-              onChange={(e) => setQ3Result(parseInt(e.target.value))}
-            />
-          </div>
-          <div className={styles.fieldGroup}>
-            <label htmlFor="q4">Q4 Result</label>
-            <input
-              required
-              id="q4"
-              value={q4Result}
-              onChange={(e) => setQ4Result(parseInt(e.target.value))}
-            />
-          </div>
-          <br />
-          <input
-            required
-            placeholder="Post Code"
-            type="text"
-            value={postCode}
-            onChange={(e) => setPostCode(e.target.value)}
-          />
-          <button type="submit">Submit</button>
-        </form>
-      )} */}
-
-      <Progress steps={quizData.length} currentStep={currentQuesion} />
+      <Progress steps={quizData.length} currentStep={currentQuestion} />
+      <Header />
 
       {/* Questions */}
-
-      {currentQuesion === quizData.length ? (
+      {currentQuestion === quizData.length ? (
         <>
           <h1 className="display2">Enter your postcode to get your results</h1>
           <form className={styles.form} onSubmit={handleSubmit}>
@@ -370,18 +317,23 @@ const QuizForm = () => {
         </>
       ) : (
         <div id="questions">
-          {quizData.map((data, index) => {
-            if (currentQuesion === data.id) {
-              return (
+          <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
+            {!isTransitioning && (
+              <motion.div
+                key={currentQuestion}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
                 <QuestionAnswer
-                  key={index}
-                  {...data}
+                  {...quizData[currentQuestion - 1]}
                   handleAnswerClick={(id, answer) => console.log(id, answer)}
-                  setNextQuestion={() => setCurrentQuestion(currentQuesion + 1)}
+                  setNextQuestion={handleNextQuestion}
                 />
-              );
-            }
-          })}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
     </div>

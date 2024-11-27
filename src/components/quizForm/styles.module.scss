@@ -1,12 +1,13 @@
 .container {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   flex-direction: column;
   gap: 20px;
   width: 100%;
   box-sizing: border-box;
   height: 100vh;
-  padding-top: 177px;
+  // padding-top: 177px;
 }
 
 .form {

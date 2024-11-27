@@ -4,6 +4,7 @@ import Header from "../components/header/index.tsx";
 import PrimaryCta from "../components/buttons/primaryCta";
 import Clock from "../assets/icons/clock.svg";
 import AgeModal from "../components/modals/age";
+import AboutModal from "../components/modals/about";
 ---
 
 <script>
@@ -23,12 +24,11 @@ import AgeModal from "../components/modals/age";
 
   window.addEventListener("cookieAccepted", updateButtonVisibility);
   window.addEventListener("storage", updateButtonVisibility);
-
   updateButtonVisibility();
 </script>
 
 <Layout>
-  <Header />
+  <Header client:load />
   <div class="content">
     <h1 class="display1">Take the cannabis test.</h1>
     <div>

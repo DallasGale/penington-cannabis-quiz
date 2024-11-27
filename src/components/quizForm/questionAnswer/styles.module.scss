@@ -11,16 +11,6 @@
   box-sizing: border-box;
 }
 
-.unAnswered {
-  transition: var(--transition08);
-  transform-origin: top;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.answered {
-  transition: var(--transition08);
-  transform-origin: top;
-  transform: scale(0.8);
-  opacity: 0.3;
+.question {
+  transform-origin: bottom;
 }

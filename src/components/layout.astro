@@ -114,7 +114,7 @@ const ogImageUrl = hasResults
     height: 100vh;
     overflow: hidden;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     text-align: center;
   }
 
@@ -139,7 +139,7 @@ const ogImageUrl = hasResults
   .display3 {
     font-weight: 400;
     font-size: 28px;
-    line-height: 24px;
+    line-height: 107%;
   }
 
   .display4 {
@@ -189,6 +189,18 @@ const ogImageUrl = hasResults
     .react-responsive-modal-root {
       bottom: 24px;
       top: auto;
+    }
+  }
+
+  .about-modal-container {
+    .react-responsive-modal-root {
+      top: auto;
+      bottom: 0;
+    }
+    .react-responsive-modal-modal {
+      width: 100%;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 </style>
