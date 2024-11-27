@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 import type { ButtonTypes } from "./types";
 
-const PrimaryCta = ({
+const ModalCta = ({
   label,
   link,
   onClick,
@@ -20,11 +20,11 @@ const PrimaryCta = ({
     <button
       type={type || "button"}
       onClick={onClick}
-      className={`${styles.btnLabel} ${styles.btn} ${styles.btnPrimary} ${modifier ? modifier : ""}`}
+      className={`${styles.btnLabel} ${styles.btn} ${styles.btnModal} ${modifier ? modifier : ""}`}
     >
       {label}
     </button>
   );
 };
 
-export default PrimaryCta;
+export default ModalCta;

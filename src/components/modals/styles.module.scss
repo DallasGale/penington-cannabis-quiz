@@ -1,0 +1,15 @@
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 32px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 8px;
+}

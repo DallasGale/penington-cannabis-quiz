@@ -3,23 +3,45 @@ import Layout from "../components/layout.astro";
 import Header from "../components/header/index.tsx";
 import PrimaryCta from "../components/buttons/primaryCta";
 import Clock from "../assets/icons/clock.svg";
+import AgeModal from "../components/modals/age";
 ---
 
-<script></script>
+<script>
+  // Check localstorage for cookie acceptance
+
+  function updateButtonVisibility() {
+    const getStartedWrapper = document.getElementById("get-started");
+    const cookieAccepted = localStorage.getItem("cookieAccepted");
+    if (cookieAccepted === "true") {
+      getStartedWrapper?.classList.remove("hide");
+      getStartedWrapper?.classList.add("show");
+    } else {
+      getStartedWrapper?.classList.remove("show");
+      getStartedWrapper?.classList.add("hide");
+    }
+  }
+
+  window.addEventListener("cookieAccepted", updateButtonVisibility);
+  window.addEventListener("storage", updateButtonVisibility);
+
+  updateButtonVisibility();
+</script>
 
 <Layout>
   <Header />
   <div class="content">
     <h1 class="display1">Take the cannabis test.</h1>
-    <!-- <div> -->
     <img src={Clock.src} width="24" height="24" />
     <p class="body">
       In 2 minutes you’ll find out how your views on cannabis regulation
       compare.
     </p>
-    <PrimaryCta client:load label="Get Started" isLink link="/quiz" />
-    <!-- </div> -->
+    <div class="hide" id="get-started">
+      <PrimaryCta client:load label="Get Started" isLink link="/quiz" />
+    </div>
   </div>
+
+  <AgeModal client:only />
 
   <footer class="footer">
     <small class="smallPrint"
@@ -36,5 +58,12 @@ import Clock from "../assets/icons/clock.svg";
     display: flex;
     gap: 40px;
     flex-direction: column;
+  }
+
+  .hide {
+    display: none;
+  }
+  .show {
+    display: flex;
   }
 </style>

@@ -30,3 +30,13 @@
     font-size: 24px;
   }
 }
+
+.btnModal {
+  height: 60px;
+  width: 100%;
+  background: var(--primary);
+  &.btnLabel {
+    font-size: 20px;
+    color: var(--white);
+  }
+}

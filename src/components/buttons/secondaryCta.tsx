@@ -1,11 +1,7 @@
 import styles from "./styles.module.scss";
+import type { ButtonTypes } from "./types";
 
-interface Props {
-  label: string;
-  onClick: () => void;
-  modifier?: string;
-}
-const SecondaryCta = ({ label, onClick, modifier }: Props) => {
+const SecondaryCta = ({ label, onClick, modifier }: ButtonTypes) => {
   return (
     <button
       onClick={onClick}
