@@ -10,6 +10,7 @@ interface QuestionAnswerProps {
   setNextQuestion: (id: number) => void;
 }
 
+const scale = 0.85;
 const QuestionAnswer = ({
   question,
   answer,
@@ -47,13 +48,13 @@ const QuestionAnswer = ({
       },
     },
     answered: {
-      scale: 0.75,
+      scale,
       y: "0",
       opacity: 0.5,
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     exit: {
-      scale: 0.75,
+      scale,
       y: "0",
       opacity: 0.5,
       transition: { duration: 0.5 },
@@ -61,13 +62,13 @@ const QuestionAnswer = ({
   };
   const answerVariants = {
     hidden: {
-      scale: 0.75,
+      scale,
       x: selectedAnswer === "yes" ? "-100%" : "100%",
       opacity: 0,
     },
     visible: {
       x: 0,
-      scale: 0.75,
+      scale,
       opacity: 1,
       transition: {
         type: "spring",
@@ -78,7 +79,7 @@ const QuestionAnswer = ({
       },
     },
     exit: {
-      scale: 0.75,
+      scale,
       x: "-100%",
       opacity: 0,
       transition: {

@@ -111,7 +111,7 @@ const ogImageUrl = hasResults
     padding: 0 24px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: calc(100vh - 60px);
     overflow: hidden;
     align-items: center;
     justify-content: center;
@@ -132,8 +132,11 @@ const ogImageUrl = hasResults
 
   .display2 {
     font-weight: 400;
-    font-size: 40px;
-    line-height: 44px;
+    font-size: 31px;
+    line-height: 110%;
+    @include respond-to(mobile) {
+      font-size: 40px;
+    }
   }
 
   .display3 {
