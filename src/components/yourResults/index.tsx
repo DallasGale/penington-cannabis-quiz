@@ -87,12 +87,12 @@ const YourResults = () => {
           <h1 className="display2">Your Results</h1>
           <div className={styles.resultGroup}>
             <Result
-              result={results.r1}
+              result={results.r1 / 5}
               dataSource="Penington"
               explaination={explanationData.penington.description}
             />
             <Result
-              result={results.r2}
+              result={results.r2 / 5}
               dataSource="other Victorians"
               explaination={explanationData.victorians.description}
             />

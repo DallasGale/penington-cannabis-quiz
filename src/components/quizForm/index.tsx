@@ -279,6 +279,8 @@ const QuizForm = () => {
   //   return "Checking...";
   // }
 
+  console.log({ formData });
+
   return (
     <div className={styles.container}>
       <Progress
