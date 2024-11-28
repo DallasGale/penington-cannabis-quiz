@@ -284,7 +284,7 @@ const QuizForm = () => {
       <Header />
 
       {/* Questions */}
-      {currentQuestion === quizData.length ? (
+      {currentQuestion === quizData.length + 1 ? (
         <div className={styles.postCodeContainer}>
           <h1 className="display2">Enter your postcode to get your results</h1>
           <form className={styles.form} onSubmit={handleSubmit}>
@@ -347,7 +347,7 @@ const QuizForm = () => {
               >
                 <QuestionAnswer
                   {...quizData[currentQuestion - 1]}
-                  handleAnswerClick={(id, answer) =>
+                  handleAnswerClick={(id: number, answer: string) =>
                     calculateResults(id, answer)
                   }
                   setNextQuestion={handleNextQuestion}
