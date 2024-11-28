@@ -1,0 +1,32 @@
+{
+  "patterns": {
+    "react-component": {
+      "files": [
+        {
+          "path": "${componentName}.tsx",
+          "content": [
+            "import styles from './${componentName}.module.scss';",
+            "",
+            "const ${componentName} = () => {",
+            "  return (",
+            "    <div className={styles.container}>",
+            "      ${componentName}",
+            "    </div>",
+            "  );",
+            "};",
+            "",
+            "export default ${componentName};"
+          ]
+        },
+        {
+          "path": "${componentName}.module.scss",
+          "content": [
+            ".container {",
+            "  // Styles go here",
+            "}"
+          ]
+        }
+      ]
+    }
+  }
+}
