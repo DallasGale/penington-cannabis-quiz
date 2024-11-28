@@ -38,13 +38,13 @@ const QuestionAnswer = ({
   };
   const questionVariants = {
     hidden: {
-      y: "0%",
+      y: "50%",
       scale: 1,
       opacity: 0,
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     unanswered: {
-      y: "0%",
+      y: "50%",
       scale: 1,
       opacity: 1,
       transition: {
@@ -55,13 +55,13 @@ const QuestionAnswer = ({
     },
     answered: {
       scale,
-      y: "-50%",
+      y: "0%",
       opacity: 0.5,
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     exit: {
       scale,
-      y: "-50%",
+      y: "0%",
       opacity: 0.5,
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },

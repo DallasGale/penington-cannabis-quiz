@@ -12,6 +12,7 @@ import styles from "./styles.module.scss";
 import PrimaryCta from "../buttons/primaryCta";
 import SecondaryCta from "../buttons/secondaryCta";
 import { explanationData } from "../../data/quiz.ts";
+import ShareModal from "../modals/share.tsx";
 interface SharedResultsProps {
   score: string;
   description: string;
@@ -53,6 +54,8 @@ const YourResults = () => {
   // shareable url
   const [sharingUrl, setSharingUrl] = useState<string>("");
   const [sharingImage, setSharingImage] = useState<string>("");
+
+  const [toggleShareModal, setToggleShareModal] = useState(false);
   const handleGenerateSharingUrl = (results: ResultsType) => {
     const fmtResults = [
       {
@@ -68,6 +71,14 @@ const YourResults = () => {
     console.log({ fmtResults });
     setSharingUrl(generateSharingUrl(fmtResults));
     setSharingImage(generateSharingImage(fmtResults));
+  };
+
+  const handleShareLink = () => {
+    if (results) {
+      handleGenerateSharingUrl(results);
+    }
+
+    setToggleShareModal(true);
   };
 
   console.log({ sharingImage });
@@ -121,13 +132,23 @@ const YourResults = () => {
       )}
 
       <div className={styles.ctaGroup}>
-        <PrimaryCta modifier={styles.resultsCta} label="Share your results" />
+        <PrimaryCta
+          onClick={handleShareLink}
+          modifier={styles.resultsCta}
+          label="Share your results"
+        />
         <SecondaryCta
           modifier={styles.resultsCta}
           onClick={() => null}
           label="Learn more about our approach"
         />
       </div>
+
+      <ShareModal
+        open={toggleShareModal}
+        url={sharingUrl}
+        onClose={() => setToggleShareModal(false)}
+      />
     </div>
   );
 };

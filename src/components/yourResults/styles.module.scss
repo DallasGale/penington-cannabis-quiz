@@ -4,9 +4,10 @@
   height: 100vh;
   padding-top: 114px;
   @include respond-to(tablet) {
-    height: auto;
+    height: 100%;
     position: relative;
     width: 100%;
+    max-width: 846px;
   }
 }
 
@@ -40,7 +41,12 @@
   padding: 0 20px;
   box-sizing: border-box;
   @include respond-to(tablet) {
-    position: relative;
-    bottom: 0;
+    // position: relative;
+    bottom: 111px;
+    flex-direction: row;
+    gap: 20px;
+    button {
+      width: 50% !important;
+    }
   }
 }

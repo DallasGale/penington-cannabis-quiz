@@ -133,7 +133,7 @@ const { unfixed }: LayoutProps = Astro.props;
     @include respond-to(tablet) {
       padding: 0 80px;
       position: relative;
-      height: auto;
+      height: 100vh;
       overflow: auto;
     }
   }
@@ -187,6 +187,15 @@ const { unfixed }: LayoutProps = Astro.props;
     line-height: 120%;
     @include respond-to(tablet) {
       font-size: 28px;
+    }
+  }
+
+  .body2 {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    @include respond-to(tablet) {
+      font-size: 20px;
     }
   }
 

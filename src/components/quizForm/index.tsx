@@ -28,7 +28,7 @@ type PostCodeInputType = string | number | readonly string[] | undefined;
 const QuizForm = () => {
   // ----------------------------------------------------------------
   // Question/Answers Flow
-  const [currentQuestion, setCurrentQuestion] = useState(5);
+  const [currentQuestion, setCurrentQuestion] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleExitComplete = () => {
