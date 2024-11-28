@@ -1,0 +1,25 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: var(--primary);
+  z-index: 1;
+}
+
+.logo {
+  width: 134px;
+  height: 34px;
+}
+
+.ctaWrapper {
+  display: flex;
+  justify-content: flex-end;
+}

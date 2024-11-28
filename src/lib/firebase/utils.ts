@@ -1,11 +1,16 @@
 import { db } from "./config";
 import { collection, addDoc } from "firebase/firestore";
 
+// export type ResultsType = {
+//   q1: number;
+//   q2: number;
+//   q3: number;
+//   q4: number;
+// };
+
 export type ResultsType = {
-  q1: number;
-  q2: number;
-  q3: number;
-  q4: number;
+  r1: number;
+  r2: number;
 };
 
 export interface QuizTypes {

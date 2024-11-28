@@ -1,0 +1,82 @@
+---
+import Layout from "../../components/layout.astro";
+import Header from "../../components/header/index.tsx";
+---
+
+<script src="https://donorbox.org/widget.js"></script>
+<Layout unfixed={true}>
+  <Header />
+  <div class="container">
+    <div class="content">
+      <h1 class="display1">Donate now.</h1>
+      <p class="body">
+        Support safe cannabis regulation by donating to Penington Institute.
+      </p>
+
+      <p class="body">
+        Your contribution will help us develop a model for cannabis regulation
+        that addresses outdated, harmful laws and better protects community
+        safety and health. Let’s make Victoria a leader in sensible cannabis
+        reform.
+      </p>
+    </div>
+
+    <iframe
+      src="https://donorbox.org/embed/website-81-2?language=en-us"
+      name="donorbox"
+      seamless="seamless"
+      allow="payment"></iframe>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @import "../../styles/breakpoints.scss";
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+    padding: 0;
+    height: auto;
+    position: relative;
+    padding-top: 109px;
+    @include respond-to(desktop) {
+      display: flex;
+      // grid-template-columns: 615px 1fr;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      width: 100%;
+      max-width: 1166px;
+      gap: auto;
+      margin: auto;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .content {
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    @include respond-to(tablet) {
+      gap: 44px;
+      max-width: 610px;
+      width: 100%;
+    }
+  }
+
+  iframe {
+    border: none;
+    margin-top: 82px;
+    margin-bottom: 40px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    @include respond-to(mobile) {
+      width: 420px;
+    }
+  }
+</style>

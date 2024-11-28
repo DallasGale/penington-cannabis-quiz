@@ -1,0 +1,33 @@
+$breakpoint-mobile: 400px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1200px;
+$breakpoint-widescreen: 1690px;
+$breakpoint-huge: 1800px;
+
+/********************************************
+        MEDIA QUERIES
+********************************************/
+
+@mixin respond-to($media) {
+  @if $media == mobile {
+    @media only screen and (min-width: $breakpoint-mobile) {
+      @content;
+    }
+  } @else if $media == tablet {
+    @media only screen and (min-width: $breakpoint-tablet) {
+      @content;
+    }
+  } @else if $media == desktop {
+    @media only screen and (min-width: $breakpoint-desktop) {
+      @content;
+    }
+  } @else if $media == widescreen {
+    @media only screen and (min-width: $breakpoint-widescreen) {
+      @content;
+    }
+  } @else if $media == huge {
+    @media only screen and (min-width: $breakpoint-huge) {
+      @content;
+    }
+  }
+}

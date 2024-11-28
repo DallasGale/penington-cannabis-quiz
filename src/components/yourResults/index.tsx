@@ -7,7 +7,12 @@ import {
 } from "../../lib/quizAttempts";
 import type { ResultsType } from "../../lib/firebase/utils";
 import { generateSharingImage } from "../../lib/generateSharingImage";
-
+import Result from "./result";
+import styles from "./styles.module.scss";
+import PrimaryCta from "../buttons/primaryCta";
+import SecondaryCta from "../buttons/secondaryCta";
+import { explanationData } from "../../data/quiz.ts";
+import ShareModal from "../modals/share.tsx";
 interface SharedResultsProps {
   score: string;
   description: string;
@@ -18,31 +23,49 @@ const YourResults = () => {
   // i need to read the results from the cookie
   const [results, setResults] = useState<ResultsType | null>(null);
   useEffect(() => {
-    const checkCookie = () => {
+    const checkForAttempts = () => {
       try {
-        const data: QuizAttemptProps[] = getAttempts();
-        console.log({ data });
-        setResults(data[0].results);
+        const cookieAttempts: QuizAttemptProps[] = getAttempts();
 
-        return data.some((attempt) => attempt.quizId === QUIZ_ID);
+        if (cookieAttempts && cookieAttempts.length > 0) {
+          setResults(cookieAttempts[0].results);
+          return cookieAttempts.some((attempt) => attempt.quizId === QUIZ_ID);
+        }
+        // If no cookie data, check localStorage
+        const localStorageResults = localStorage.getItem("results");
+        if (localStorageResults) {
+          const parsedResults = JSON.parse(localStorageResults);
+          setResults(parsedResults);
+          return true;
+        }
+
+        // No data found in either location
+        setResults(null);
       } catch (error) {
         console.error("Error checking cookie", error);
+        setResults(null);
         return false;
       }
     };
 
-    checkCookie();
+    checkForAttempts();
   }, []);
 
   // shareable url
   const [sharingUrl, setSharingUrl] = useState<string>("");
   const [sharingImage, setSharingImage] = useState<string>("");
+
+  const [toggleShareModal, setToggleShareModal] = useState(false);
   const handleGenerateSharingUrl = (results: ResultsType) => {
     const fmtResults = [
-      { score: `${results.q1}%`, description: "Question 1" },
-      { score: `${results.q2}%`, description: "Question 2" },
-      { score: `${results.q3}%`, description: "Question 3" },
-      { score: `${results.q4}%`, description: "Question 4" },
+      {
+        score: `${results.r1}%`,
+        description: explanationData.penington.description,
+      },
+      {
+        score: `${results.r2}%`,
+        description: explanationData.victorians.description,
+      },
     ];
 
     console.log({ fmtResults });
@@ -50,25 +73,46 @@ const YourResults = () => {
     setSharingImage(generateSharingImage(fmtResults));
   };
 
+  const handleShareLink = () => {
+    if (results) {
+      handleGenerateSharingUrl(results);
+    }
+
+    setToggleShareModal(true);
+  };
+
   console.log({ sharingImage });
 
   return (
-    <div>
+    <div className={styles.container}>
       {results && (
-        <div>
+        <>
           {/* 1. Results */}
-          <h1>Results</h1>
-          Here are your results:
+          <h1 className="display2">Your Results</h1>
+          <div className={styles.resultGroup}>
+            <Result
+              result={results.r1}
+              dataSource="Penington"
+              explaination={explanationData.penington.description}
+            />
+            <Result
+              result={results.r2}
+              dataSource="key experts"
+              explaination={explanationData.victorians.description}
+            />
+          </div>
+
+          {/* Here are your results:
           <ul>
             <li>Question 1: {results.q1}%</li>
             <li>Question 2: {results.q2}%</li>
             <li>Question 3: {results.q3}%</li>
             <li>Question 4: {results.q4}%</li>
-          </ul>
-          {/* 2. Shareable url */}
-          <h2>Here is your shareable results image</h2>
+          </ul> */}
+          {/* <h2>Here is your shareable results image</h2>
           {sharingImage && (
             <img
+              width={300}
               src={`http://localhost:4321/api/og${sharingImage}`}
               alt="Your results"
             />
@@ -83,9 +127,28 @@ const YourResults = () => {
             <code>
               <pre>{sharingUrl}</pre>
             </code>
-          )}
-        </div>
+          )} */}
+        </>
       )}
+
+      <div className={styles.ctaGroup}>
+        <PrimaryCta
+          onClick={handleShareLink}
+          modifier={styles.resultsCta}
+          label="Share your results"
+        />
+        <SecondaryCta
+          modifier={styles.resultsCta}
+          onClick={() => null}
+          label="Learn more about our approach"
+        />
+      </div>
+
+      <ShareModal
+        open={toggleShareModal}
+        url={sharingUrl}
+        onClose={() => setToggleShareModal(false)}
+      />
     </div>
   );
 };

@@ -1,0 +1,52 @@
+@import "../../styles/breakpoints.scss";
+
+.container {
+  height: 100vh;
+  padding-top: 114px;
+  @include respond-to(tablet) {
+    height: 100%;
+    position: relative;
+    width: 100%;
+    max-width: 846px;
+  }
+}
+
+.resultGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+  margin-top: 48px;
+  @include respond-to(tablet) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+
+.resultsCta {
+  font-size: 20px !important;
+  height: 64px !important;
+  padding: 0 15px !important;
+}
+
+.ctaGroup {
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  @include respond-to(tablet) {
+    // position: relative;
+    bottom: 111px;
+    flex-direction: row;
+    gap: 20px;
+    button {
+      width: 50% !important;
+    }
+  }
+}

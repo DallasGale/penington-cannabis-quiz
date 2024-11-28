@@ -1,0 +1,27 @@
+@import "../../../styles/breakpoints.scss";
+.buttonGroup {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  gap: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 24px 40px;
+  box-sizing: border-box;
+  @include respond-to(tablet) {
+    position: relative;
+    margin-top: 300px;
+  }
+}
+
+.buttonGroupNext {
+  max-width: 410px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.question {
+  transform-origin: bottom;
+}

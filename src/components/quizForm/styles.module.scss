@@ -1,0 +1,108 @@
+@import "../../styles/breakpoints.scss";
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  height: calc(100vh - 80px);
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 24px;
+  max-width: 1064px;
+  margin: auto;
+
+  @include respond-to(tablet) {
+    padding: 0;
+    position: relative;
+    height: 100%;
+    // padding-top: 260px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 30px;
+  align-items: flex-start;
+  @include respond-to(tablet) {
+    gap: 60px;
+  }
+}
+
+.fieldGroup {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+}
+
+.postCodeWrapper {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  input {
+    flex: 1;
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    text-align: center;
+    font-family: "Literata", serif;
+    color: var(--primary);
+    @include respond-to(tablet) {
+      width: 88px;
+      height: 96px;
+    }
+  }
+}
+
+.postCodeInputWrapper {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+}
+
+.postCodeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 58px;
+  @include respond-to(tablet) {
+    max-width: 517px;
+    margin: auto;
+    display: flex;
+    gap: 80px;
+  }
+  @include respond-to(desktop) {
+    max-width: 614px;
+  }
+}
+
+.getResultsButton {
+  @include respond-to(mobile) {
+    width: 328px !important;
+    margin: auto;
+  }
+  @include respond-to(tablet) {
+    width: 376px !important;
+  }
+}
