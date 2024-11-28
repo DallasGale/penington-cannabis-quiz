@@ -13,7 +13,7 @@ interface QuestionAnswerProps {
   setNextQuestion: (id: number) => void;
 }
 
-const scale = 0.7;
+const scale = 0.8;
 const QuestionAnswer = ({
   question,
   answer,
@@ -41,12 +41,14 @@ const QuestionAnswer = ({
       y: "50%",
       scale: 1,
       opacity: 0,
+      transformOrigin: "top",
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     unanswered: {
       y: "50%",
       scale: 1,
       opacity: 1,
+      transformOrigin: "top",
       transition: {
         type: "spring",
         bounce: 0.25,
@@ -57,24 +59,26 @@ const QuestionAnswer = ({
       scale,
       y: "0%",
       opacity: 0.5,
+      transformOrigin: "top",
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     exit: {
       scale,
       y: "0%",
       opacity: 0.5,
+      transformOrigin: "top",
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
   };
   const answerVariants = {
     hidden: {
-      scale,
+      // scale,
       x: selectedAnswer === "yes" ? "-100%" : "100%",
       opacity: 0,
     },
     visible: {
       x: 0,
-      scale,
+      // scale,
       opacity: 1,
       transition: {
         type: "spring",
@@ -85,7 +89,7 @@ const QuestionAnswer = ({
       },
     },
     exit: {
-      scale,
+      // scale,
       x: "-100%",
       opacity: 0,
       transition: {
@@ -95,7 +99,7 @@ const QuestionAnswer = ({
   };
   return (
     <>
-      <div className="question">
+      <div className={styles.question}>
         <AnimatePresence mode="wait">
           <motion.div
             key={id} // Add key to ensure proper animation
@@ -116,12 +120,12 @@ const QuestionAnswer = ({
               animate="visible"
               exit="exit"
             >
-              <h3 className="display2">
+              <h3 className="display3">
                 {selectedAnswer === "yes" ? ifYes.answer : ifNo.answer}
               </h3>
               <br />
               <h3
-                className="display2"
+                className="display3"
                 dangerouslySetInnerHTML={{ __html: answer }}
               />
             </motion.div>

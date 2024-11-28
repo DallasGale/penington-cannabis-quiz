@@ -117,7 +117,9 @@ const { unfixed }: LayoutProps = Astro.props;
     padding: 0 24px;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 60px);
+    min-height: -webkit-fill-available;
+    // height: calc(100vh - 60px);
+    height: 100dvh;
     overflow: hidden;
     align-items: center;
     justify-content: center;
@@ -158,7 +160,7 @@ const { unfixed }: LayoutProps = Astro.props;
 
   .display2 {
     font-weight: 400;
-    font-size: 31px;
+    font-size: 28px;
     line-height: 110%;
     @include respond-to(mobile) {
       font-size: 40px;
@@ -171,8 +173,15 @@ const { unfixed }: LayoutProps = Astro.props;
 
   .display3 {
     font-weight: 400;
-    font-size: 28px;
+    font-size: 3.6vh;
     line-height: 107%;
+    @include respond-to(mobile) {
+      font-size: 3vh;
+    }
+
+    @include respond-to(tablet) {
+      font-size: 56px;
+    }
   }
 
   .display4 {

@@ -24,4 +24,9 @@
 
 .question {
   transform-origin: bottom;
+  display: flex;
+  flex-direction: column;
+  gap: auto;
+  justify-content: space-between;
+  height: calc(100vh - 340px);
 }
