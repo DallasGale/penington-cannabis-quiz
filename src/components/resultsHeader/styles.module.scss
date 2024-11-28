@@ -33,18 +33,18 @@
 .quizCta {
   display: none;
   @include respond-to(desktop) {
-    height: 52px;
+    height: 52px !important;
     font-size: 20px !important;
-    width: auto;
+    width: auto !important;
     display: block;
   }
 }
 
 .supportCta {
-  height: 52px;
-  width: auto;
+  height: 52px !important;
+  width: auto !important;
   font-size: 16px !important;
-  background: var(--lightGreen);
+  background: var(--lightGreen) !important;
   @include respond-to(desktop) {
     font-size: 20px !important;
   }
