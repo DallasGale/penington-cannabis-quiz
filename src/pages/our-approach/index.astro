@@ -1,0 +1,127 @@
+---
+import Layout from "../../components/layout.astro";
+import Header from "../../components/header/index.tsx";
+import PrimaryCta from "../../components/buttons/primaryCta";
+import styles from "./styles.module.scss";
+---
+
+<Layout unfixed={true}>
+  <Header />
+  <div class="container">
+    <div class="content">
+      <h1 class="display1">Our Approach.</h1>
+
+      <img
+        src=""
+        alt="Our Approach"
+        height={500}
+        width="100%"
+        style={{ background: "brown" }}
+      />
+
+      <div class="cta-wrapper">
+        <div class="cta-content">
+          <p class="body">
+            Do you have feedback on this model? We’d love to hear it.
+          </p>
+
+          <PrimaryCta
+            modifier={`${styles.button} ${styles.btnLabel}`}
+            label="Take a survey"
+          />
+        </div>
+      </div>
+      <div class="about">
+        <div>
+          <h2 class="display1">About Peninton.</h2>
+        </div>
+        <div>
+          <p class="body">
+            Penington Institute is an independent drug policy non-profit. We are
+            seeking engagement from the community about views on cannabis
+            regulation as we develop a regulatory framework for adult use
+            cannabis for Victoria that prioritises community health and safety.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @import "../../styles/breakpoints.scss";
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+    padding: 0;
+    height: auto;
+    position: relative;
+    padding-top: 109px;
+    @include respond-to(desktop) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      width: 100%;
+      max-width: 1166px;
+      gap: auto;
+      margin: auto;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .cta-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .cta-content {
+    max-width: 489px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .content {
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    @include respond-to(tablet) {
+      gap: 44px;
+      width: 100%;
+      align-items: center;
+    }
+  }
+
+  iframe {
+    border: none;
+    margin-top: 82px;
+    margin-bottom: 40px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    @include respond-to(mobile) {
+      width: 420px;
+    }
+  }
+
+  .about {
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    @include respond-to(tablet) {
+      flex-direction: row;
+      gap: 121px;
+      width: 100%;
+      margin-bottom: 161px;
+      margin-top: 149px;
+    }
+  }
+</style>

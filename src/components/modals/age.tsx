@@ -1,12 +1,25 @@
 import { Modal } from "react-responsive-modal";
 import styles from "./styles.module.scss";
 import ModalCta from "../buttons/modalCta";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CookieModal from "./cookie";
 
+const localStorage = window.localStorage;
 const AgeModal = () => {
-  const localStorage = window.localStorage;
-  const [open, setOpen] = useState(true);
+  function ageVerified() {
+    const ageVerified = localStorage.getItem("ageVerified") === "true";
+    if (ageVerified) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }
+
+  useEffect(() => {
+    ageVerified();
+  }, []);
+
+  const [open, setOpen] = useState(false);
   const handleRedirect = () => {
     setOpen(false);
     window.location.href = "https://www.penington.org.au/";
@@ -32,6 +45,7 @@ const AgeModal = () => {
     });
     window.dispatchEvent(event);
   };
+
   return (
     <>
       <Modal

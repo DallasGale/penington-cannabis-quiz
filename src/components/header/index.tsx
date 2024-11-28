@@ -12,7 +12,13 @@ const Header = () => {
   return (
     <>
       <header className={styles.container}>
-        <img className={styles.logo} src={Logo.src} alt="Penington Institute" />
+        <a href="/" className={styles.logo}>
+          <img
+            className={styles.logo}
+            src={Logo.src}
+            alt="Penington Institute"
+          />
+        </a>
         <div className={styles.ctaWrapper}>
           <SecondaryCta label="About us" onClick={handleAboutClick} />
         </div>
