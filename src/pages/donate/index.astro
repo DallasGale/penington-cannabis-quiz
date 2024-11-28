@@ -3,7 +3,7 @@ import Layout from "../../components/layout.astro";
 import Header from "../../components/header/index.tsx";
 ---
 
-<script src="https://donorbox.org/widget.js" paypalExpress="false"></script>
+<script src="https://donorbox.org/widget.js"></script>
 <Layout unfixed={true}>
   <Header />
   <div class="container">
@@ -24,10 +24,7 @@ import Header from "../../components/header/index.tsx";
     <iframe
       src="https://donorbox.org/embed/website-81-2?language=en-us"
       name="donorbox"
-      allowpaymentrequest="allowpaymentrequest"
       seamless="seamless"
-      frameborder="0"
-      scrolling="no"
       allow="payment"></iframe>
   </div>
 </Layout>
