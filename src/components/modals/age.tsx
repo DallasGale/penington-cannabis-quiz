@@ -11,12 +11,13 @@ const AgeModal = () => {
   const [cookieOpen, setCookieOpen] = useState(false);
 
   useEffect(() => {
-    // Check URL for restricted parameter
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("restricted") === "true" && !isVerified) {
-      setOpen(true);
-    } else if (!isVerified) {
-      setOpen(true);
+    if (!isVerified) {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("restricted") === "true" || !isVerified) {
+        setOpen(true);
+      }
+    } else {
+      setOpen(false);
     }
   }, [isVerified]);
 

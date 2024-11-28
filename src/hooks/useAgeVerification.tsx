@@ -1,24 +1,14 @@
 import { useState, useEffect } from "react";
 
 export const useAgeVerification = () => {
-  const [isVerified, setIsVerified] = useState(false);
-
-  useEffect(() => {
-    const checkVerification = () => {
-      const ageVerified = localStorage.getItem("ageVerified") === "true";
-      setIsVerified(ageVerified);
-    };
-
-    // Initial check
-    checkVerification();
-
-    // Listen for changes
-    window.addEventListener("storage", checkVerification);
-
-    return () => {
-      window.removeEventListener("storage", checkVerification);
-    };
-  }, []);
+  // Initialize state with localStorage value
+  const [isVerified, setIsVerified] = useState(() => {
+    // Only run this on client side
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("ageVerified") === "true";
+    }
+    return false;
+  });
 
   const setVerified = () => {
     localStorage.setItem("ageVerified", "true");
