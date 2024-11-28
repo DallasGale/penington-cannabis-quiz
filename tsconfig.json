@@ -5,6 +5,11 @@
     "strict": true,
     "skipLibCheck": true,
     "jsxImportSource": "react",
-    "types": ["react"]
-  }
+    "types": ["react"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.astro"]
 }

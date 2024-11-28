@@ -3,24 +3,22 @@ import styles from "./styles.module.scss";
 import ModalCta from "../buttons/modalCta";
 import { useEffect, useState } from "react";
 import CookieModal from "./cookie";
+import { useAgeVerification } from "../../hooks/useAgeVerification";
 
-const localStorage = window.localStorage;
 const AgeModal = () => {
+  const { isVerified, setVerified } = useAgeVerification();
   const [open, setOpen] = useState(false);
   const [cookieOpen, setCookieOpen] = useState(false);
 
   useEffect(() => {
-    const ageVerified = localStorage.getItem("ageVerified") === "true";
-    setOpen(!ageVerified);
-    // ageVerified();
-  }, []);
-
-  // function ageVerified() {
-  //   if (ageVerified) {
-  //   } else {
-  //     setOpen(true);
-  //   }
-  // }
+    // Check URL for restricted parameter
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("restricted") === "true" && !isVerified) {
+      setOpen(true);
+    } else if (!isVerified) {
+      setOpen(true);
+    }
+  }, [isVerified]);
 
   const handleRedirect = () => {
     setOpen(false);
@@ -29,8 +27,13 @@ const AgeModal = () => {
 
   // if yes is clicked, save to local storage
   const handleYes = () => {
-    localStorage.setItem("ageVerified", "true");
+    setVerified();
     setOpen(false);
+
+    // Remove restricted parameter from URL
+    const url = new URL(window.location.href);
+    url.searchParams.delete("restricted");
+    window.history.replaceState({}, "", url);
 
     setTimeout(() => {
       const cookieAccepted = localStorage.getItem("cookieAccepted") === "true";
@@ -38,18 +41,13 @@ const AgeModal = () => {
         setCookieOpen(true);
       }
     }, 800);
-
-    // not sure if we should be disabling the modal once the user clicks yes.
   };
 
-  const handleCookieAccept = (e: string) => {
-    localStorage.setItem("cookieAccepted", e);
+  const handleCookieAccept = () => {
+    localStorage.setItem("cookieAccepted", "true");
     setCookieOpen(false);
-    // Dispatch custom event
     window.dispatchEvent(
-      new CustomEvent("cookieAccepted", {
-        detail: { status: e === "true" ? true : false },
-      }),
+      new CustomEvent("cookieAccepted", { detail: { status: true } }),
     );
   };
 
@@ -72,9 +70,9 @@ const AgeModal = () => {
       </Modal>
 
       <CookieModal
-        open={cookieOpen}
+        open={cookieOpen && localStorage.getItem("cookieAccepted") !== "true"}
         onClose={() => setCookieOpen(false)}
-        handleCtaClick={(e) => handleCookieAccept(e)}
+        handleCtaClick={handleCookieAccept}
       />
     </>
   );

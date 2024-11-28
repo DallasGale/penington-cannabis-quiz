@@ -1,20 +1,17 @@
 ---
 import Layout from "../../components/layout.astro";
 import QuizForm from "../../components/quizForm";
+import { ProtectedContent } from "../../components/ProtectedContent";
 ---
 
-<Layout>
-  <QuizForm client:load />
-</Layout>
-
-<!-- <style lang="scss">
-  @import "../../styles/breakpoints.scss";
-  .container {
-    @include respond-to(tablet) {
-      padding: 0 80px;
-      position: relative;
-      height: auto;
-      overflow: auto;
-    }
+<script>
+  // Immediate verification check
+  if (localStorage.getItem("ageVerified") !== "true") {
+    window.location.replace("/?restricted=true");
   }
-</style> -->
+</script>
+<Layout>
+  <ProtectedContent client:load>
+    <QuizForm client:load />
+  </ProtectedContent>
+</Layout>

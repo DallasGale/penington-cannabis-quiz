@@ -2,9 +2,19 @@
 import Layout from "../../components/layout.astro";
 import YourResults from "../../components/yourResults";
 import ResultsHeader from "../../components/resultsHeader";
+import { ProtectedContent } from "../../components/ProtectedContent";
 ---
 
+<script>
+  // Immediate verification check
+  if (localStorage.getItem("ageVerified") !== "true") {
+    window.location.replace("/?restricted=true");
+  }
+</script>
+
 <Layout>
-  <ResultsHeader client:visible />
-  <YourResults client:visible />
+  <ProtectedContent client:load>
+    <ResultsHeader client:visible />
+    <YourResults client:visible />
+  </ProtectedContent>
 </Layout>
