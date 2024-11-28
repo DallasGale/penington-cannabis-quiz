@@ -1,3 +1,4 @@
+@import "../../styles/breakpoints.scss";
 .modalContent {
   display: flex;
   flex-direction: column;
@@ -12,4 +13,11 @@
   flex-direction: column;
   padding: 0;
   gap: 8px;
+}
+
+.modal {
+  @include respond-to(tablet) {
+    max-width: 824px;
+    width: 100%;
+  }
 }

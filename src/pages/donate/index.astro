@@ -1,11 +1,11 @@
 ---
 import Layout from "../../components/layout.astro";
-import Header from "../../components/header/index.tsx";
+import ResultsHeader from "../../components/resultsHeader/index.tsx";
 ---
 
 <script src="https://donorbox.org/widget.js"></script>
 <Layout unfixed={true}>
-  <Header />
+  <ResultsHeader client:load />
   <div class="container">
     <div class="content">
       <h1 class="display1">Donate now.</h1>
@@ -24,6 +24,8 @@ import Header from "../../components/header/index.tsx";
     <iframe
       src="https://donorbox.org/embed/website-81-2?language=en-us"
       name="donorbox"
+      height="700px"
+      width="100%"
       seamless="seamless"
       allow="payment"></iframe>
   </div>
@@ -75,7 +77,8 @@ import Header from "../../components/header/index.tsx";
     display: flex;
     width: 100%;
     align-items: center;
-    @include respond-to(mobile) {
+
+    @include respond-to(desktop) {
       width: 420px;
     }
   }

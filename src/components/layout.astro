@@ -138,6 +138,11 @@ const { unfixed }: LayoutProps = Astro.props;
       height: 100vh;
       overflow: auto;
     }
+    @include respond-to(desktop) {
+      position: fixed;
+      overflow: hidden;
+      height: 100dvh;
+    }
   }
 
   .footer {
@@ -180,7 +185,7 @@ const { unfixed }: LayoutProps = Astro.props;
     }
 
     @include respond-to(tablet) {
-      font-size: 56px;
+      font-size: 44px;
     }
   }
 

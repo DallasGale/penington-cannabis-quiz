@@ -140,8 +140,9 @@ const YourResults = () => {
           label="Share your results"
         />
         <SecondaryCta
+          isLink
+          link="/our-approach"
           modifier={styles.resultsCta}
-          onClick={() => null}
           label="Learn more about our approach"
         />
       </div>

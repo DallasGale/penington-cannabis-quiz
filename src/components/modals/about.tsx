@@ -2,6 +2,7 @@ import { Modal } from "react-responsive-modal";
 import styles from "./styles.module.scss";
 import ModalCta from "../buttons/modalCta";
 import { useRef, useState } from "react";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 interface AboutModalProps {
   open: boolean;
@@ -10,11 +11,15 @@ interface AboutModalProps {
 const AboutModal = ({ open, handleOnClick }: AboutModalProps) => {
   const myRef = useRef(null);
 
+  const isMobile = useIsMobile();
+
   return (
     <>
-      <div className="about-modal-container" ref={myRef} />
+      {isMobile && <div className="about-modal-container" ref={myRef} />}
 
       <Modal
+        classNames={{ modal: styles.modal }}
+        center={!isMobile}
         open={open}
         onClose={handleOnClick}
         closeOnEsc={true}

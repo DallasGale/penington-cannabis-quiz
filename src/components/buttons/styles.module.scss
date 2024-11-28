@@ -18,7 +18,7 @@
 .btnSecondary {
   height: 40px;
   background: none;
-  border: 1px solid var(--white);
+  border: 1px solid var(--white) !important;
   width: auto;
   padding: 0 25px;
   &.btnLabel {
@@ -42,5 +42,9 @@
   &.btnLabel {
     font-size: 20px;
     color: var(--white);
+  }
+  @include respond-to(tablet) {
+    width: 368px;
+    margin: auto;
   }
 }

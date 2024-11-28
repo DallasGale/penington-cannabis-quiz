@@ -1,10 +1,10 @@
 ---
 import Layout from "../../components/layout.astro";
 import YourResults from "../../components/yourResults";
-import Header from "../../components/header/index.tsx";
+import ResultsHeader from "../../components/resultsHeader/index.tsx";
 ---
 
 <Layout>
-  <Header client:load />
+  <ResultsHeader client:load />
   <YourResults client:load />
 </Layout>

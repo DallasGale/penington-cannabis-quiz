@@ -11,7 +11,10 @@ const PrimaryCta = ({
 }: ButtonTypes) => {
   if (isLink) {
     return (
-      <a href={link} className={`btn ${styles.btnLabel}  ${styles.btnPrimary}`}>
+      <a
+        href={link}
+        className={`btn ${styles.btnLabel}  ${styles.btnPrimary} ${modifier ? modifier : ""}`}
+      >
         {label}
       </a>
     );

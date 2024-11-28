@@ -26,10 +26,6 @@
   margin-top: 48px;
   height: calc(100vh - 404px);
   overflow: scroll;
-  @include respond-to(mobile) {
-    // width: auto;
-    // margin: auto;;
-  }
   @include respond-to(tablet) {
     flex-direction: row;
     justify-content: space-around;
@@ -58,12 +54,11 @@
   padding: 0 20px;
   box-sizing: border-box;
   @include respond-to(tablet) {
+    display: grid;
+    grid-template-columns: 50% 50%;
     bottom: 111px;
     flex-direction: row;
     gap: 20px;
     padding: 0;
-    button {
-      width: 50% !important;
-    }
   }
 }

@@ -1,7 +1,23 @@
 import styles from "./styles.module.scss";
 import type { ButtonTypes } from "./types";
 
-const SecondaryCta = ({ label, onClick, modifier }: ButtonTypes) => {
+const SecondaryCta = ({
+  isLink,
+  link,
+  label,
+  onClick,
+  modifier,
+}: ButtonTypes) => {
+  if (isLink) {
+    return (
+      <a
+        href={link}
+        className={`btn ${styles.btnLabel}  ${styles.btnSecondary} ${modifier ? modifier : ""}`}
+      >
+        {label}
+      </a>
+    );
+  }
   return (
     <button
       onClick={onClick}

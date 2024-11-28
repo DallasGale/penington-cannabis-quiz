@@ -14,6 +14,10 @@
     position: relative;
     margin-top: 300px;
   }
+
+  @include respond-to(desktop) {
+    margin-top: 0;
+  }
 }
 
 .buttonGroupNext {
@@ -29,4 +33,8 @@
   gap: auto;
   justify-content: space-between;
   height: calc(100vh - 340px);
+
+  @include respond-to(desktop) {
+    height: calc(100vh - 30vw);
+  }
 }
