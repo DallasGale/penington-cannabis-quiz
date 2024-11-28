@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./styles.module.scss";
 import Circles from "../circles";
-import { useIsMobile } from "../../../hooks/useIsMobile";
+import { useIsTablet } from "../../../hooks/useIsTablet";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
 
 interface ResultProps {
@@ -12,10 +12,10 @@ interface ResultProps {
 
 const Result = ({ result, dataSource, explaination }: ResultProps) => {
   const [toggleExplanation, setToggleExplanation] = useState(false);
-  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   return (
     <div className={styles.container}>
-      {isMobile && (
+      {isTablet && (
         <Accordion
         // motionProps={{
         //   variants: {
@@ -76,7 +76,7 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
         </Accordion>
       )}
 
-      {!isMobile && (
+      {!isTablet && (
         <>
           <div className={styles.button}>
             <Circles result={result} />

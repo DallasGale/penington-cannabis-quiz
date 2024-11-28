@@ -1,0 +1,14 @@
+@import "../../../styles/breakpoints.scss";
+
+.btnPrimary {
+  background: var(--white);
+  height: 64px;
+  width: 100%;
+  @include respond-to(tablet) {
+    height: 70px;
+  }
+}
+.btnLabel {
+  font-size: 24px;
+  color: var(--primary);
+}

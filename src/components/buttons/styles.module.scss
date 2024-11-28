@@ -3,30 +3,6 @@
   font-weight: 500;
 }
 
-.btnPrimary {
-  background: var(--white);
-  height: 64px;
-  width: 100%;
-  @include respond-to(tablet) {
-    height: 70px;
-  }
-  &.btnLabel {
-    font-size: 24px;
-    color: var(--primary);
-  }
-}
-.btnSecondary {
-  height: 40px;
-  background: none;
-  border: 1px solid var(--white) !important;
-  width: auto;
-  padding: 0 25px;
-  &.btnLabel {
-    font-size: 16px;
-    color: var(--white);
-  }
-}
-
 .btnLarge {
   height: 64px;
   width: 100%;

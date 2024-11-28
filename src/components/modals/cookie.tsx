@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 interface CookieModalProps {
   open: boolean;
   onClose: () => void;
-  handleCtaClick: () => void;
+  handleCtaClick: (action: string) => void;
 }
 const CookieModal = ({ open, onClose, handleCtaClick }: CookieModalProps) => {
   const myRef = useRef(null);
@@ -29,7 +29,14 @@ const CookieModal = ({ open, onClose, handleCtaClick }: CookieModalProps) => {
             personalised content.
           </p>
           <div className={styles.ctaGroup}>
-            <ModalCta label="I'm OK with that" onClick={handleCtaClick} />
+            <ModalCta
+              label="I'm OK with that"
+              onClick={() => handleCtaClick("true")}
+            />
+            <ModalCta
+              label="No thanks"
+              onClick={() => handleCtaClick("false")}
+            />
           </div>
         </div>
       </Modal>

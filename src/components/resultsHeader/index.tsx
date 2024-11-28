@@ -3,13 +3,16 @@ import Logo from "../../assets/identity/logo-white.svg";
 import styles from "./styles.module.scss";
 import AboutModal from "../modals/about";
 import { useState } from "react";
-import PrimaryCta from "../buttons/primaryCta";
+import DonateCta from "../buttons/donateCta";
+import { useIsDesktop } from "../../hooks/useIsDesktop";
 
 const ResultsHeader = () => {
   const [toggleAbout, setToggleAbout] = useState(false);
   const handleAboutClick = () => {
     setToggleAbout(true);
   };
+
+  const isDesktop = useIsDesktop();
   return (
     <>
       <header className={styles.container}>
@@ -21,14 +24,16 @@ const ResultsHeader = () => {
           />
         </a>
         <div className={styles.ctaWrapper}>
-          <SecondaryCta
-            isLink
-            link="/quiz"
-            modifier={styles.quizCta}
-            label="Take the quiz"
-            onClick={handleAboutClick}
-          />
-          <PrimaryCta
+          {!isDesktop && (
+            <SecondaryCta
+              isLink
+              link="/quiz"
+              modifier={styles.quizCta}
+              label="Take the quiz"
+              onClick={handleAboutClick}
+            />
+          )}
+          <DonateCta
             isLink
             link="/donate"
             modifier={styles.supportCta}

@@ -1,0 +1,15 @@
+@import "../../../styles/breakpoints.scss";
+
+.btnDonate {
+  height: 52px;
+  background: none;
+  border: 1px solid var(--white) !important;
+  width: auto;
+  padding: 0 25px;
+  background: var(--lightGreen);
+}
+
+.btnLabel {
+  font-size: 20px;
+  color: var(--primary);
+}

@@ -6,20 +6,22 @@ import CookieModal from "./cookie";
 
 const localStorage = window.localStorage;
 const AgeModal = () => {
-  function ageVerified() {
-    const ageVerified = localStorage.getItem("ageVerified") === "true";
-    if (ageVerified) {
-      setOpen(false);
-    } else {
-      setOpen(true);
-    }
-  }
+  const [open, setOpen] = useState(false);
+  const [cookieOpen, setCookieOpen] = useState(false);
 
   useEffect(() => {
-    ageVerified();
+    const ageVerified = localStorage.getItem("ageVerified") === "true";
+    setOpen(!ageVerified);
+    // ageVerified();
   }, []);
 
-  const [open, setOpen] = useState(false);
+  // function ageVerified() {
+  //   if (ageVerified) {
+  //   } else {
+  //     setOpen(true);
+  //   }
+  // }
+
   const handleRedirect = () => {
     setOpen(false);
     window.location.href = "https://www.penington.org.au/";
@@ -27,23 +29,28 @@ const AgeModal = () => {
 
   // if yes is clicked, save to local storage
   const handleYes = () => {
-    setOpen(false);
     localStorage.setItem("ageVerified", "true");
+    setOpen(false);
+
     setTimeout(() => {
-      setCookieOpen(true);
+      const cookieAccepted = localStorage.getItem("cookieAccepted") === "true";
+      if (!cookieAccepted) {
+        setCookieOpen(true);
+      }
     }, 800);
 
     // not sure if we should be disabling the modal once the user clicks yes.
   };
 
-  const [cookieOpen, setCookieOpen] = useState(false);
-  const handleCookieAccept = () => {
+  const handleCookieAccept = (e: string) => {
+    localStorage.setItem("cookieAccepted", e);
     setCookieOpen(false);
-    localStorage.setItem("cookieAccepted", "true");
-    const event = new CustomEvent("cookieAccepted", {
-      detail: { status: true },
-    });
-    window.dispatchEvent(event);
+    // Dispatch custom event
+    window.dispatchEvent(
+      new CustomEvent("cookieAccepted", {
+        detail: { status: e === "true" ? true : false },
+      }),
+    );
   };
 
   return (
@@ -64,13 +71,11 @@ const AgeModal = () => {
         </div>
       </Modal>
 
-      {localStorage.getItem("cookieAccepted") !== "true" && (
-        <CookieModal
-          open={cookieOpen}
-          onClose={() => setCookieOpen(false)}
-          handleCtaClick={handleCookieAccept}
-        />
-      )}
+      <CookieModal
+        open={cookieOpen}
+        onClose={() => setCookieOpen(false)}
+        handleCtaClick={(e) => handleCookieAccept(e)}
+      />
     </>
   );
 };

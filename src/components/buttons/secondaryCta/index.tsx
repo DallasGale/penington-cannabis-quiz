@@ -1,5 +1,6 @@
+import btnStyles from "../styles.module.scss";
 import styles from "./styles.module.scss";
-import type { ButtonTypes } from "./types";
+import type { ButtonTypes } from "../types";
 
 const SecondaryCta = ({
   isLink,
@@ -12,7 +13,7 @@ const SecondaryCta = ({
     return (
       <a
         href={link}
-        className={`btn ${styles.btnLabel}  ${styles.btnSecondary} ${modifier ? modifier : ""}`}
+        className={`btn ${btnStyles.btnLabel} ${styles.btnLabel}  ${styles.btnSecondary} ${modifier ? modifier : ""}`}
       >
         {label}
       </a>
@@ -21,7 +22,7 @@ const SecondaryCta = ({
   return (
     <button
       onClick={onClick}
-      className={`${styles.btnLabel} ${styles.btn} ${styles.btnSecondary} ${modifier ? modifier : ""}`}
+      className={` ${styles.btn} ${btnStyles.btnLabel} ${styles.btnLabel}  ${btnStyles.btnSecondary} ${modifier ? modifier : ""}`}
     >
       {label}
     </button>

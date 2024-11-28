@@ -12,12 +12,12 @@
   box-sizing: border-box;
   @include respond-to(tablet) {
     position: relative;
-    margin-top: 300px;
-  }
-
-  @include respond-to(desktop) {
     margin-top: 0;
   }
+
+  // @include respond-to(desktop) {
+  //   margin-top: 0;
+  // }
 }
 
 .buttonGroupNext {
@@ -34,7 +34,10 @@
   justify-content: space-between;
   height: calc(100vh - 340px);
 
+  @include respond-to(tablet) {
+    height: calc(100vh - 60vw);
+  }
   @include respond-to(desktop) {
-    height: calc(100vh - 30vw);
+    height: calc(100vh - 40vw);
   }
 }

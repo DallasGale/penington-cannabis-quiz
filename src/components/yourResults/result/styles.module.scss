@@ -22,7 +22,7 @@
   background-repeat: no-repeat;
   background-position: right center;
   background-size: 19px;
-  @include respond-to(tablet) {
+  @include respond-to(mobile) {
     display: flex;
     flex-direction: column;
     grid-template-columns: 236px 1fr;

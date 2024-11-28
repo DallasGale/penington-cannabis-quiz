@@ -13,10 +13,6 @@ import PrimaryCta from "../buttons/primaryCta";
 import SecondaryCta from "../buttons/secondaryCta";
 import { explanationData } from "../../data/quiz.ts";
 import ShareModal from "../modals/share.tsx";
-interface SharedResultsProps {
-  score: string;
-  description: string;
-}
 
 const YourResults = () => {
   // results
@@ -82,8 +78,6 @@ const YourResults = () => {
     navigator.clipboard.writeText(sharingUrl);
     setToggleShareModal(true);
   };
-
-  console.log({ sharingImage });
 
   return (
     <div className={styles.container}>

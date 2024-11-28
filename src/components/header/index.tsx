@@ -1,4 +1,4 @@
-import SecondaryCta from "../buttons/secondaryCta";
+import SmallCta from "../buttons/smallCta";
 import Logo from "../../assets/identity/logo-white.svg";
 import styles from "./styles.module.scss";
 import AboutModal from "../modals/about";
@@ -20,7 +20,7 @@ const Header = () => {
           />
         </a>
         <div className={styles.ctaWrapper}>
-          <SecondaryCta label="About us" onClick={handleAboutClick} />
+          <SmallCta label="About us" onClick={handleAboutClick} />
         </div>
       </header>
       <AboutModal

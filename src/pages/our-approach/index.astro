@@ -104,7 +104,7 @@ import styles from "./styles.module.scss";
     display: flex;
     gap: 40px;
     flex-direction: column;
-    @include respond-to(tablet) {
+    @include respond-to(respond-to(desktop)) {
       flex-direction: row;
       gap: 121px;
       width: 100%;

@@ -1,5 +1,6 @@
+import btnStyles from "../styles.module.scss";
 import styles from "./styles.module.scss";
-import type { ButtonTypes } from "./types";
+import type { ButtonTypes } from "../types";
 
 const PrimaryCta = ({
   label,
@@ -13,7 +14,7 @@ const PrimaryCta = ({
     return (
       <a
         href={link}
-        className={`btn ${styles.btnLabel}  ${styles.btnPrimary} ${modifier ? modifier : ""}`}
+        className={`btn ${btnStyles.btnLabel} ${styles.btnLabel} ${styles.btnPrimary} ${modifier ? modifier : ""}`}
       >
         {label}
       </a>
@@ -23,7 +24,7 @@ const PrimaryCta = ({
     <button
       type={type || "button"}
       onClick={onClick}
-      className={`${styles.btnLabel} ${styles.btn} ${styles.btnPrimary} ${modifier ? modifier : ""}`}
+      className={`${btnStyles.btnLabel}${btnStyles.btn} ${styles.btnLabel}  ${styles.btnPrimary} ${modifier ? modifier : ""}`}
     >
       {label}
     </button>

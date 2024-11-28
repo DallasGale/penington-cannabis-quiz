@@ -242,6 +242,12 @@ const QuizForm = () => {
       setPreviousResults(submissionData.results);
       setStatusMessage("Quiz submitted successfully!");
       setSubmitStatus("success");
+
+      // if localstorage has accepted cookies, record the attempt
+      if (localStorage.getItem("cookieAccepted") === "true") {
+        makeAttempt();
+      }
+
       window.location.href = "/results";
     } catch (error) {
       console.error("Error submitting quiz:", error);
@@ -268,7 +274,6 @@ const QuizForm = () => {
       },
     });
   };
-  console.log({ formData });
 
   // if (isLoading) {
   //   return "Checking...";
@@ -306,24 +311,6 @@ const QuizForm = () => {
                 </div>
               ))}
             </div>
-            {/* <div className={styles.fieldGroup}>
-              <label htmlFor="penington">Penington Result</label>
-              <input
-                readOnly
-                required
-                id="penington"
-                value={formData.results.r1 / 5}
-              />
-            </div>
-            <div className={styles.fieldGroup}>
-              <label htmlFor="otherVictorians">Other Victorians Result</label>
-              <input
-                readOnly
-                required
-                id="otherVictorians"
-                value={formData.results.r2 / 5}
-              />
-            </div> */}
 
             {postCodeValues.join("").length === 4 && (
               <PrimaryCta
