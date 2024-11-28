@@ -1,6 +1,6 @@
 import { Modal } from "react-responsive-modal";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 interface ShareModalProps {
   url: string;
@@ -8,20 +8,20 @@ interface ShareModalProps {
   onClose: (open: boolean) => void;
 }
 const ShareModal = ({ url, open, onClose }: ShareModalProps) => {
+  const myRef = useRef(null);
   return (
     <>
+      <div className="share-modal-container" ref={myRef} />
       <Modal
         open={open}
         onClose={() => onClose(false)}
-        center
-        closeOnEsc={false}
-        closeOnOverlayClick={false}
+        closeOnEsc={true}
+        closeOnOverlayClick={true}
+        container={myRef.current}
       >
         <div className={styles.modalContent}>
-          <h2 className="display3 color-primary">
-            Your results URL link copied.
-          </h2>
-          <p className="color-primary">{url}</p>
+          <p className="body color-primary">Your results URL link copied.</p>
+          {/* <p className="color-primary">{url}</p> */}
         </div>
       </Modal>
     </>

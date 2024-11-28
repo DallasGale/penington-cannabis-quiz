@@ -163,7 +163,7 @@ const { unfixed }: LayoutProps = Astro.props;
     font-size: 28px;
     line-height: 110%;
     @include respond-to(mobile) {
-      font-size: 40px;
+      font-size: 36px;
     }
 
     @include respond-to(tablet) {
@@ -255,6 +255,13 @@ const { unfixed }: LayoutProps = Astro.props;
       width: 100%;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+    }
+  }
+
+  .share-modal-container {
+    .react-responsive-modal-modal {
+      background: var(--primary25);
+      top: 24px;
     }
   }
 </style>

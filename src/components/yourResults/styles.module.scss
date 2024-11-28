@@ -1,7 +1,8 @@
 @import "../../styles/breakpoints.scss";
 
 .container {
-  height: 100vh;
+  height: 100dvh;
+  min-height: -webkit-fill-available;
   padding-top: 114px;
   @include respond-to(tablet) {
     height: 100%;
@@ -15,10 +16,15 @@
   display: flex;
   flex-direction: column;
   gap: 52px;
+  width: calc(100vw - 48px);
   margin-top: 48px;
+  height: calc(100vh - 404px);
+  overflow: scroll;
   @include respond-to(tablet) {
     flex-direction: row;
     justify-content: space-around;
+    height: auto;
+    overflow: visible;
   }
 }
 

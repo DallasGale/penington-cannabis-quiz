@@ -1,5 +1,5 @@
 export function generateSharingImage(results: any[]) {
-  const baseUrl = "/";
+  const baseUrl = "https://regulateit.com.au/";
   const params = new URLSearchParams();
 
   results.forEach((result, index) => {

@@ -78,6 +78,8 @@ const YourResults = () => {
       handleGenerateSharingUrl(results);
     }
 
+    // copt sharing url to clipboard
+    navigator.clipboard.writeText(sharingUrl);
     setToggleShareModal(true);
   };
 
@@ -97,7 +99,7 @@ const YourResults = () => {
             />
             <Result
               result={results.r2}
-              dataSource="key experts"
+              dataSource="other Victorians"
               explaination={explanationData.victorians.description}
             />
           </div>
