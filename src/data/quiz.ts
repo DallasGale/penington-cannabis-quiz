@@ -1,9 +1,7 @@
-type Comparison = {
+export type Comparison = {
+  answer: string;
   penington: number;
   victorians: number;
-  exAfp: number;
-  blazeHeads: number;
-  religious: number;
 };
 
 type QuizData = {
@@ -20,20 +18,16 @@ export const quizData: QuizData[] = [
     question:
       "Do you think people under the age of 18 should be able to buy cannabis?",
     answer:
-      "We don’t think so.<br /><br />We think only adults over 18 should be allowed to purchase cannabis from strictly regulated.",
+      "We think only adults over 18 should be allowed to purchase cannabis from strictly regulated.",
     ifYes: {
+      answer: "We don’t think so.",
       penington: 0,
       victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
     },
     ifNo: {
-      penington: 0,
-      victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
+      answer: "We don’t think so either",
+      penington: 100,
+      victorians: 100,
     },
   },
   {
@@ -41,20 +35,16 @@ export const quizData: QuizData[] = [
     question:
       "Do you think people should be able to consume cannabis wherever they want?",
     answer:
-      "We don’t think so.<br /><br />We think a regulated cannabis framework needs to work for everybody, which means keeping cannabis use in private, and away from public spaces.",
+      "We think a regulated cannabis framework needs to work for everybody, which means keeping cannabis use in private, and away from public spaces.",
     ifYes: {
+      answer: "We don’t think so.",
       penington: 0,
-      victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
+      victorians: 100,
     },
     ifNo: {
-      penington: 0,
+      answer: "We don’t think so either",
+      penington: 100,
       victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
     },
   },
   {
@@ -62,20 +52,16 @@ export const quizData: QuizData[] = [
     question:
       "Do you think there should be restrictions on the branding of cannabis products?",
     answer:
-      "We think so.<br /><br />We think cannabis products should be in standardised, uniform packaging, free from colours or branding, with clearly labelled product ingredients.",
+      "We think cannabis products should be in standardised, uniform packaging, free from colours or branding, with clearly labelled product ingredients.",
     ifYes: {
-      penington: 0,
+      answer: "We think so too.",
+      penington: 100,
       victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
     },
     ifNo: {
+      answer: "We think so.",
       penington: 0,
-      victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
+      victorians: 100,
     },
   },
   {
@@ -83,20 +69,16 @@ export const quizData: QuizData[] = [
     question:
       "Do you think there should be limits on how strong cannabis sold under a regulated framework should be?",
     answer:
-      "We think so.<br /><br />We think the safest way is to cap the maximum amount of THC in products at a sensible limit.",
+      "We think the safest way is to cap the maximum amount of THC in products at a sensible limit.",
     ifYes: {
-      penington: 0,
-      victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
+      answer: "We think so too.",
+      penington: 100,
+      victorians: 100,
     },
     ifNo: {
+      answer: "We think so.",
       penington: 0,
       victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
     },
   },
   {
@@ -104,20 +86,16 @@ export const quizData: QuizData[] = [
     question:
       "Do you think advertising should be allowed for cannabis retailers or products?",
     answer:
-      "We don’t think so.<br /><br />We think all forms of advertising and promotion should be strictly prohibited [under a safely regulated framework].",
+      "We think all forms of advertising and promotion should be strictly prohibited [under a safely regulated framework].",
     ifYes: {
+      answer: "We don’t think so.",
       penington: 0,
       victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
     },
     ifNo: {
-      penington: 0,
-      victorians: 0,
-      exAfp: 0,
-      blazeHeads: 0,
-      religious: 0,
+      answer: "We don’t think so either",
+      penington: 100,
+      victorians: 100,
     },
   },
 ];

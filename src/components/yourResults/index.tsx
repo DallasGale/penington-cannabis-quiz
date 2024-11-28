@@ -11,38 +11,43 @@ import Result from "./result";
 import styles from "./styles.module.scss";
 import PrimaryCta from "../buttons/primaryCta";
 import SecondaryCta from "../buttons/secondaryCta";
+import { explanationData } from "../../data/quiz.ts";
 interface SharedResultsProps {
   score: string;
   description: string;
 }
-
-// Temp.
-const peningtonExplaination = "Penington Explaination";
-// const peningtonResult = 30;
-const keyExpertsExplaination = "Key Experts Explaination";
-// const keyExpertResult = 30;
-const otherVictoriansExplaination = "Other Victorians Explaination";
-// const otherVictorians = 30;
 
 const YourResults = () => {
   // results
   // i need to read the results from the cookie
   const [results, setResults] = useState<ResultsType | null>(null);
   useEffect(() => {
-    const checkCookie = () => {
+    const checkForAttempts = () => {
       try {
-        const data: QuizAttemptProps[] = getAttempts();
-        console.log({ data });
-        setResults(data[0].results);
+        const cookieAttempts: QuizAttemptProps[] = getAttempts();
 
-        return data.some((attempt) => attempt.quizId === QUIZ_ID);
+        if (cookieAttempts && cookieAttempts.length > 0) {
+          setResults(cookieAttempts[0].results);
+          return cookieAttempts.some((attempt) => attempt.quizId === QUIZ_ID);
+        }
+        // If no cookie data, check localStorage
+        const localStorageResults = localStorage.getItem("results");
+        if (localStorageResults) {
+          const parsedResults = JSON.parse(localStorageResults);
+          setResults(parsedResults);
+          return true;
+        }
+
+        // No data found in either location
+        setResults(null);
       } catch (error) {
         console.error("Error checking cookie", error);
+        setResults(null);
         return false;
       }
     };
 
-    checkCookie();
+    checkForAttempts();
   }, []);
 
   // shareable url
@@ -50,11 +55,13 @@ const YourResults = () => {
   const [sharingImage, setSharingImage] = useState<string>("");
   const handleGenerateSharingUrl = (results: ResultsType) => {
     const fmtResults = [
-      { score: `${results.r1}%`, description: peningtonExplaination },
-      { score: `${results.r2}%`, description: keyExpertsExplaination },
       {
-        score: `${results.r3}%`,
-        description: otherVictoriansExplaination,
+        score: `${results.r1}%`,
+        description: explanationData.penington.description,
+      },
+      {
+        score: `${results.r2}%`,
+        description: explanationData.victorians.description,
       },
     ];
 
@@ -75,17 +82,12 @@ const YourResults = () => {
             <Result
               result={results.r1}
               dataSource="Penington"
-              explaination={peningtonExplaination}
+              explaination={explanationData.penington.description}
             />
             <Result
               result={results.r2}
               dataSource="key experts"
-              explaination={keyExpertsExplaination}
-            />
-            <Result
-              result={results.r3}
-              dataSource="other Victorians"
-              explaination={otherVictoriansExplaination}
+              explaination={explanationData.victorians.description}
             />
           </div>
 
@@ -118,21 +120,7 @@ const YourResults = () => {
         </>
       )}
 
-      <div
-        style={{
-          gap: 10,
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          position: "absolute",
-          bottom: 40,
-          left: 0,
-          right: 0,
-          width: "100%",
-          padding: "0 20px",
-          boxSizing: "border-box",
-        }}
-      >
+      <div className={styles.ctaGroup}>
         <PrimaryCta modifier={styles.resultsCta} label="Share your results" />
         <SecondaryCta
           modifier={styles.resultsCta}

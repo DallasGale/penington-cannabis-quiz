@@ -2,9 +2,12 @@ import { useState } from "react";
 import PrimaryCta from "../../buttons/primaryCta";
 import styles from "./styles.module.scss";
 import { AnimatePresence, motion } from "motion/react";
+import type { Comparison } from "../../../data/quiz";
 interface QuestionAnswerProps {
   question: string;
   answer: string;
+  ifYes: Comparison;
+  ifNo: Comparison;
   id: number;
   handleAnswerClick: (id: number, value: string) => void;
   setNextQuestion: (id: number) => void;
@@ -17,6 +20,8 @@ const QuestionAnswer = ({
   handleAnswerClick,
   id,
   setNextQuestion,
+  ifYes,
+  ifNo,
 }: QuestionAnswerProps) => {
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState("");
@@ -25,7 +30,7 @@ const QuestionAnswer = ({
   const handleClick = (id: number, answer: "yes" | "no") => {
     setQuestionAnswered(true);
     setSelectedAnswer(answer);
-    () => handleAnswerClick(id, answer);
+    handleAnswerClick(id, answer);
   };
 
   const handleNextQuestion = (id: number, value: string) => {
@@ -33,12 +38,13 @@ const QuestionAnswer = ({
   };
   const questionVariants = {
     hidden: {
-      y: "50%",
+      y: "0%",
       scale: 1,
       opacity: 0,
+      transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     unanswered: {
-      y: "50%",
+      y: "0%",
       scale: 1,
       opacity: 1,
       transition: {
@@ -49,15 +55,15 @@ const QuestionAnswer = ({
     },
     answered: {
       scale,
-      y: "0",
+      y: "-50%",
       opacity: 0.5,
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     exit: {
       scale,
-      y: "0",
+      y: "-50%",
       opacity: 0.5,
-      transition: { duration: 0.5 },
+      transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
   };
   const answerVariants = {
@@ -110,6 +116,10 @@ const QuestionAnswer = ({
               animate="visible"
               exit="exit"
             >
+              <h3 className="display2">
+                {selectedAnswer === "yes" ? ifYes.answer : ifNo.answer}
+              </h3>
+              <br />
               <h3
                 className="display2"
                 dangerouslySetInnerHTML={{ __html: answer }}
@@ -119,7 +129,7 @@ const QuestionAnswer = ({
         </AnimatePresence>
       </div>
       {questionAnswered && !isExiting ? (
-        <div className={styles.buttonGroup}>
+        <div className={`${styles.buttonGroup} ${styles.buttonGroupNext}`}>
           <PrimaryCta
             onClick={() => handleNextQuestion(id, "next")}
             label="Next"

@@ -11,7 +11,6 @@ import { collection, addDoc } from "firebase/firestore";
 export type ResultsType = {
   r1: number;
   r2: number;
-  r3: number;
 };
 
 export interface QuizTypes {

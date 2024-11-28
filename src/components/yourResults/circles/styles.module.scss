@@ -1,3 +1,4 @@
+@import "../../../styles/breakpoints.scss";
 .container {
   width: 88px;
   display: flex;
@@ -6,6 +7,10 @@
   height: 44px;
   justify-content: center;
   align-items: center;
+  @include respond-to(tablet) {
+    width: 236px;
+    height: 118px;
+  }
 }
 
 .circle {
@@ -22,5 +27,10 @@
   &:nth-of-type(2) {
     right: 0;
     transform: translateX(0);
+  }
+  @include respond-to(tablet) {
+    width: 118px;
+    height: 118px;
+    border-radius: 118px;
   }
 }

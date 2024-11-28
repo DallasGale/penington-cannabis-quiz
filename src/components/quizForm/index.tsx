@@ -28,16 +28,20 @@ type PostCodeInputType = string | number | readonly string[] | undefined;
 const QuizForm = () => {
   // ----------------------------------------------------------------
   // Question/Answers Flow
-  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(5);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleExitComplete = () => {
     setCurrentQuestion(currentQuestion + 1);
     setIsTransitioning(false);
   };
+
+  const [completedQuestions, setCompletedQuestions] = useState<number[]>([]);
   const handleNextQuestion = (id: number) => {
+    setCompletedQuestions((prev) => [...prev, id]);
     setIsTransitioning(true);
   };
+  console.log({ completedQuestions });
 
   // ----------------------------------------------------------------
   // PostCode Form
@@ -158,9 +162,8 @@ const QuizForm = () => {
     createdAt: serverTimestamp(), // Use serverTimestamp() from firebase/firestore
     postCode: "",
     results: {
-      r1: 25,
-      r2: 50,
-      r3: 75,
+      r1: 0,
+      r2: 0,
     },
   });
 
@@ -217,13 +220,11 @@ const QuizForm = () => {
 
     try {
       const submissionData = {
-        // ...formData,
         postCode: postCodeValues.join(""),
         createdAt: serverTimestamp(), // Use serverTimestamp() from firebase/firestore
         results: {
-          r1: peningtonResult,
-          r2: keyExpertsResult,
-          r3: otherVictoriansResult,
+          r1: formData.results.r1 / 5,
+          r2: formData.results.r2 / 5,
         } satisfies ResultsType,
       };
 
@@ -232,7 +233,10 @@ const QuizForm = () => {
       await saveQuizResult(submissionData);
 
       // Record attempt in cookie
-      await recordAttempt(QUIZ_ID, submissionData.results);
+      // await recordAttempt(QUIZ_ID, submissionData.results);
+
+      // Also add results to local storage
+      localStorage.setItem("results", JSON.stringify(submissionData.results));
 
       setQuizAttempted(true);
       setPreviousResults(submissionData.results);
@@ -248,18 +252,40 @@ const QuizForm = () => {
     }
   };
 
+  const calculateResults = (id: number, answer: string) => {
+    const question = quizData.find((q) => q.id === id);
+    if (!question) return;
+
+    const results = question[answer === "yes" ? "ifYes" : "ifNo"];
+
+    console.log({ results });
+
+    setFormData({
+      ...formData,
+      results: {
+        r1: formData.results.r1 + results.penington,
+        r2: formData.results.r2 + results.victorians,
+      },
+    });
+  };
+  console.log({ formData });
+
   // if (isLoading) {
   //   return "Checking...";
   // }
 
   return (
     <div className={styles.container}>
-      <Progress steps={quizData.length} currentStep={currentQuestion} />
+      <Progress
+        steps={quizData.length}
+        currentStep={currentQuestion}
+        completedQuestions={completedQuestions}
+      />
       <Header />
 
       {/* Questions */}
       {currentQuestion === quizData.length ? (
-        <>
+        <div className={styles.postCodeContainer}>
           <h1 className="display2">Enter your postcode to get your results</h1>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.postCodeWrapper}>
@@ -280,41 +306,34 @@ const QuizForm = () => {
                 </div>
               ))}
             </div>
-            <div className={styles.fieldGroup}>
+            {/* <div className={styles.fieldGroup}>
               <label htmlFor="penington">Penington Result</label>
               <input
+                readOnly
                 required
                 id="penington"
-                value={peningtonResult}
-                onChange={(e) => setPeningtonResult(parseInt(e.target.value))}
-              />
-            </div>
-            <div className={styles.fieldGroup}>
-              <label htmlFor="keyExperts">Key Experts Result</label>
-              <input
-                required
-                id="keyExperts"
-                value={keyExpertsResult}
-                onChange={(e) => setKeyExpertsResult(parseInt(e.target.value))}
+                value={formData.results.r1 / 5}
               />
             </div>
             <div className={styles.fieldGroup}>
               <label htmlFor="otherVictorians">Other Victorians Result</label>
               <input
+                readOnly
                 required
                 id="otherVictorians"
-                value={otherVictoriansResult}
-                onChange={(e) =>
-                  setOtherVictoriansResult(parseInt(e.target.value))
-                }
+                value={formData.results.r2 / 5}
               />
-            </div>
+            </div> */}
 
             {postCodeValues.join("").length === 4 && (
-              <PrimaryCta type="submit" label="Get my results" />
+              <PrimaryCta
+                modifier={styles.getResultsButton}
+                type="submit"
+                label="Get my results"
+              />
             )}
           </form>
-        </>
+        </div>
       ) : (
         <div id="questions">
           <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
@@ -328,7 +347,9 @@ const QuizForm = () => {
               >
                 <QuestionAnswer
                   {...quizData[currentQuestion - 1]}
-                  handleAnswerClick={(id, answer) => console.log(id, answer)}
+                  handleAnswerClick={(id, answer) =>
+                    calculateResults(id, answer)
+                  }
                   setNextQuestion={handleNextQuestion}
                 />
               </motion.div>

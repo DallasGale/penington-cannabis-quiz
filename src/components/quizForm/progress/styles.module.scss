@@ -1,3 +1,4 @@
+@import "../../../styles/breakpoints.scss";
 .container {
   display: flex;
   justify-content: center;
@@ -8,6 +9,9 @@
   right: 0;
   padding: 0 24px;
   box-sizing: border-box;
+  @include respond-to(tablet) {
+    padding: 0;
+  }
 }
 
 .steps {
@@ -19,5 +23,26 @@
 .step {
   height: 4px;
   width: 100%;
-  background-color: var(--primary25);
+  background-color: var(--primary80);
+  position: relative;
+  &:before {
+    transition: all 0.55s cubic-bezier(0.16, 0.77, 0.45, 0.9);
+    content: "";
+    height: 100%;
+    width: 0%;
+    background-color: var(--white);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &.halfStep {
+    &:before {
+      width: 50%;
+    }
+  }
+  &.completedStep {
+    &:before {
+      width: 100%;
+    }
+  }
 }

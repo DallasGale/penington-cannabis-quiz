@@ -130,6 +130,12 @@ const { unfixed }: LayoutProps = Astro.props;
       position: relative;
       height: auto;
     }
+    @include respond-to(tablet) {
+      padding: 0 80px;
+      position: relative;
+      height: auto;
+      overflow: auto;
+    }
   }
 
   .footer {
@@ -139,9 +145,12 @@ const { unfixed }: LayoutProps = Astro.props;
   }
 
   .display1 {
-    font-size: 72px;
+    font-size: 50px;
     font-weight: 400;
     line-height: 107%;
+    @include respond-to(mobile) {
+      font-size: 72px;
+    }
     @include respond-to(tablet) {
       font-size: 104px;
     }
@@ -153,6 +162,10 @@ const { unfixed }: LayoutProps = Astro.props;
     line-height: 110%;
     @include respond-to(mobile) {
       font-size: 40px;
+    }
+
+    @include respond-to(tablet) {
+      font-size: 56px;
     }
   }
 
@@ -182,11 +195,11 @@ const { unfixed }: LayoutProps = Astro.props;
     font-size: 12px;
     display: block;
     font-weight: 400;
-    line-height: 150%;
+    line-height: 140%;
     font-family: "PT Sans", sans-serif;
     color: var(--primary50);
     @include respond-to(mobile) {
-      font-size: 16px;
+      font-size: 14px;
     }
   }
   .color-primary {
