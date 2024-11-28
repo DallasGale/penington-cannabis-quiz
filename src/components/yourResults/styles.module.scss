@@ -9,6 +9,12 @@
     position: relative;
     width: 100%;
     max-width: 846px;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20vh;
+    gap: 80px;
   }
 }
 
@@ -20,11 +26,16 @@
   margin-top: 48px;
   height: calc(100vh - 404px);
   overflow: scroll;
+  @include respond-to(mobile) {
+    // width: auto;
+    // margin: auto;;
+  }
   @include respond-to(tablet) {
     flex-direction: row;
     justify-content: space-around;
     height: auto;
     overflow: visible;
+    width: auto;
   }
 }
 
@@ -47,10 +58,10 @@
   padding: 0 20px;
   box-sizing: border-box;
   @include respond-to(tablet) {
-    // position: relative;
     bottom: 111px;
     flex-direction: row;
     gap: 20px;
+    padding: 0;
     button {
       width: 50% !important;
     }

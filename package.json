@@ -20,6 +20,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^3.6.3",
     "@astrojs/vercel": "^7.8.2",
+    "@nextui-org/accordion": "^2.0.40",
     "@resvg/resvg-js": "^2.6.2",
     "@testing-library/react": "^16.0.1",
     "@types/js-cookie": "^3.0.6",

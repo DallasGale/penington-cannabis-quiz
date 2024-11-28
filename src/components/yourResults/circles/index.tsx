@@ -5,10 +5,13 @@ interface CirclesProps {
 const Circles = ({ result }: CirclesProps) => {
   return (
     <div className={styles.container}>
-      <div className={styles.circle}></div>
       <div
         className={styles.circle}
-        style={{ transform: `translateX(-${result}%)` }}
+        style={{ transform: `translateX(${result / 2}%)` }}
+      ></div>
+      <div
+        className={styles.circle}
+        style={{ transform: `translateX(-${result / 2}%)` }}
       />
     </div>
   );

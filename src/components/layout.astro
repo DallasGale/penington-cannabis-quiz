@@ -264,4 +264,18 @@ const { unfixed }: LayoutProps = Astro.props;
       top: 24px;
     }
   }
+
+  .show {
+    opacity: 1;
+    height: auto;
+    visibility: visible;
+    transition: var(--transition08);
+  }
+
+  .hide {
+    opacity: 0;
+    height: 0;
+    visibility: hidden;
+    transition: var(--transition08);
+  }
 </style>
