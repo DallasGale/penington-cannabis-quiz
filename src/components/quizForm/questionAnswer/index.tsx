@@ -13,7 +13,7 @@ interface QuestionAnswerProps {
   setNextQuestion: (id: number) => void;
 }
 
-const scale = 0.8;
+const scale = 0.7;
 const QuestionAnswer = ({
   question,
   answer,
