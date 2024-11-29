@@ -5,6 +5,7 @@ import AboutModal from "../modals/about";
 import { useState } from "react";
 import DonateCta from "../buttons/donateCta";
 import { useIsDesktop } from "../../hooks/useIsDesktop";
+import SmallCta from "../buttons/smallCta";
 
 const ResultsHeader = () => {
   const [toggleAbout, setToggleAbout] = useState(false);
@@ -25,7 +26,7 @@ const ResultsHeader = () => {
         </a>
         <div className={styles.ctaWrapper}>
           {!isDesktop && (
-            <SecondaryCta
+            <SmallCta
               isLink
               link="/quiz"
               modifier={styles.quizCta}

@@ -13,6 +13,10 @@
   flex-direction: column;
   padding: 0;
   gap: 8px;
+  @include respond-to(tablet) {
+    margin: auto;
+    width: 400px;
+  }
 }
 
 .modal {

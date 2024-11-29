@@ -2,6 +2,7 @@ import { Modal } from "react-responsive-modal";
 import styles from "./styles.module.scss";
 import ModalCta from "../buttons/modalCta";
 import { useRef, useState } from "react";
+import SecondaryCta from "../buttons/secondaryCta";
 
 interface CookieModalProps {
   open: boolean;
@@ -29,11 +30,11 @@ const CookieModal = ({ open, onClose, handleCtaClick }: CookieModalProps) => {
             personalised content.
           </p>
           <div className={styles.ctaGroup}>
-            <ModalCta
+            <SecondaryCta
               label="I'm OK with that"
               onClick={() => handleCtaClick("true")}
             />
-            <ModalCta
+            <SecondaryCta
               label="No thanks"
               onClick={() => handleCtaClick("false")}
             />

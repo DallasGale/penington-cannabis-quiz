@@ -8,15 +8,14 @@ const PrimaryCta = ({
   onClick,
   isLink = false,
   type,
-  modifier,
 }: ButtonTypes) => {
   if (isLink) {
     return (
       <a
         href={link}
-        className={`btn ${btnStyles.btnLabel} ${styles.btnLabel} ${styles.btnPrimary} ${modifier ? modifier : ""}`}
+        className={`btn ${btnStyles.btnLabel} ${styles.btnLabel} ${styles.btnPrimary}`}
       >
-        {label}
+        <span>{label}</span>
       </a>
     );
   }
@@ -24,9 +23,9 @@ const PrimaryCta = ({
     <button
       type={type || "button"}
       onClick={onClick}
-      className={`${btnStyles.btnLabel}${btnStyles.btn} ${styles.btnLabel}  ${styles.btnPrimary} ${modifier ? modifier : ""}`}
+      className={`${btnStyles.btnLabel} ${btnStyles.btn} ${styles.btnLabel}  ${styles.btnPrimary}`}
     >
-      {label}
+      <span>{label}</span>
     </button>
   );
 };

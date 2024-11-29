@@ -2,29 +2,24 @@ import btnStyles from "../styles.module.scss";
 import styles from "./styles.module.scss";
 import type { ButtonTypes } from "../types";
 
-const SecondaryCta = ({
-  isLink,
-  link,
-  label,
-  onClick,
-  modifier,
-}: ButtonTypes) => {
+const SecondaryCta = ({ type, isLink, link, label, onClick }: ButtonTypes) => {
   if (isLink) {
     return (
       <a
         href={link}
-        className={`btn ${btnStyles.btnLabel} ${styles.btnLabel}  ${styles.btnSecondary} ${modifier ? modifier : ""}`}
+        className={`btn ${btnStyles.btnLabel} ${styles.btnLabel}  ${styles.btnSecondary}`}
       >
-        {label}
+        <span>{label}</span>
       </a>
     );
   }
   return (
     <button
+      type={type || "button"}
       onClick={onClick}
-      className={` ${styles.btn} ${btnStyles.btnLabel} ${styles.btnLabel}  ${btnStyles.btnSecondary} ${modifier ? modifier : ""}`}
+      className={`${btnStyles.btnLabel} ${btnStyles.btn} ${styles.btnLabel} ${styles.btnSecondary}`}
     >
-      {label}
+      <span>{label}</span>
     </button>
   );
 };

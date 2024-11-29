@@ -9,7 +9,7 @@ const DonateCta = ({ isLink, link, label, onClick }: ButtonTypes) => {
         href={link}
         className={`btn ${btnStyles.btnLabel} ${styles.btnLabel} ${styles.btnDonate} `}
       >
-        {label}
+        <span>{label}</span>
       </a>
     );
   }
@@ -18,7 +18,7 @@ const DonateCta = ({ isLink, link, label, onClick }: ButtonTypes) => {
       onClick={onClick}
       className={`${btnStyles.btn} ${btnStyles.btnLabel} ${styles.btnLabel}  ${styles.btnDonate}`}
     >
-      {label}
+      <span>{label}</span>
     </button>
   );
 };

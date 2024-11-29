@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import ModalCta from "../buttons/modalCta";
 import { useRef, useState } from "react";
 import { useIsTablet } from "../../hooks/useIsTablet";
+import SecondaryCta from "../buttons/secondaryCta";
 
 interface AboutModalProps {
   open: boolean;
@@ -37,7 +38,7 @@ const AboutModal = ({ open, handleOnClick }: AboutModalProps) => {
             </p>
           </div>
           <div className={styles.ctaGroup}>
-            <ModalCta label="Got it" onClick={handleOnClick} />
+            <SecondaryCta label="Got it" onClick={handleOnClick} />
           </div>
         </div>
       </Modal>

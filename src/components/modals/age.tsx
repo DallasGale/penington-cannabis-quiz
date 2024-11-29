@@ -4,6 +4,7 @@ import ModalCta from "../buttons/modalCta";
 import { useEffect, useState } from "react";
 import CookieModal from "./cookie";
 import { useAgeVerification } from "../../hooks/useAgeVerification";
+import SecondaryCta from "../buttons/secondaryCta";
 
 const AgeModal = () => {
   const { isVerified, setVerified } = useAgeVerification();
@@ -66,8 +67,8 @@ const AgeModal = () => {
         <div className={styles.modalContent}>
           <h2 className="display3 color-primary">Are you over 18?</h2>
           <div className={styles.ctaGroup}>
-            <ModalCta label="Yes" onClick={handleYes} />
-            <ModalCta label="No" onClick={handleRedirect} />
+            <SecondaryCta label="Yes" onClick={handleYes} />
+            <SecondaryCta label="No" onClick={handleRedirect} />
           </div>
         </div>
       </Modal>

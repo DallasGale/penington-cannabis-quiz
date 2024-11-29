@@ -9,7 +9,7 @@ const SmallCta = ({ isLink, link, label, onClick, modifier }: ButtonTypes) => {
         href={link}
         className={`btn ${btnStyles.btnLabel} ${styles.btnLabel} ${styles.btnSmall} `}
       >
-        {label}
+        <span>{label}</span>
       </a>
     );
   }
@@ -18,7 +18,7 @@ const SmallCta = ({ isLink, link, label, onClick, modifier }: ButtonTypes) => {
       onClick={onClick}
       className={`${btnStyles.btn} ${btnStyles.btnLabel} ${styles.btnLabel}  ${styles.btnSmall}`}
     >
-      {label}
+      <span>{label}</span>
     </button>
   );
 };
