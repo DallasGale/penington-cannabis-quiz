@@ -24,8 +24,25 @@ import Header from "./header";
 import { motion, AnimatePresence } from "motion/react";
 
 type PostCodeInputType = string | number | readonly string[] | undefined;
+const title = "Enter your postcode to get your results.";
 
 const QuizForm = () => {
+  const titleWords = title.split(" ");
+  const wordVariants = {
+    hidden: { opacity: 0, x: -5 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.25,
+        delay: i * 0.15,
+        duration: 2.0,
+        ease: [0, 0.71, 0.2, 1.01],
+      },
+    }),
+  };
+
   // ----------------------------------------------------------------
   // Question/Answers Flow
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -284,7 +301,22 @@ const QuizForm = () => {
       {/* Questions */}
       {currentQuestion === quizData.length + 1 ? (
         <div className={styles.postCodeContainer}>
-          <h1 className="display2">Enter your postcode to get your results</h1>
+          <AnimatePresence mode="wait">
+            <h1 className="display2">
+              {titleWords.map((word, i) => (
+                <motion.span
+                  key={i}
+                  custom={i}
+                  variants={wordVariants}
+                  initial="hidden"
+                  animate="visible"
+                  style={{ display: "inline-block", marginRight: "0.25em" }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </h1>
+          </AnimatePresence>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.postCodeWrapper}>
               {postCodeValues.map((value, index) => (

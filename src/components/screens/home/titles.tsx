@@ -56,7 +56,6 @@ const Titles = () => {
             </motion.span>
           ))}
         </h1>
-        {/* <h1 className="display1">Take the cannabis test.</h1> */}
         <div>
           <img
             src={Clock.src}
