@@ -1,6 +1,5 @@
 import { Modal } from "react-responsive-modal";
 import styles from "./styles.module.scss";
-import ModalCta from "../buttons/modalCta";
 import { useEffect, useState } from "react";
 import CookieModal from "./cookie";
 import { useAgeVerification } from "../../hooks/useAgeVerification";

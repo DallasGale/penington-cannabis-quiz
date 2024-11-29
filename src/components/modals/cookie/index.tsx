@@ -1,8 +1,8 @@
 import { Modal } from "react-responsive-modal";
+import modalStyles from "../styles.module.scss";
+import { useRef } from "react";
+import SecondaryCta from "../../buttons/secondaryCta";
 import styles from "./styles.module.scss";
-import ModalCta from "../buttons/modalCta";
-import { useRef, useState } from "react";
-import SecondaryCta from "../buttons/secondaryCta";
 
 interface CookieModalProps {
   open: boolean;
@@ -23,13 +23,17 @@ const CookieModal = ({ open, onClose, handleCtaClick }: CookieModalProps) => {
         closeOnOverlayClick={false}
         container={myRef.current}
       >
-        <div className={styles.modalContent}>
-          <h2 className="display3 color-primary">Cookie Settings</h2>
-          <p className="small-print color-primary">
-            We use cookies to improve your experience on our site with
-            personalised content.
-          </p>
-          <div className={styles.ctaGroup}>
+        <div className={`${modalStyles.modalContent} ${styles.modalContent}`}>
+          <div className={styles.message}>
+            <h2 className={`display3 color-primary ${styles.display3}`}>
+              Cookie Settings
+            </h2>
+            <p className="smallPrint color-primary">
+              We use cookies to improve your experience on our site with
+              personalised content.
+            </p>
+          </div>
+          <div className={`${modalStyles.ctaGroup} ${styles.ctaGroup}`}>
             <SecondaryCta
               label="I'm OK with that"
               onClick={() => handleCtaClick("true")}

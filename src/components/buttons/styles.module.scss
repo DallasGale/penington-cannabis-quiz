@@ -2,6 +2,11 @@
 
 .btnLabel {
   font-weight: 500;
+  letter-spacing: -0.7px;
+
+  @include respond-to(tablet) {
+    letter-spacing: -0.8px;
+  }
 }
 
 .btnLarge {
