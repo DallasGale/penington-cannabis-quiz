@@ -56,11 +56,11 @@ const YourResults = () => {
   const generateAndSetSharingUrl = (results: ResultsType) => {
     const fmtResults = [
       {
-        score: `${results.r1 / 5}%`,
+        score: `${results.r1}%`,
         description: explanationData.penington.description,
       },
       {
-        score: `${results.r2 / 5}%`,
+        score: `${results.r2}%`,
         description: explanationData.victorians.description,
       },
     ];
@@ -96,12 +96,12 @@ const YourResults = () => {
           <h1 className="display2">Your Results</h1>
           <div className={styles.resultGroup}>
             <Result
-              result={results.r1 / 5}
+              result={results.r1}
               dataSource="Penington"
               explaination={explanationData.penington.description}
             />
             <Result
-              result={results.r2 / 5}
+              result={results.r2}
               dataSource="other Victorians"
               explaination={explanationData.victorians.description}
             />

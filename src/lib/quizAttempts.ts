@@ -44,6 +44,8 @@ export function getAttempts(): QuizAttemptProps[] {
 export function recordAttempt(quizId: string, results: ResultsType): void {
   try {
     let attempts = getAttempts();
+    // Filter out previous attempts for this quiz
+    attempts = attempts.filter((attempt) => attempt.quizId !== quizId);
 
     const newAttempt: QuizAttemptProps = {
       quizId,
@@ -51,7 +53,8 @@ export function recordAttempt(quizId: string, results: ResultsType): void {
       timestamp: Date.now(),
     };
 
-    attempts = [...attempts, newAttempt];
+    // Add new attempt
+    attempts = [newAttempt, ...attempts];
 
     Cookies.set(COOKIE_NAME, JSON.stringify(attempts), {
       expires: COOKIE_EXPIRY_DAYS,

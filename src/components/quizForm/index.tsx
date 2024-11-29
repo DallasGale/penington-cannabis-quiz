@@ -207,14 +207,6 @@ const QuizForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Clear any existing errors before validation
-    setErrors({});
-
-    // if (!validateForm()) {
-    //   return;
-    // }
-
     setIsSubmitting(true);
     setSubmitStatus("submitting");
 
@@ -237,17 +229,16 @@ const QuizForm = () => {
 
       // Also add results to local storage
       localStorage.setItem("results", JSON.stringify(submissionData.results));
-
+      const cookiesAccepted = localStorage.getItem("cookieAccepted") === "true";
+      console.log({ cookiesAccepted });
+      if (cookiesAccepted) {
+        clearAttempts();
+        await recordAttempt(QUIZ_ID, submissionData.results);
+      }
       setQuizAttempted(true);
       setPreviousResults(submissionData.results);
       setStatusMessage("Quiz submitted successfully!");
       setSubmitStatus("success");
-
-      // if localstorage has accepted cookies, record the attempt
-      if (localStorage.getItem("cookieAccepted") === "true") {
-        makeAttempt();
-      }
-
       window.location.href = "/results";
     } catch (error) {
       console.error("Error submitting quiz:", error);

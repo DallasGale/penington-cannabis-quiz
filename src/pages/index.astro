@@ -11,8 +11,8 @@ import AgeModal from "../components/modals/age";
 
   function updateButtonVisibility() {
     const getStartedWrapper = document.getElementById("get-started");
-    const cookieAccepted = localStorage.getItem("cookieAccepted");
-    if (cookieAccepted === "true") {
+    const ageVerified = localStorage.getItem("ageVerified");
+    if (ageVerified === "true") {
       getStartedWrapper?.classList.remove("hide");
       getStartedWrapper?.classList.add("show");
     } else {

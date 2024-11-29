@@ -44,11 +44,13 @@ const AgeModal = () => {
     }, 800);
   };
 
-  const handleCookieAccept = () => {
-    localStorage.setItem("cookieAccepted", "true");
+  const handleCookieAccept = (e: string) => {
+    localStorage.setItem("cookieAccepted", e);
     setCookieOpen(false);
     window.dispatchEvent(
-      new CustomEvent("cookieAccepted", { detail: { status: true } }),
+      new CustomEvent("cookieAccepted", {
+        detail: { status: e === "true" ? true : false },
+      }),
     );
   };
 
@@ -73,7 +75,7 @@ const AgeModal = () => {
       <CookieModal
         open={cookieOpen && localStorage.getItem("cookieAccepted") !== "true"}
         onClose={() => setCookieOpen(false)}
-        handleCtaClick={handleCookieAccept}
+        handleCtaClick={(e) => handleCookieAccept(e)}
       />
     </>
   );
