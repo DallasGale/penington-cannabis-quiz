@@ -4,6 +4,7 @@ import Header from "../components/header/index.tsx";
 import PrimaryCta from "../components/buttons/primaryCta";
 import Clock from "../assets/icons/clock.svg";
 import AgeModal from "../components/modals/age";
+import Titles from "../components/screens/home/titles";
 ---
 
 <script>
@@ -29,19 +30,7 @@ import AgeModal from "../components/modals/age";
 <Layout>
   <Header client:load />
   <div class="content">
-    <h1 class="display1">Take the cannabis test.</h1>
-    <div>
-      <img
-        src={Clock.src}
-        width="24"
-        height="24"
-        style="margin-bottom: 12px;"
-      />
-      <p class="body">
-        In 2 minutes you’ll find out how your views on cannabis regulation
-        compare.
-      </p>
-    </div>
+    <Titles client:load />
     <div class="hide" id="get-started" style="width: 100%;">
       <PrimaryCta client:load label="Get Started" isLink link="/quiz" />
     </div>

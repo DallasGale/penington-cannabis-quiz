@@ -99,15 +99,15 @@ const QuestionAnswer = ({
   };
 
   const wordVariants = {
-    hidden: { opacity: 0, y: 5 },
+    hidden: { opacity: 0, x: -5 },
     visible: (i: number) => ({
       opacity: 1,
-      y: 0,
+      x: 0,
       transition: {
         type: "spring",
         bounce: 0.25,
-        delay: i * 0.05,
-        duration: 0.85,
+        delay: i * 0.15,
+        duration: 2.0,
         ease: [0, 0.71, 0.2, 1.01],
       },
     }),
