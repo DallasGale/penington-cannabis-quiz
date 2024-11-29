@@ -3,6 +3,8 @@ import PrimaryCta from "../../buttons/primaryCta";
 import styles from "./styles.module.scss";
 import { AnimatePresence, motion } from "motion/react";
 import type { Comparison } from "../../../data/quiz";
+import { useIsTablet } from "@/hooks/useIsTablet";
+import { useIsDesktop } from "@/hooks/useIsDesktop";
 interface QuestionAnswerProps {
   question: string;
   answer: string;
@@ -13,7 +15,6 @@ interface QuestionAnswerProps {
   setNextQuestion: (id: number) => void;
 }
 
-const scale = 0.7;
 const QuestionAnswer = ({
   question,
   answer,
@@ -23,6 +24,10 @@ const QuestionAnswer = ({
   ifYes,
   ifNo,
 }: QuestionAnswerProps) => {
+  const isDesktop = useIsDesktop();
+  const scale = isDesktop ? 0.9 : 0.7;
+
+  console.log({ isDesktop, scale });
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [isExiting, setIsExiting] = useState(false);
@@ -38,14 +43,14 @@ const QuestionAnswer = ({
   };
   const questionVariants = {
     hidden: {
-      y: "50%",
+      y: "0%",
       scale: 1,
       opacity: 0,
       transformOrigin: "top",
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     unanswered: {
-      y: "50%",
+      y: "0%",
       scale: 1,
       opacity: 1,
       transformOrigin: "top",
@@ -56,18 +61,28 @@ const QuestionAnswer = ({
       },
     },
     answered: {
-      scale,
-      y: "0%",
-      opacity: 0.5,
+      top: 150,
+      y: "0%", // Define the animation as a sequence
+      scale: [1, scale],
+      opacity: [1, 0.5],
       transformOrigin: "top",
-      transition: { type: "spring", bounce: 0.25, duration: 0.8 },
+      transition: {
+        duration: 0.8,
+        times: [0, 1], // Corresponding times for each keyframe
+        ease: "easeInOut",
+      },
     },
     exit: {
+      top: 150,
       scale,
       y: "0%",
       opacity: 0.5,
       transformOrigin: "top",
-      transition: { type: "spring", bounce: 0.25, duration: 0.8 },
+      transition: {
+        type: "spring",
+        bounce: 0.25,
+        duration: 0.8,
+      },
     },
   };
   const answerVariants = {
@@ -116,7 +131,7 @@ const QuestionAnswer = ({
 
   return (
     <>
-      <div className={styles.question}>
+      <div className={styles.questions}>
         <AnimatePresence mode="wait">
           <motion.div
             key={id} // Add key to ensure proper animation
@@ -149,6 +164,7 @@ const QuestionAnswer = ({
               initial="hidden"
               animate="visible"
               exit="exit"
+              className={styles.answer}
             >
               <h3 className="display3">
                 {selectedAnswer === "yes" ? ifYes.answer : ifNo.answer}
@@ -161,20 +177,20 @@ const QuestionAnswer = ({
             </motion.div>
           )}
         </AnimatePresence>
+        {questionAnswered && !isExiting ? (
+          <div className={`${styles.buttonGroup} ${styles.buttonGroupNext}`}>
+            <PrimaryCta
+              onClick={() => handleNextQuestion(id, "next")}
+              label="Next"
+            />
+          </div>
+        ) : (
+          <div className={`${styles.buttonGroup} ${styles.buttonGroupYesNo}`}>
+            <PrimaryCta onClick={() => handleClick(id, "yes")} label="Yes" />
+            <PrimaryCta onClick={() => handleClick(id, "no")} label="No" />
+          </div>
+        )}
       </div>
-      {questionAnswered && !isExiting ? (
-        <div className={`${styles.buttonGroup} ${styles.buttonGroupNext}`}>
-          <PrimaryCta
-            onClick={() => handleNextQuestion(id, "next")}
-            label="Next"
-          />
-        </div>
-      ) : (
-        <div className={styles.buttonGroup}>
-          <PrimaryCta onClick={() => handleClick(id, "yes")} label="Yes" />
-          <PrimaryCta onClick={() => handleClick(id, "no")} label="No" />
-        </div>
-      )}
     </>
   );
 };

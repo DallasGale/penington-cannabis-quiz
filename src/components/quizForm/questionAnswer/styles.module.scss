@@ -11,33 +11,84 @@
   padding: 0 24px 40px;
   box-sizing: border-box;
   @include respond-to(tablet) {
-    position: relative;
+    // position: relative;
     margin-top: 0;
   }
-
-  // @include respond-to(desktop) {
-  //   margin-top: 0;
-  // }
 }
 
 .buttonGroupNext {
   max-width: 410px;
   margin: auto;
-  margin-top: 100px;
+  bottom: 40px;
+  padding-bottom: 0;
+  @include respond-to(tablet) {
+    bottom: 15vh;
+  }
 }
 
+.buttonGroupYesNo {
+  justify-content: center;
+  // @include respond-to(desktop) {
+  bottom: 40px;
+  padding-bottom: 0;
+  @include respond-to(tablet) {
+    bottom: 28vh;
+  }
+  @include respond-to(desktop) {
+    gap: 20px;
+    button {
+      width: 326px;
+    }
+  }
+  // }
+}
 .question {
-  transform-origin: bottom;
   display: flex;
   flex-direction: column;
   gap: auto;
   justify-content: space-between;
   height: calc(100vh - 340px);
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 35vh;
+  padding: 0 25px;
+  box-sizing: border-box;
+  transform-origin: top;
 
   @include respond-to(tablet) {
     height: calc(100vh - 60vw);
   }
   @include respond-to(desktop) {
+    max-width: 846px;
+    margin: auto;
     height: calc(100vh - 40vw);
   }
+}
+
+.answer {
+  display: flex;
+  flex-direction: column;
+  gap: auto;
+  justify-content: space-between;
+  // height: calc(100vh - 340px);
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 30vh;
+  padding: 0 25px;
+  box-sizing: border-box;
+  @include respond-to(desktop) {
+    max-width: 846px;
+    margin: auto;
+  }
+
+  // @include respond-to(tablet) {
+  //   height: calc(100vh - 60vw);
+  // }
+  // @include respond-to(desktop) {
+  //   height: calc(100vh - 40vw);
+  // }
 }
