@@ -97,6 +97,23 @@ const QuestionAnswer = ({
       },
     },
   };
+
+  const wordVariants = {
+    hidden: { opacity: 0, y: 5 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.25,
+        delay: i * 0.05,
+        duration: 0.85,
+        ease: [0, 0.71, 0.2, 1.01],
+      },
+    }),
+  };
+  const words = question.split(" ");
+
   return (
     <>
       <div className={styles.question}>
@@ -109,7 +126,20 @@ const QuestionAnswer = ({
             exit="exit"
             className={styles.question}
           >
-            <h2 className="display2">{question}</h2>
+            <h2 className="display2">
+              {words.map((word, i) => (
+                <motion.span
+                  key={i}
+                  custom={i}
+                  variants={wordVariants}
+                  initial="hidden"
+                  animate="visible"
+                  style={{ display: "inline-block", marginRight: "0.25em" }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </h2>
           </motion.div>
         </AnimatePresence>
         <AnimatePresence mode="wait">
