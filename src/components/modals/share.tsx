@@ -21,7 +21,6 @@ const ShareModal = ({ url, open, onClose }: ShareModalProps) => {
       >
         <div className={styles.modalContent}>
           <p className="body color-primary">Your results URL link copied.</p>
-          {/* <p className="color-primary">{url}</p> */}
         </div>
       </Modal>
     </>

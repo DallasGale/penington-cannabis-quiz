@@ -14,10 +14,16 @@ import SecondaryCta from "../buttons/secondaryCta";
 import { explanationData } from "../../data/quiz.ts";
 import ShareModal from "../modals/share.tsx";
 
+console.log({ explanationData });
 const YourResults = () => {
   // results
   // i need to read the results from the cookie
   const [results, setResults] = useState<ResultsType | null>(null);
+  // shareable url
+  const [sharingUrl, setSharingUrl] = useState<string>("");
+  const [sharingImage, setSharingImage] = useState<string>("");
+  const [toggleShareModal, setToggleShareModal] = useState(false);
+
   useEffect(() => {
     const checkForAttempts = () => {
       try {
@@ -47,36 +53,39 @@ const YourResults = () => {
     checkForAttempts();
   }, []);
 
-  // shareable url
-  const [sharingUrl, setSharingUrl] = useState<string>("");
-  const [sharingImage, setSharingImage] = useState<string>("");
-
-  const [toggleShareModal, setToggleShareModal] = useState(false);
-  const handleGenerateSharingUrl = (results: ResultsType) => {
+  const generateAndSetSharingUrl = (results: ResultsType) => {
     const fmtResults = [
       {
-        score: `${results.r1}%`,
+        score: `${results.r1 / 5}%`,
         description: explanationData.penington.description,
       },
       {
-        score: `${results.r2}%`,
+        score: `${results.r2 / 5}%`,
         description: explanationData.victorians.description,
       },
     ];
+    const url = generateSharingUrl(fmtResults);
+    const image = generateSharingImage(fmtResults);
 
-    console.log({ fmtResults });
     setSharingUrl(generateSharingUrl(fmtResults));
     setSharingImage(generateSharingImage(fmtResults));
+    setSharingUrl(url);
+    setSharingImage(image);
+    return url;
   };
 
-  const handleShareLink = () => {
+  const handleShareLink = async () => {
     if (results) {
-      handleGenerateSharingUrl(results);
+      const url = generateAndSetSharingUrl(results);
+      try {
+        await navigator.clipboard.writeText(url);
+        setToggleShareModal(true);
+      } catch (err) {
+        console.error("Failed to copy to clipboard:", err);
+        // Still show the modal even if clipboard copy fails
+        setToggleShareModal(true);
+      }
     }
-
-    // copt sharing url to clipboard
-    navigator.clipboard.writeText(sharingUrl);
-    setToggleShareModal(true);
   };
 
   return (
@@ -97,33 +106,6 @@ const YourResults = () => {
               explaination={explanationData.victorians.description}
             />
           </div>
-
-          {/* Here are your results:
-          <ul>
-            <li>Question 1: {results.q1}%</li>
-            <li>Question 2: {results.q2}%</li>
-            <li>Question 3: {results.q3}%</li>
-            <li>Question 4: {results.q4}%</li>
-          </ul> */}
-          {/* <h2>Here is your shareable results image</h2>
-          {sharingImage && (
-            <img
-              width={300}
-              src={`http://localhost:4321/api/og${sharingImage}`}
-              alt="Your results"
-            />
-          )}
-          <div>
-            <button onClick={() => handleGenerateSharingUrl(results)}>
-              Generate Share Url
-            </button>
-          </div>
-          <h2>Here is your social share url</h2>
-          {sharingUrl && (
-            <code>
-              <pre>{sharingUrl}</pre>
-            </code>
-          )} */}
         </>
       )}
 

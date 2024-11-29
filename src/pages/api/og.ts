@@ -20,7 +20,7 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
       }
     }
 
-    const answers = Array.from({ length: 3 }, (_, i) => {
+    const answers = Array.from({ length: 2 }, (_, i) => {
       const result = url.searchParams.get(`r${i + 1}`);
       if (!result) return null;
       const decoded = safeDecodeURIComponent(result);
@@ -35,7 +35,7 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
           height: "630px",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#000000",
+          backgroundColor: "#067000",
           padding: "40px",
         },
       },
@@ -44,9 +44,10 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
         {
           style: {
             display: "flex",
-            flexDirection: "column",
-            backgroundColor: "white",
+            flexDirection: "row",
+            backgroundColor: "#388c33",
             padding: "40px",
+            gap: "20px",
             borderRadius: "20px",
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
             flex: 1,
@@ -56,11 +57,15 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
           "h1",
           {
             style: {
-              fontSize: "48px",
+              fontSize: "68px",
               fontFamily: "system-ui",
-              color: "#1a1a1a",
+              color: "#ffffff",
               textAlign: "center",
-              margin: "0 0 40px 0",
+              position: "absolute",
+              width: "100%",
+              margin: "auto",
+              left: "30px",
+              right: "0",
             },
           },
           "Quiz Results",
@@ -73,10 +78,10 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
               key: index,
               style: {
                 display: "flex",
+                width: "50%",
+                maxWidth: "50%",
                 flexDirection: "column",
-                borderTop: index > 0 ? "1px solid #e5e5e5" : "none",
-                paddingTop: "20px",
-                marginTop: index > 0 ? "20px" : "0",
+                marginTop: "70px",
               },
             },
             React.createElement(
@@ -94,7 +99,7 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
                   style: {
                     fontSize: "36px",
                     fontWeight: "bold",
-                    color: "#0066cc",
+                    color: "#ffffff",
                   },
                 },
                 `Question ${index + 1}`,
@@ -105,7 +110,7 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
                   style: {
                     fontSize: "36px",
                     fontWeight: "bold",
-                    color: "#0066cc",
+                    color: "#ffffff",
                   },
                 },
                 result || "N/A",
@@ -116,7 +121,7 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
               {
                 style: {
                   fontSize: "24px",
-                  color: "#4a4a4a",
+                  color: "#ffffff",
                   margin: "10px 0 0 0",
                 },
               },
