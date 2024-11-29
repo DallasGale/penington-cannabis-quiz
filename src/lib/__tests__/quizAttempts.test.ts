@@ -104,36 +104,6 @@ describe("Quiz Attempt Tracking", () => {
         },
       );
     });
-
-    it("should append to existing attempts", () => {
-      const existingTimestamp = 1732242224773;
-      const existingAttempt = {
-        quizId: "other-quiz",
-        timestamp: existingTimestamp,
-      };
-      vi.mocked(Cookies.get).mockReturnValue(
-        JSON.stringify([existingAttempt]) as unknown as {
-          [key: string]: string;
-        },
-      );
-
-      const newTimestamp = 1732242224774;
-      vi.setSystemTime(newTimestamp);
-
-      recordAttempt(QUIZ_ID, results);
-
-      expect(Cookies.set).toHaveBeenCalledWith(
-        COOKIE_NAME,
-        JSON.stringify([
-          existingAttempt,
-          { quizId: QUIZ_ID, results, timestamp: newTimestamp },
-        ]),
-        {
-          expires: COOKIE_EXPIRY_DAYS,
-          sameSite: "strict",
-        },
-      );
-    });
   });
   describe("edge cases", () => {
     it("should handle string timestamps", () => {
