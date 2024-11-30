@@ -25,3 +25,9 @@
     width: 100%;
   }
 }
+
+.aboutModal {
+  @include respond-to(desktop) {
+    padding: 40px;
+  }
+}

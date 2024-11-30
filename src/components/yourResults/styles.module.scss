@@ -4,8 +4,10 @@
   height: 100dvh;
   min-height: -webkit-fill-available;
   padding-top: 114px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
   @include respond-to(tablet) {
-    // transition: all 0.25s ease-in-out;
     height: 100%;
     position: relative;
     width: 100%;

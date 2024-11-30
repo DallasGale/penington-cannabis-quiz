@@ -231,6 +231,15 @@ const { unfixed }: LayoutProps = Astro.props;
     font-size: 16px;
     letter-spacing: 0px;
   }
+  .body4 {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 400;
+    line-height: 120%;
+    font-size: 20px;
+    @include respond-to(tablet) {
+      font-size: 28px;
+    }
+  }
 
   .smallPrint {
     font-family: Arial, Helvetica, sans-serif;
