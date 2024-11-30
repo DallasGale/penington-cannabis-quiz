@@ -6,7 +6,7 @@ export const useIsDesktop = () => {
   useEffect(() => {
     const checkDesktop = () => {
       // console.log("checking");
-      setIsDesktop(window.innerWidth < 1200);
+      setIsDesktop(window.innerWidth > 1200);
     };
 
     // Initial check

@@ -3,8 +3,9 @@ import PrimaryCta from "../../buttons/primaryCta";
 import styles from "./styles.module.scss";
 import { AnimatePresence, motion } from "motion/react";
 import type { Comparison } from "../../../data/quiz";
-import { useIsTablet } from "@/hooks/useIsTablet";
+import { useIsSmallMobile } from "@/hooks/useIsSmallMobile";
 import { useIsDesktop } from "@/hooks/useIsDesktop";
+import { useIsTablet } from "@/hooks/useIsTablet";
 interface QuestionAnswerProps {
   question: string;
   answer: string;
@@ -25,7 +26,9 @@ const QuestionAnswer = ({
   ifNo,
 }: QuestionAnswerProps) => {
   const isDesktop = useIsDesktop();
-  const scale = isDesktop ? 0.9 : 0.7;
+  const isSmallMobile = useIsSmallMobile();
+  const isTablet = useIsTablet();
+  const scale = isDesktop ? 0.8 : isSmallMobile ? 0.7 : 0.85;
 
   console.log({ isDesktop, scale });
   const [questionAnswered, setQuestionAnswered] = useState(false);
@@ -46,14 +49,14 @@ const QuestionAnswer = ({
       y: "0%",
       scale: 1,
       opacity: 0,
-      transformOrigin: "top",
+      transformOrigin: "bottom",
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     unanswered: {
       y: "0%",
       scale: 1,
       opacity: 1,
-      transformOrigin: "top",
+      transformOrigin: "bottom",
       transition: {
         type: "spring",
         bounce: 0.25,
@@ -65,7 +68,7 @@ const QuestionAnswer = ({
       y: "0%", // Define the animation as a sequence
       scale: [1, scale],
       opacity: [1, 0.5],
-      transformOrigin: "top",
+      transformOrigin: "bottom",
       transition: {
         duration: 0.8,
         times: [0, 1], // Corresponding times for each keyframe
@@ -77,7 +80,7 @@ const QuestionAnswer = ({
       scale,
       y: "0%",
       opacity: 0.5,
-      transformOrigin: "top",
+      transformOrigin: "bottom",
       transition: {
         type: "spring",
         bounce: 0.25,
@@ -141,7 +144,7 @@ const QuestionAnswer = ({
             exit="exit"
             className={styles.question}
           >
-            <h2 className="display2">
+            <h2 className={styles.questionFont}>
               {words.map((word, i) => (
                 <motion.span
                   key={i}
@@ -155,6 +158,17 @@ const QuestionAnswer = ({
                 </motion.span>
               ))}
             </h2>
+            {!questionAnswered && (
+              <div
+                className={`${styles.buttonGroup} ${styles.buttonGroupYesNo}`}
+              >
+                <PrimaryCta
+                  onClick={() => handleClick(id, "yes")}
+                  label="Yes"
+                />
+                <PrimaryCta onClick={() => handleClick(id, "no")} label="No" />
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
         <AnimatePresence mode="wait">
@@ -166,30 +180,30 @@ const QuestionAnswer = ({
               exit="exit"
               className={styles.answer}
             >
-              <h3 className="display3">
+              <h3 className={styles.answerFont}>
                 {selectedAnswer === "yes" ? ifYes.answer : ifNo.answer}
               </h3>
-              <br />
               <h3
-                className="display3"
+                className={styles.answerFont}
                 dangerouslySetInnerHTML={{ __html: answer }}
               />
             </motion.div>
           )}
         </AnimatePresence>
-        {questionAnswered && !isExiting ? (
-          <div className={`${styles.buttonGroup} ${styles.buttonGroupNext}`}>
-            <PrimaryCta
-              onClick={() => handleNextQuestion(id, "next")}
-              label="Next"
-            />
-          </div>
-        ) : (
-          <div className={`${styles.buttonGroup} ${styles.buttonGroupYesNo}`}>
-            <PrimaryCta onClick={() => handleClick(id, "yes")} label="Yes" />
-            <PrimaryCta onClick={() => handleClick(id, "no")} label="No" />
-          </div>
-        )}
+        {
+          questionAnswered && !isExiting ? (
+            <div className={`${styles.buttonGroup} ${styles.buttonGroupNext}`}>
+              <PrimaryCta
+                onClick={() => handleNextQuestion(id, "next")}
+                label="Next"
+              />
+            </div>
+          ) : null
+          // <div className={`${styles.buttonGroup} ${styles.buttonGroupYesNo}`}>
+          //   <PrimaryCta onClick={() => handleClick(id, "yes")} label="Yes" />
+          //   <PrimaryCta onClick={() => handleClick(id, "no")} label="No" />
+          // </div>
+        }
       </div>
     </>
   );
