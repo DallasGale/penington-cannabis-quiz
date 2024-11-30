@@ -45,7 +45,7 @@ const QuizForm = () => {
 
   // ----------------------------------------------------------------
   // Question/Answers Flow
-  const [currentQuestion, setCurrentQuestion] = useState(6);
+  const [currentQuestion, setCurrentQuestion] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleExitComplete = () => {

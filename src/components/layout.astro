@@ -12,9 +12,10 @@ const ogImageUrl = hasResults
 
 type LayoutProps = {
   unfixed?: boolean;
+  bodyClass?: string;
 };
 
-const { unfixed }: LayoutProps = Astro.props;
+const { unfixed, bodyClass = "" }: LayoutProps = Astro.props;
 ---
 
 <!doctype html>
@@ -25,8 +26,8 @@ const { unfixed }: LayoutProps = Astro.props;
 
     <DynamicHead ogImageUrl={ogImageUrl} hasResults={hasResults} />
   </head>
-  <body>
-    <div class={`container ${unfixed ? "unfixed" : ""}`}>
+  <body class={`${bodyClass}`}>
+    <div class={`container ${unfixed ? "unfixed" : ""} `}>
       <slot />
     </div>
   </body>
@@ -92,7 +93,6 @@ const { unfixed }: LayoutProps = Astro.props;
     display: flex;
     flex-direction: column;
     min-height: -webkit-fill-available;
-    // height: calc(100vh - 60px);
     height: 100dvh;
     overflow: hidden;
     align-items: center;
@@ -229,6 +229,9 @@ const { unfixed }: LayoutProps = Astro.props;
   }
   .color-primary {
     color: var(--primary);
+  }
+  .color-black {
+    color: #000;
   }
   .react-responsive-modal-modal {
     width: calc(100% - 48px);

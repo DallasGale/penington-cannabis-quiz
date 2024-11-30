@@ -13,12 +13,14 @@ import { ProtectedContent } from "../../components/protectedContent";
   }
 </script>
 
-<Layout unfixed={true}>
+<Layout unfixed={true} bodyClass={styles.body}>
   <ProtectedContent client:load>
     <Header />
     <div class="container">
       <div class="content">
-        <h1 class="display1">Our Approach.</h1>
+        <h1 class="display1 color-primary">
+          <span class="color-black">It’s better to</span> regulate it
+        </h1>
 
         <img
           src=""
@@ -61,6 +63,7 @@ import { ProtectedContent } from "../../components/protectedContent";
 
 <style lang="scss">
   @import "../../styles/breakpoints.scss";
+
   .container {
     display: flex;
     flex-direction: column;
