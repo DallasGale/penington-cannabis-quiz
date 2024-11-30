@@ -2,7 +2,7 @@
 
 .modalContent {
   @include respond-to(desktop) {
-    flex-direction: row;
+    flex-direction: row !important;
   }
 }
 
