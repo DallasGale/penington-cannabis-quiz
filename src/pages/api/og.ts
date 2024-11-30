@@ -1,4 +1,3 @@
-// src/pages/api/og.ts
 import type { APIRoute } from "astro";
 import { ImageResponse } from "@vercel/og";
 import React from "react";
@@ -7,26 +6,22 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
   try {
     const url = new URL(request.url);
 
-    function safeDecodeURIComponent(str: string): string {
-      try {
-        const firstDecode = decodeURIComponent(str);
-        if (firstDecode.includes("%")) {
-          return decodeURIComponent(firstDecode);
-        }
-        return firstDecode;
-      } catch (e) {
-        console.error("Error decoding:", str, e);
-        return str;
-      }
-    }
-
     const answers = Array.from({ length: 2 }, (_, i) => {
       const result = url.searchParams.get(`r${i + 1}`);
       if (!result) return null;
-      const decoded = safeDecodeURIComponent(result);
-      return decoded;
+
+      const [value] = result.split(",");
+      const percentage = parseInt(value);
+
+      return {
+        percent: isNaN(percentage) ? 0 : percentage / 2,
+        number: i + 1,
+        value: result,
+        result: value || "N/A",
+      };
     });
 
+    console.log({ answers });
     const element = React.createElement(
       "div",
       {
@@ -36,6 +31,8 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
           display: "flex",
           flexDirection: "column",
           backgroundColor: "#067000",
+          justifyContent: "center",
+          alignItems: "center",
           padding: "40px",
         },
       },
@@ -45,11 +42,12 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
           style: {
             display: "flex",
             flexDirection: "row",
-            backgroundColor: "#388c33",
+            alignItems: "center",
+            justifyContent: "center",
             padding: "40px",
+            width: "100%",
             gap: "20px",
             borderRadius: "20px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
             flex: 1,
           },
         },
@@ -57,21 +55,28 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
           "h1",
           {
             style: {
-              fontSize: "68px",
-              fontFamily: "system-ui",
+              fontSize: "48px",
               color: "#ffffff",
               textAlign: "center",
+              fontWeight: "bold",
               position: "absolute",
+              fontFamily: "inter",
+              justifyContent: "center",
+              display: "flex",
               width: "100%",
+              top: 30,
+              lineHeight: "100%",
               margin: "auto",
-              left: "30px",
+              padding: "0 150px",
+              left: "0",
               right: "0",
             },
           },
-          "Quiz Results",
+          "This is where I stand on cannabis regulation.",
         ),
+
         answers.map((answer, index) => {
-          const [result, description] = (answer || ",").split(",");
+          if (!answer) return null;
           return React.createElement(
             "div",
             {
@@ -93,42 +98,97 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
                   gap: "20px",
                 },
               },
+              React.createElement("span", {
+                style: {
+                  fontSize: "36px",
+                  fontWeight: "bold",
+                  color: "#ffffff",
+                },
+              }),
               React.createElement(
-                "span",
+                "div",
                 {
                   style: {
-                    fontSize: "36px",
-                    fontWeight: "bold",
-                    color: "#ffffff",
+                    position: "absolute",
+                    width: "300px",
+                    height: "150px",
+                    display: "flex",
+                    justifyContent: "center",
+                    margin: "auto",
+                    left: 110,
+                    right: 0,
+                    top: -100,
+                    alignItems: "center",
                   },
                 },
-                `Question ${index + 1}`,
-              ),
-              React.createElement(
-                "span",
-                {
+                React.createElement("span", {
                   style: {
-                    fontSize: "36px",
+                    transform: `translateX(${answer.percent}%)`,
+                    position: "absolute",
                     fontWeight: "bold",
+                    height: "150px",
+                    left: "0",
+                    width: "150px",
                     color: "#ffffff",
+                    borderRadius: "150px",
+                    backgroundColor: "#ffffff",
+                    opacity: 0.3,
                   },
-                },
-                result || "N/A",
+                }),
+                React.createElement("span", {
+                  style: {
+                    transform: `translateX(-${answer.percent}%)`,
+                    position: "absolute",
+                    height: "150px",
+                    right: "0",
+                    width: "150px",
+                    color: "#ffffff",
+                    borderRadius: "150px",
+                    backgroundColor: "#ffffff",
+                    opacity: 0.3,
+                  },
+                }),
               ),
             ),
             React.createElement(
               "p",
               {
                 style: {
-                  fontSize: "24px",
+                  fontSize: "34px",
+                  position: "absolute",
+                  top: 80,
                   color: "#ffffff",
                   margin: "10px 0 0 0",
+                  padding: "0 50px",
+                  textAlign: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  lineHeight: "100%",
+                  alignItems: "center",
                 },
               },
-              description || "",
+              `I'm ${answer.result} aligned with ${answer.number === 1 ? "Penington" : "other Victorians"}`,
             ),
           );
         }),
+      ),
+      React.createElement(
+        "p",
+        {
+          style: {
+            fontSize: "24px",
+            position: "relative",
+            color: "#ffffff",
+            margin: "10px 0 0 0",
+            padding: "0 300px",
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            lineHeight: "100%",
+            alignItems: "center",
+          },
+        },
+        `Take the test and find out where you stand on safe cannabis regulation.`,
       ),
     );
 
