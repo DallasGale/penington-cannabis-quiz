@@ -10,15 +10,22 @@ import Titles from "../components/screens/home/titles";
 <script>
   // Check localstorage for cookie acceptance
 
+  import { doc } from "firebase/firestore";
+
   function updateButtonVisibility() {
+    // const titles = document.querySelector(".content");
     const getStartedWrapper = document.getElementById("get-started");
     const ageVerified = localStorage.getItem("ageVerified");
     if (ageVerified === "true") {
       getStartedWrapper?.classList.remove("hide");
       getStartedWrapper?.classList.add("show");
+      // titles?.classList.add("show");
+      // titles?.classList.remove("hide");
     } else {
       getStartedWrapper?.classList.remove("show");
       getStartedWrapper?.classList.add("hide");
+      // titles?.classList.add("hide");
+      // titles?.classList.remove("show");
     }
   }
 
@@ -70,5 +77,10 @@ import Titles from "../components/screens/home/titles";
   }
   .show {
     display: flex;
+  }
+
+  #get-started {
+    max-width: 420px;
+    margin: auto;
   }
 </style>
