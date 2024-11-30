@@ -5,4 +5,5 @@ export type ButtonTypes = {
   link?: string;
   type?: "button" | "submit" | "reset";
   modifier?: string;
+  icon?: string;
 };

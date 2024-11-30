@@ -76,6 +76,7 @@ const { unfixed, bodyClass = "" }: LayoutProps = Astro.props;
     gap: 10px;
     overflow: hidden;
     text-decoration: none;
+    box-sizing: border-box;
   }
 
   h1,
@@ -175,6 +176,22 @@ const { unfixed, bodyClass = "" }: LayoutProps = Astro.props;
     font-size: 40px;
     line-height: 48px;
   }
+  .display6 {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    @include respond-to(desktop) {
+      font-size: 24px;
+    }
+  }
+  .display7 {
+    font-weight: 400;
+    font-size: 62px;
+    line-height: 100%;
+    @include respond-to(desktop) {
+      font-size: 94px;
+    }
+  }
 
   .body {
     letter-spacing: 1px;
@@ -211,7 +228,16 @@ const { unfixed, bodyClass = "" }: LayoutProps = Astro.props;
     line-height: 120%;
     font-size: 20px;
     @include respond-to(tablet) {
-      font-size: 28px;
+      font-size: 20px;
+    }
+  }
+  .body5 {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 400;
+    line-height: 140%;
+    font-size: 16px;
+    @include respond-to(tablet) {
+      font-size: 20px;
     }
   }
 
@@ -229,6 +255,9 @@ const { unfixed, bodyClass = "" }: LayoutProps = Astro.props;
   }
   .color-primary {
     color: var(--primary);
+  }
+  .color-primary25 {
+    color: var(--primary25);
   }
   .color-black {
     color: #000;

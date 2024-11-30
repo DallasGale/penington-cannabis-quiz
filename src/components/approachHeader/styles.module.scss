@@ -1,0 +1,50 @@
+@import "../../styles/breakpoints.scss";
+
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 20px;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: transparent;
+  z-index: 1;
+  @include respond-to(tablet) {
+  }
+}
+
+.logo {
+  width: 180px;
+  height: 46px;
+}
+
+.ctaWrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.quizCta {
+  display: none;
+  @include respond-to(desktop) {
+    height: 52px !important;
+    font-size: 20px !important;
+    width: auto !important;
+    display: block;
+  }
+}
+
+.supportCta {
+  height: 52px !important;
+  width: auto !important;
+  font-size: 16px !important;
+  background: var(--lightGreen) !important;
+  @include respond-to(desktop) {
+    font-size: 20px !important;
+  }
+}
