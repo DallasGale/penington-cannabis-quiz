@@ -4,7 +4,7 @@ export function generateSharingUrl(results: any[]) {
   const params = new URLSearchParams();
 
   results.forEach((result, index) => {
-    params.set(`r${index + 1}`, `${result.score},${result.description}`);
+    params.set(`r${index + 1}`, `${result.score}`);
   });
 
   return `${baseUrl}?${params.toString()}`;
