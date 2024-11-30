@@ -27,36 +27,10 @@ const { unfixed }: LayoutProps = Astro.props;
   </head>
   <body>
     <div class={`container ${unfixed ? "unfixed" : ""}`}>
-      <!-- <div id="debug"></div> -->
-
       <slot />
     </div>
   </body>
 </html>
-
-<!-- <script define:vars={{ hasResults, ogImageUrl, requestUrl }}>
-  // Get the parameters before they're cleared
-  const currentUrl = new URL(window.location.href);
-  const params = currentUrl.searchParams;
-  
-  const debugInfo = {
-    serverSide: {
-      requestUrl,
-      hasResults,
-      ogImageUrl
-    },
-    clientSide: {
-      currentUrl: window.location.href,
-      searchString: window.location.search,
-      params: Object.fromEntries(params.entries()),
-      hasQ1: params.has('q1')
-    }
-  };
-
-  document.getElementById('debug').innerHTML = `
-    <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
-  `;
-</script> -->
 
 <style is:global lang="scss">
   @import "../styles/breakpoints.scss";

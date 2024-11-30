@@ -1,4 +1,3 @@
-import SecondaryCta from "../buttons/secondaryCta";
 import Logo from "../../assets/identity/logo-white.svg";
 import styles from "./styles.module.scss";
 import AboutModal from "../modals/about";
