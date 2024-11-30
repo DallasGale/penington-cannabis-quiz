@@ -27,7 +27,6 @@ const QuestionAnswer = ({
 }: QuestionAnswerProps) => {
   const isDesktop = useIsDesktop();
   const isSmallMobile = useIsSmallMobile();
-  const isTablet = useIsTablet();
   const scale = isDesktop ? 0.8 : isSmallMobile ? 0.7 : 0.85;
 
   console.log({ isDesktop, scale });
@@ -49,14 +48,14 @@ const QuestionAnswer = ({
       y: "0%",
       scale: 1,
       opacity: 0,
-      transformOrigin: "bottom",
+      transformOrigin: isDesktop ? "bottom" : isSmallMobile ? "top" : "bottom",
       transition: { type: "spring", bounce: 0.25, duration: 0.8 },
     },
     unanswered: {
       y: "0%",
       scale: 1,
       opacity: 1,
-      transformOrigin: "bottom",
+      transformOrigin: isDesktop ? "bottom" : isSmallMobile ? "top" : "bottom",
       transition: {
         type: "spring",
         bounce: 0.25,
@@ -68,7 +67,7 @@ const QuestionAnswer = ({
       y: "0%", // Define the animation as a sequence
       scale: [1, scale],
       opacity: [1, 0.5],
-      transformOrigin: "bottom",
+      transformOrigin: isDesktop ? "bottom" : isSmallMobile ? "top" : "bottom",
       transition: {
         duration: 0.8,
         times: [0, 1], // Corresponding times for each keyframe
