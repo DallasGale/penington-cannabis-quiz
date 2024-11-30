@@ -4,12 +4,14 @@ interface ProgressProps {
   currentStep: number;
   steps: number;
   completedQuestions: number[];
+  hasAnswered: boolean;
 }
 
 const Progress = ({
   currentStep,
   steps,
   completedQuestions,
+  hasAnswered,
 }: ProgressProps) => {
   const getStepClass = (index: number) => {
     // Add 1 to index since steps are 1-based in your quiz
@@ -17,7 +19,7 @@ const Progress = ({
 
     if (completedQuestions.includes(stepNumber)) {
       return styles.completedStep; // Fully filled
-    } else if (stepNumber === currentStep) {
+    } else if (stepNumber === currentStep && hasAnswered) {
       return styles.halfStep; // Half filled for current step
     }
     return ""; // Empty for future steps

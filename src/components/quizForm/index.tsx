@@ -53,8 +53,10 @@ const QuizForm = () => {
     setIsTransitioning(false);
   };
 
+  const [hasAnswered, setHasAnswered] = useState(false);
   const [completedQuestions, setCompletedQuestions] = useState<number[]>([]);
   const handleNextQuestion = (id: number) => {
+    setHasAnswered(false);
     setCompletedQuestions((prev) => [...prev, id]);
     setIsTransitioning(true);
   };
@@ -292,6 +294,7 @@ const QuizForm = () => {
   return (
     <div className={styles.container}>
       <Progress
+        hasAnswered={hasAnswered}
         steps={quizData.length}
         currentStep={currentQuestion}
         completedQuestions={completedQuestions}
@@ -359,9 +362,10 @@ const QuizForm = () => {
               >
                 <QuestionAnswer
                   {...quizData[currentQuestion - 1]}
-                  handleAnswerClick={(id: number, answer: string) =>
-                    calculateResults(id, answer)
-                  }
+                  handleAnswerClick={(id: number, answer: string) => [
+                    calculateResults(id, answer),
+                    setHasAnswered(true),
+                  ]}
                   setNextQuestion={handleNextQuestion}
                 />
               </motion.div>

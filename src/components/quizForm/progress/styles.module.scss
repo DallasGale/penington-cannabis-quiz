@@ -23,14 +23,14 @@
 .step {
   height: 4px;
   width: 100%;
-  background-color: var(--primary80);
+  background-color: #50954c;
   position: relative;
   &:before {
     transition: all 0.55s cubic-bezier(0.16, 0.77, 0.45, 0.9);
     content: "";
     height: 100%;
     width: 0%;
-    background-color: var(--white);
+    background-color: #d9d9d9;
     position: absolute;
     top: 0;
     left: 0;
