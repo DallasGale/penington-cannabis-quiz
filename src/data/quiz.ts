@@ -26,8 +26,8 @@ export const quizData: QuizData[] = [
     },
     ifNo: {
       answer: "We don’t think so either",
-      penington: 100,
-      victorians: 100,
+      penington: 20,
+      victorians: 20,
     },
   },
   {
@@ -39,11 +39,11 @@ export const quizData: QuizData[] = [
     ifYes: {
       answer: "We don’t think so.",
       penington: 0,
-      victorians: 100,
+      victorians: 20,
     },
     ifNo: {
       answer: "We don’t think so either",
-      penington: 100,
+      penington: 20,
       victorians: 0,
     },
   },
@@ -55,13 +55,13 @@ export const quizData: QuizData[] = [
       "We think cannabis products should be in standardised, uniform packaging, free from colours or branding, with clearly labelled product ingredients.",
     ifYes: {
       answer: "We think so too.",
-      penington: 100,
-      victorians: 0,
+      penington: 20,
+      victorians: 20,
     },
     ifNo: {
       answer: "We think so.",
       penington: 0,
-      victorians: 100,
+      victorians: 0,
     },
   },
   {
@@ -72,8 +72,8 @@ export const quizData: QuizData[] = [
       "We think the safest way is to cap the maximum amount of THC in products at a sensible limit.",
     ifYes: {
       answer: "We think so too.",
-      penington: 100,
-      victorians: 100,
+      penington: 20,
+      victorians: 20,
     },
     ifNo: {
       answer: "We think so.",
@@ -90,12 +90,12 @@ export const quizData: QuizData[] = [
     ifYes: {
       answer: "We don’t think so.",
       penington: 0,
-      victorians: 0,
+      victorians: 20,
     },
     ifNo: {
       answer: "We don’t think so either",
-      penington: 100,
-      victorians: 100,
+      penington: 20,
+      victorians: 0,
     },
   },
 ];

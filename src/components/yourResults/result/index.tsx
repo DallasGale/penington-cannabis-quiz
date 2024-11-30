@@ -48,7 +48,7 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
               <br /> with {dataSource}
             </p>
           </div>
-          <Accordion>
+          <Accordion style={{ position: "relative" }}>
             <AccordionItem
               key="1"
               indicator={<div />}
@@ -56,7 +56,7 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
               title="Learn More"
               className={styles.desktopAccordion}
             >
-              {explaination}
+              <p className="body3">{explaination}</p>
             </AccordionItem>
           </Accordion>
         </>

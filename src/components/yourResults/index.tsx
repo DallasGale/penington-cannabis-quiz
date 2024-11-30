@@ -93,7 +93,7 @@ const YourResults = () => {
       {results && (
         <>
           {/* 1. Results */}
-          <h1 className="display2">Your Results</h1>
+          <h1 className="display5">Your Results</h1>
           <div className={styles.resultGroup}>
             <Result
               result={results.r1}

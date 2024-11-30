@@ -232,8 +232,8 @@ const QuizForm = () => {
         postCode: postCodeValues.join(""),
         createdAt: serverTimestamp(), // Use serverTimestamp() from firebase/firestore
         results: {
-          r1: formData.results.r1 / 5,
-          r2: formData.results.r2 / 5,
+          r1: formData.results.r1,
+          r2: formData.results.r2,
         } satisfies ResultsType,
       };
 

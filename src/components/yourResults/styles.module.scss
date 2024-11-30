@@ -5,6 +5,7 @@
   min-height: -webkit-fill-available;
   padding-top: 114px;
   @include respond-to(tablet) {
+    // transition: all 0.25s ease-in-out;
     height: 100%;
     position: relative;
     width: 100%;
@@ -12,9 +13,9 @@
     padding-top: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 20vh;
-    gap: 80px;
+    justify-content: center;
+    padding-top: 0;
+    gap: 60px;
   }
 }
 
@@ -23,10 +24,14 @@
   flex-direction: column;
   gap: 52px;
   width: calc(100vw - 48px);
-  margin-top: 48px;
+  // margin-top: 48px;
   height: calc(100vh - 404px);
   overflow: scroll;
   @include respond-to(tablet) {
+    max-width: 690px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 305px 305px;
     flex-direction: row;
     justify-content: space-around;
     height: auto;
@@ -56,7 +61,7 @@
   @include respond-to(tablet) {
     display: grid;
     grid-template-columns: 50% 50%;
-    bottom: 111px;
+    bottom: 48px;
     flex-direction: row;
     gap: 20px;
     padding: 0;
