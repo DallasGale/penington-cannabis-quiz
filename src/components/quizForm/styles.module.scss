@@ -33,6 +33,7 @@
   box-sizing: border-box;
   gap: 30px;
   align-items: flex-start;
+  position: relative;
   @include respond-to(tablet) {
     gap: 60px;
   }
@@ -98,11 +99,13 @@
 }
 
 .getResultsButton {
-  @include respond-to(mobile) {
-    width: 328px !important;
-    margin: auto;
-  }
+  max-width: 376px;
+  margin: auto;
+  position: absolute;
+  top: 105px;
+  left: 0;
+  right: 0;
   @include respond-to(tablet) {
-    width: 376px !important;
+    top: 176px;
   }
 }

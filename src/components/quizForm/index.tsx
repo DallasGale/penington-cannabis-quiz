@@ -45,7 +45,7 @@ const QuizForm = () => {
 
   // ----------------------------------------------------------------
   // Question/Answers Flow
-  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(6);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleExitComplete = () => {
@@ -339,13 +339,10 @@ const QuizForm = () => {
                 </div>
               ))}
             </div>
-
             {postCodeValues.join("").length === 4 && (
-              <PrimaryCta
-                modifier={styles.getResultsButton}
-                type="submit"
-                label="Get my results"
-              />
+              <div className={styles.getResultsButton}>
+                <PrimaryCta type="submit" label="Get my results" />
+              </div>
             )}
           </form>
         </div>

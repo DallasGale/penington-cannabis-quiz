@@ -23,7 +23,7 @@ const PrimaryCta = ({
     <button
       type={type || "button"}
       onClick={onClick}
-      className={`${btnStyles.btnLabel} ${btnStyles.btn} ${styles.btnLabel}  ${styles.btnPrimary}`}
+      className={`${btnStyles.btnLabel} ${btnStyles.btn} ${styles.btnLabel} ${styles.btnPrimary}`}
     >
       <span>{label}</span>
     </button>
