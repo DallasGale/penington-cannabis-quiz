@@ -5,6 +5,7 @@ import { useState } from "react";
 import DonateCta from "../buttons/donateCta";
 import { useIsDesktop } from "../../hooks/useIsDesktop";
 import SmallCta from "../buttons/smallCta";
+import { useIsTablet } from "@/hooks/useIsTablet";
 
 const ResultsHeader = () => {
   const [toggleAbout, setToggleAbout] = useState(false);
@@ -12,7 +13,7 @@ const ResultsHeader = () => {
     setToggleAbout(true);
   };
 
-  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
   return (
     <>
       <header className={styles.container}>
@@ -24,7 +25,7 @@ const ResultsHeader = () => {
           />
         </a>
         <div className={styles.ctaWrapper}>
-          {!isDesktop && (
+          {!isTablet && (
             <SmallCta
               isLink
               link="/quiz"
