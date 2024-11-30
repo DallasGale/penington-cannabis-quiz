@@ -330,8 +330,7 @@ const QuizForm = () => {
                     type="text"
                     inputMode="numeric"
                     value={value}
-                    min={1}
-                    max={1}
+                    maxLength={1}
                     onChange={(e) => handlePostCodeChange(index, e)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     onPaste={handlePaste}
