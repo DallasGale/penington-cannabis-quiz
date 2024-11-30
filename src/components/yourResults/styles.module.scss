@@ -26,7 +26,6 @@
   flex-direction: column;
   gap: 52px;
   width: calc(100vw - 48px);
-  // margin-top: 48px;
   height: calc(100vh - 404px);
   overflow: scroll;
   @include respond-to(tablet) {

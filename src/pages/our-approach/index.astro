@@ -5,6 +5,10 @@ import IconCta from "../../components/buttons/iconCta";
 import styles from "./styles.module.scss";
 import DownloadIcon from "../../assets/icons/download.svg";
 import { ProtectedContent } from "../../components/protectedContent";
+import Image1 from "../../assets/images/infographic-better_control.png";
+import Image2 from "../../assets/images/infographic-better_community.png";
+import Image3 from "../../assets/images/infographic-better_health.png";
+import Image4 from "../../assets/images/infographic-better_economy.png";
 ---
 
 <script>
@@ -36,26 +40,28 @@ import { ProtectedContent } from "../../components/protectedContent";
 
       <div class="grid">
         <div class="col col-1">
-          <!-- <img
-              src=""
-              alt="Our Approach"
-              width="100%"
-              style={{ background: "rgba(205, 213, 238, 1)" }}
-            /> -->
+          <img src={Image1.src} alt="Better Control" width="100%" />
         </div>
 
         <div class="col col-2">
-          <!-- <img
-              src=""
-              alt="Our Approach"
-              width="100%"
-              style={{ background: "rgba(50, 103, 255, 1)" }}
-            /> -->
+          <img
+            src={Image2.src}
+            alt="Better protection for our Communities"
+            width="100%"
+          />
         </div>
 
-        <div class="col col-3"></div>
+        <div class="col col-3">
+          <img
+            src={Image3.src}
+            alt="Better Protection of our Health"
+            width="100%"
+          />
+        </div>
 
-        <div class="col col-4"></div>
+        <div class="col col-4">
+          <img src={Image4.src} alt="Better economic management" width="100%" />
+        </div>
       </div>
 
       <div class="cta-wrapper">
@@ -167,6 +173,14 @@ import { ProtectedContent } from "../../components/protectedContent";
     width: 100%;
     margin-top: 40px;
 
+    @include respond-to(tablet) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: auto;
+      gap: 20px;
+      margin-bottom: 42px;
+      margin-top: 64px;
+    }
     @include respond-to(desktop) {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -178,19 +192,20 @@ import { ProtectedContent } from "../../components/protectedContent";
   }
   .col {
     width: 100%;
-    height: 583px;
+    height: auto;
     border-radius: 11px;
+    overflow: hidden;
     &-1 {
-      background: rgba(205, 213, 238, 1);
+      // background: rgba(205, 213, 238, 1);
     }
     &-2 {
-      background: rgba(50, 103, 255, 0.2);
+      // background: rgba(50, 103, 255, 0.2);
     }
     &-3 {
-      background: rgba(211, 239, 229, 1);
+      // background: rgba(211, 239, 229, 1);
     }
     &-4 {
-      background: rgba(210, 230, 180, 1);
+      // background: rgba(210, 230, 180, 1);
     }
 
     @include respond-to(desktop) {
