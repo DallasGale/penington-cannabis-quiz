@@ -136,7 +136,7 @@ const YourResults = () => {
   return (
     <>
       <AnimatePresence mode="wait">
-        {showLoading && (
+        {!showLoading && (
           <motion.div
             variants={loadingVariants}
             animate={results ? "loading" : "initial"}
