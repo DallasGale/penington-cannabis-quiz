@@ -2,7 +2,9 @@
 
 .modalContent {
   @include respond-to(desktop) {
-    flex-direction: row !important;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 24px;
   }
 }
 
@@ -22,7 +24,6 @@
 @include respond-to(desktop) {
   .ctaGroup {
     flex-direction: row;
-    min-width: 568px;
     justify-content: flex-end;
   }
 
