@@ -25,15 +25,6 @@ const ResultsHeader = () => {
           />
         </a>
         <div className={styles.ctaWrapper}>
-          {!isTablet && (
-            <SmallCta
-              isLink
-              link="/quiz"
-              modifier={styles.quizCta}
-              label="Take the quiz"
-              onClick={handleAboutClick}
-            />
-          )}
           <DonateCta
             isLink
             link="/donate"
