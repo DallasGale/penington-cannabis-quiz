@@ -59,6 +59,9 @@
   @include respond-to(desktop) {
     max-width: 846px;
     margin: auto;
+    height: calc(100vh - 72vw);
+  }
+  @include respond-to(widescreen) {
     height: calc(100vh - 40vw);
   }
 }
@@ -103,9 +106,10 @@ h3 {
   }
   @include respond-to(desktop) {
     letter-spacing: -2px;
-    font-size: 44px;
+    font-size: 40px;
   }
   @include respond-to(widescreen) {
+    font-size: 44px;
   }
 }
 
@@ -120,13 +124,14 @@ h3 {
 
   @include respond-to(tablet) {
     letter-spacing: -2px;
-    font-size: 4.5vw;
+    font-size: 4vw;
   }
   @include respond-to(desktop) {
     font-size: 2.5vw;
-    font-size: 44px;
+    font-size: 36px;
   }
   @include respond-to(widescreen) {
     letter-spacing: -2px;
+    font-size: 44px;
   }
 }
