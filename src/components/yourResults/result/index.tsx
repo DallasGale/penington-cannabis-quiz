@@ -36,7 +36,7 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
               </div>
             }
           >
-            {explaination}
+            <p className="body3">{explaination}</p>
           </AccordionItem>
         </Accordion>
       )}
