@@ -29,7 +29,7 @@ const title = "Enter your postcode to get your results.";
 const QuizForm = () => {
   const titleWords = title.split(" ");
   const wordVariants = {
-    hidden: { opacity: 0, y: -15 },
+    hidden: { opacity: 0, y: 15 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
