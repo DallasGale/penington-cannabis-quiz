@@ -57,7 +57,7 @@ const YourResults = () => {
     // Set timer to hide loading after 3 seconds
     const timer = setTimeout(() => {
       setShowLoading(false);
-    }, 3000);
+    }, 2000);
     // Cleanup timer on component unmount
     return () => clearTimeout(timer);
   }, []);
