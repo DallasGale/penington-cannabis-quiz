@@ -11,14 +11,17 @@ const AgeModal = () => {
   const [cookieOpen, setCookieOpen] = useState(false);
 
   useEffect(() => {
-    if (!isVerified) {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("restricted") === "true" || !isVerified) {
-        setOpen(true);
+    setTimeout(() => {
+      if (!isVerified) {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("restricted") === "true" || !isVerified) {
+          setOpen(true);
+        }
+      } else {
+        setOpen(false);
       }
-    } else {
-      setOpen(false);
-    }
+    }, 2250);
+    // ), 2000);
   }, [isVerified]);
 
   const handleRedirect = () => {
