@@ -1,4 +1,6 @@
 $breakpoint-mobile: 400px;
+$breakpoint-long-mobile: 430px;
+
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1200px;
 $breakpoint-widescreen: 1690px;
@@ -11,6 +13,10 @@ $breakpoint-huge: 1800px;
 @mixin respond-to($media) {
   @if $media == mobile {
     @media only screen and (min-width: $breakpoint-mobile) {
+      @content;
+    }
+  } @else if $media == long-phone {
+    @media only screen and (min-width: $breakpoint-long-mobile) {
       @content;
     }
   } @else if $media == tablet {

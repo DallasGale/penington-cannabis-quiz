@@ -4,7 +4,7 @@ export const useIsSmallMobile = () => {
   const [isSmallMobile, setIsSmallMobile] = useState(false);
   useEffect(() => {
     const checkDevice = () => {
-      setIsSmallMobile(window.innerWidth < 480);
+      setIsSmallMobile(window.innerWidth < 400);
     };
 
     // Initial check

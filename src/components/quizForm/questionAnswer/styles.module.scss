@@ -75,9 +75,17 @@
   width: 100%;
   left: 0;
   right: 0;
-  bottom: 30vh;
+  bottom: 18vh;
   padding: 0 25px;
   box-sizing: border-box;
+
+  @include respond-to(med-phone) {
+    bottom: 22vh;
+  }
+  @include respond-to(tablet) {
+    bottom: 26vh;
+  }
+
   @include respond-to(desktop) {
     max-width: 846px;
     margin: auto;
