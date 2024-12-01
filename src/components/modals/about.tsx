@@ -26,7 +26,7 @@ const AboutModal = ({ open, handleOnClick }: AboutModalProps) => {
             cannabis access in Victoria.
           </p>
         </div>
-        <div className={styles.ctaGroup}>
+        <div className={`${styles.ctaGroup} ${styles.aboutCtaGroup}`}>
           <SecondaryCta label="Got it" onClick={handleOnClick} />
         </div>
       </div>

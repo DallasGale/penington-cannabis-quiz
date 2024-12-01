@@ -33,11 +33,24 @@
 .aboutModal {
   width: 400px;
   padding: 40px;
+  @include respond-to(tablet) {
+    width: 100%;
+  }
 }
 
 .ageCtaGroup {
   @include respond-to(tablet) {
     flex-direction: row;
+    button {
+      width: 100%;
+    }
+  }
+}
+.aboutCtaGroup {
+  @include respond-to(tablet) {
+    flex-direction: row;
+    width: 100%;
+    max-width: 410px;
     button {
       width: 100%;
     }
