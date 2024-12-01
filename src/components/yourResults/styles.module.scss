@@ -28,6 +28,7 @@
   width: calc(100vw - 48px);
   height: calc(100dvh - 420px);
   overflow: scroll;
+  padding: 0 10px;
   @include respond-to(tablet) {
     max-width: 690px;
     margin: 0 auto;
