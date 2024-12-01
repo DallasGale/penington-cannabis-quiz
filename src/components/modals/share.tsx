@@ -6,8 +6,9 @@ interface ShareModalProps {
   url: string;
   open: boolean;
   onClose: (open: boolean) => void;
+  shareImage: string;
 }
-const ShareModal = ({ url, open, onClose }: ShareModalProps) => {
+const ShareModal = ({ url, open, onClose, shareImage }: ShareModalProps) => {
   const myRef = useRef(null);
   return (
     <>
@@ -19,8 +20,15 @@ const ShareModal = ({ url, open, onClose }: ShareModalProps) => {
         closeOnOverlayClick={true}
         container={myRef.current}
       >
-        <div className={styles.modalContent}>
-          <p className="body color-primary">Your results URL link copied.</p>
+        <div className={`${styles.modalContent} ${styles.shareModalContent}`}>
+          <div
+            className={styles.shareImage}
+            style={{ background: `url(${shareImage})` }}
+          />
+          {/* </div> */}
+          <p className={`color-primary ${styles.body}`}>
+            Your results link copied!
+          </p>
         </div>
       </Modal>
     </>

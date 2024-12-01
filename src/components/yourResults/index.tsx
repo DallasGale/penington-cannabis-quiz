@@ -80,6 +80,10 @@ const YourResults = () => {
       try {
         await navigator.clipboard.writeText(url);
         setToggleShareModal(true);
+        // setTimeout(() => {
+        //   console.log("Closing modal");
+        //   setToggleShareModal(false);
+        // }, 2000);
       } catch (err) {
         console.error("Failed to copy to clipboard:", err);
         // Still show the modal even if clipboard copy fails
@@ -126,6 +130,7 @@ const YourResults = () => {
       <ShareModal
         open={toggleShareModal}
         url={sharingUrl}
+        shareImage={sharingImage}
         onClose={() => setToggleShareModal(false)}
       />
     </div>

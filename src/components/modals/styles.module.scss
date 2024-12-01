@@ -43,3 +43,22 @@
     }
   }
 }
+
+.shareImage {
+  height: 60px;
+  width: 60px;
+  border-radius: 12px;
+  background-position: center center !important;
+  background-size: 100px !important;
+  border: 1px solid var(--white);
+}
+
+.shareModalContent {
+  flex-direction: row;
+  align-items: center;
+}
+
+.body {
+  font-size: 16px;
+  text-align: left;
+}
