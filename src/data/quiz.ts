@@ -18,7 +18,7 @@ export const quizData: QuizData[] = [
     question:
       "Do you think people under the age of 18 should be able to buy cannabis?",
     answer:
-      "We think only adults over 18 should be allowed to purchase cannabis from strictly regulated.",
+      "We think only adults over 18 should be allowed to purchase cannabis from strictly regulated outlets.",
     ifYes: {
       answer: "We don’t think so.",
       penington: 0,
