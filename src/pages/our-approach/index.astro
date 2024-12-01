@@ -81,14 +81,6 @@ import Image4 from "../../assets/images/infographic-better_economy.png";
 
       <div class="cta-wrapper">
         <!-- <div class="cta-content"> -->
-        <p class="display6 color-primary">
-          Do you have feedback on this model? We'd love for you to <a
-            class="color-primary"
-            target="_blank"
-            href="https://www.surveymonkey.com/r/FWCMH9T"
-            >provide feedback here</a
-          >.
-        </p>
 
         <IconCta
           isLink
@@ -96,6 +88,13 @@ import Image4 from "../../assets/images/infographic-better_economy.png";
           label="Download image"
           icon={DownloadIcon.src}
         />
+        <p class="display6 color-primary">
+          <a
+            class="color-primary"
+            target="_blank"
+            href="https://www.surveymonkey.com/r/FWCMH9T">Provide feedback</a
+          >.
+        </p>
       </div>
     </div>
   </ProtectedContent>
@@ -139,12 +138,16 @@ import Image4 from "../../assets/images/infographic-better_economy.png";
     width: 100%;
     @include respond-to(tablet) {
       display: grid;
-      grid-template-columns: 1fr 260px;
+      justify-content: space-between;
+      grid-template-columns: 260px 1fr;
+      p {
+        text-align: right;
+      }
     }
 
     @include respond-to(desktop) {
       display: grid;
-      grid-template-columns: 420px 260px;
+      grid-template-columns: 260px 420px;
       justify-content: space-between;
     }
   }
