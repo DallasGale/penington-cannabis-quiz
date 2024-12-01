@@ -28,7 +28,7 @@ const CookieModal = ({ open, onClose, handleCtaClick }: CookieModalProps) => {
             <h2 className={`display3 color-primary ${styles.display3}`}>
               Cookie Settings
             </h2>
-            <p className="smallPrint color-primary">
+            <p className={`smallPrint color-primary ${styles.smallPrint}`}>
               We use cookies to improve your experience on our site with
               personalised content.
             </p>

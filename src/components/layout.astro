@@ -285,8 +285,15 @@ const { unfixed, bodyClass = "" }: LayoutProps = Astro.props;
     }
     .react-responsive-modal-modal {
       width: 100%;
+      max-width: 452px;
       @include respond-to(desktop) {
         max-width: 1135px;
+      }
+    }
+    .react-responsive-modal-container {
+      padding: 0 20px;
+      @include respond-to(desktop) {
+        padding: 0;
       }
     }
   }
