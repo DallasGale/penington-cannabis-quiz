@@ -1,0 +1,25 @@
+@import "../../../styles/breakpoints.scss";
+
+.logo {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.paragraph {
+  font-size: 20px;
+  line-height: 100%;
+  @include respond-to(tablet) {
+    font-size: 32px;
+  }
+}
+
+.textGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}

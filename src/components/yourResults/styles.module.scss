@@ -70,3 +70,21 @@
     padding: 0;
   }
 }
+
+.loadingContainer {
+  opacity: 0;
+  position: fixed;
+  height: 100dvh;
+  width: 100vw;
+  background-color: var(--primary);
+  opacity: 1;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 100px;
+  box-sizing: border-box;
+}

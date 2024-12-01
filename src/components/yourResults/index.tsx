@@ -13,6 +13,8 @@ import PrimaryCta from "../buttons/primaryCta";
 import SecondaryCta from "../buttons/secondaryCta";
 import { explanationData } from "../../data/quiz.ts";
 import ShareModal from "../modals/share.tsx";
+import Loading from "./loading";
+import { AnimatePresence, motion } from "motion/react";
 
 console.log({ explanationData });
 const YourResults = () => {
@@ -23,6 +25,7 @@ const YourResults = () => {
   const [sharingUrl, setSharingUrl] = useState<string>("");
   const [sharingImage, setSharingImage] = useState<string>("");
   const [toggleShareModal, setToggleShareModal] = useState(false);
+  const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
     const checkForAttempts = () => {
@@ -51,6 +54,12 @@ const YourResults = () => {
     };
 
     checkForAttempts();
+    // Set timer to hide loading after 3 seconds
+    const timer = setTimeout(() => {
+      setShowLoading(false);
+    }, 3000);
+    // Cleanup timer on component unmount
+    return () => clearTimeout(timer);
   }, []);
 
   const generateAndSetSharingUrl = (results: ResultsType) => {
@@ -92,48 +101,87 @@ const YourResults = () => {
     }
   };
 
-  return (
-    <div className={styles.container}>
-      {results && (
-        <>
-          {/* 1. Results */}
-          <h1 className="display5">Your Results</h1>
-          <div className={styles.resultGroup}>
-            <Result
-              result={results.r1}
-              dataSource="Penington"
-              explaination={explanationData.penington.description}
-            />
-            <Result
-              result={results.r2}
-              dataSource="other Victorians"
-              explaination={explanationData.victorians.description}
-            />
-          </div>
-        </>
-      )}
+  const loadingVariants = {
+    hidden: {
+      opacity: 1,
+      transition: { type: "spring", bounce: 0.25, duration: 0.8 },
+    },
+    loading: {
+      opacity: 1,
+      transition: {
+        type: "spring",
+        bounce: 0.25,
+        duration: 0.8,
+      },
+    },
 
-      <div className={styles.ctaGroup}>
-        <PrimaryCta
-          onClick={handleShareLink}
-          modifier={styles.resultsCta}
-          label="Share your results"
-        />
-        <SecondaryCta
-          isLink
-          link="/our-approach"
-          modifier={styles.resultsCta}
-          label="Learn more about our approach"
+    exit: {
+      opacity: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.25,
+        duration: 0.8,
+      },
+    },
+  };
+
+  return (
+    <>
+      <AnimatePresence mode="wait">
+        {showLoading && (
+          <motion.div
+            variants={loadingVariants}
+            animate={results ? "loading" : "initial"}
+            initial="hidden"
+            exit="exit"
+            className={styles.loadingContainer}
+          >
+            <Loading />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <div className={styles.container}>
+        {results && (
+          <>
+            {/* 1. Results */}
+            <h1 className="display5">Your Results</h1>
+            <div className={styles.resultGroup}>
+              <Result
+                result={results.r1}
+                dataSource="Penington"
+                explaination={explanationData.penington.description}
+              />
+              <Result
+                result={results.r2}
+                dataSource="other Victorians"
+                explaination={explanationData.victorians.description}
+              />
+            </div>
+          </>
+        )}
+
+        <div className={styles.ctaGroup}>
+          <PrimaryCta
+            onClick={handleShareLink}
+            modifier={styles.resultsCta}
+            label="Share your results"
+          />
+          <SecondaryCta
+            isLink
+            link="/our-approach"
+            modifier={styles.resultsCta}
+            label="Learn more about our approach"
+          />
+        </div>
+
+        <ShareModal
+          open={toggleShareModal}
+          url={sharingUrl}
+          shareImage={sharingImage}
+          onClose={() => setToggleShareModal(false)}
         />
       </div>
-
-      <ShareModal
-        open={toggleShareModal}
-        url={sharingUrl}
-        shareImage={sharingImage}
-        onClose={() => setToggleShareModal(false)}
-      />
-    </div>
+    </>
   );
 };
 
