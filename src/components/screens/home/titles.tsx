@@ -10,10 +10,10 @@ const Titles = () => {
   const paraWords = para.split(" ");
   const titleTotalDuration = (titleWords.length - 1) * 0.15 + 0.45;
   const wordVariants = {
-    hidden: { opacity: 0, x: -5 },
+    hidden: { opacity: 0, y: -15 },
     visible: (i: number) => ({
       opacity: 1,
-      x: 0,
+      y: 0,
       transition: {
         type: "spring",
         bounce: 0.25,
