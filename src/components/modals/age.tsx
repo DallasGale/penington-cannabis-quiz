@@ -68,7 +68,7 @@ const AgeModal = () => {
       >
         <div className={styles.modalContent}>
           <h2 className="display3 color-primary">Are you over 18?</h2>
-          <div className={styles.ctaGroup}>
+          <div className={`${styles.ctaGroup} ${styles.ageCtaGroup}`}>
             <SecondaryCta label="Yes" onClick={handleYes} />
             <SecondaryCta label="No" onClick={handleRedirect} />
           </div>

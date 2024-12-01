@@ -31,3 +31,12 @@
     padding: 40px;
   }
 }
+
+.ageCtaGroup {
+  @include respond-to(tablet) {
+    flex-direction: row;
+    button {
+      width: 100%;
+    }
+  }
+}
