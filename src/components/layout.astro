@@ -133,17 +133,17 @@ const { title } = Astro.props;
     font-weight: 400;
     line-height: 107%;
     @include respond-to(mobile) {
-      letter-spacing: -3px;
+      letter-spacing: -3.6px;
       font-size: 72px;
     }
     @include respond-to(tablet) {
-      letter-spacing: -5px;
+      letter-spacing: -5.2px;
       font-size: 104px;
     }
   }
 
   .display2 {
-    letter-spacing: -1px;
+    letter-spacing: -1.4px;
     font-weight: 400;
     font-size: 28px;
     line-height: 110%;
@@ -152,7 +152,7 @@ const { title } = Astro.props;
     }
 
     @include respond-to(tablet) {
-      letter-spacing: -2px;
+      letter-spacing: -2.8px;
       font-size: 56px;
     }
   }
@@ -167,7 +167,7 @@ const { title } = Astro.props;
     }
 
     @include respond-to(tablet) {
-      letter-spacing: -2px;
+      letter-spacing: -2.2px;
       font-size: 44px;
     }
   }
@@ -176,21 +176,26 @@ const { title } = Astro.props;
     font-weight: 400;
     font-size: 24px;
     line-height: 24px;
+    letter-spacing: -1.2px;
   }
   .display5 {
+    letter-spacing: -1.4px;
     font-weight: 400;
     font-size: 28px;
     line-height: 48px;
     @include respond-to(desktop) {
       font-size: 40px;
+      letter-spacing: -2px;
     }
   }
   .display6 {
     font-weight: 400;
     font-size: 20px;
+    letter-spacing: -1px;
     line-height: 24px;
     @include respond-to(desktop) {
       font-size: 24px;
+      letter-spacing: -1.2px;
     }
   }
   .display7 {
@@ -203,18 +208,18 @@ const { title } = Astro.props;
   }
 
   .body {
-    letter-spacing: 1px;
+    letter-spacing: -1px;
     font-weight: 400;
     font-size: 20px;
     line-height: 120%;
     @include respond-to(tablet) {
       font-size: 28px;
-      letter-spacing: -0.5px;
+      letter-spacing: -1.4px;
     }
   }
 
   .body2 {
-    letter-spacing: 1px;
+    letter-spacing: -1px;
     font-weight: 400;
     font-size: 20px;
     line-height: 120%;
@@ -229,16 +234,14 @@ const { title } = Astro.props;
     font-weight: 400;
     line-height: 120%;
     font-size: 16px;
-    letter-spacing: 0px;
+    // letter-spacing: 0px;
   }
   .body4 {
     font-family: "PT Sans", sans-serif;
     font-weight: 400;
     line-height: 120%;
     font-size: 20px;
-    @include respond-to(tablet) {
-      font-size: 20px;
-    }
+    letter-spacing: -1px;
   }
   .body5 {
     font-family: "PT Sans", sans-serif;
@@ -247,6 +250,7 @@ const { title } = Astro.props;
     font-size: 16px;
     @include respond-to(tablet) {
       font-size: 20px;
+      letter-spacing: -1px;
     }
   }
 
