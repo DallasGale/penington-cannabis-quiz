@@ -25,7 +25,7 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
             startContent={
               <div className={styles.button}>
                 <Circles result={result} />
-                <p className="body2">
+                <p className={`body2 ${styles.body2}`}>
                   You're <span className="display3">{result}</span>
                   <span className="display4">%</span> aligned
                   <br /> with {dataSource}

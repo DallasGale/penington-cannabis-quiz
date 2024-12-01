@@ -16,9 +16,9 @@
   border: none;
   color: var(--white);
   display: grid;
-  gap: 20px;
+  gap: 10px;
   grid-template-columns: 88px 1fr;
-  padding: 0 30px 0 0;
+  padding: 0 0 0 0;
   @include respond-to(mobile) {
     display: flex;
     flex-direction: column;
@@ -95,11 +95,12 @@
 .mobileAccordion {
   h2 {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
   button {
     background: none;
     padding-bottom: 20px;
+    padding-left: 0 !important;
   }
   section {
     background: var(--primary80);
@@ -154,4 +155,8 @@
       transition: var(--transition05);
     }
   }
+}
+
+.body2 {
+  font-size: 16px;
 }
