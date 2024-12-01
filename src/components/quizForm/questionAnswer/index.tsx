@@ -116,14 +116,14 @@ const QuestionAnswer = ({
   };
 
   const wordVariants = {
-    hidden: { opacity: 0, x: -5 },
+    hidden: { opacity: 0, y: -15 },
     visible: (i: number) => ({
       opacity: 1,
-      x: 0,
+      y: 0,
       transition: {
         type: "spring",
         bounce: 0.25,
-        delay: i * 0.15,
+        delay: i * 0.08,
         duration: 2.0,
         ease: [0, 0.71, 0.2, 1.01],
       },
