@@ -86,7 +86,7 @@ export const quizData: QuizData[] = [
     question:
       "Do you think advertising should be allowed for cannabis retailers or products?",
     answer:
-      "We think all forms of advertising and promotion should be strictly prohibited [under a safely regulated framework].",
+      "We think all forms of advertising and promotion should be strictly prohibited under a safely regulated framework.",
     ifYes: {
       answer: "We don’t think so.",
       penington: 0,
