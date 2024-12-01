@@ -1,6 +1,6 @@
 ---
 import Layout from "../../components/layout.astro";
-import ResultsHeader from "../../components/resultsHeader/index.tsx";
+import DonateHeader from "../../components/donateHeader/index.tsx";
 import { ProtectedContent } from "../../components/protectedContent";
 ---
 
@@ -26,7 +26,7 @@ import { ProtectedContent } from "../../components/protectedContent";
 
 <Layout unfixed={true} title="The Penington Institute - Donate">
   <ProtectedContent client:load>
-    <ResultsHeader client:load />
+    <DonateHeader client:load />
     <div class="container">
       <div class="content">
         <h1 class="display1">Donate now.</h1>
@@ -35,10 +35,10 @@ import { ProtectedContent } from "../../components/protectedContent";
         </p>
 
         <p class="body">
-          Your contribution will help us develop a model for cannabis regulation
-          that addresses outdated, harmful laws and better protects community
-          safety and health. Let’s make Victoria a leader in sensible cannabis
-          reform.
+          Your tax-deductible contribution will help us develop a model for
+          cannabis regulation that addresses outdated, harmful laws and better
+          protects community safety and health. Let’s make Victoria a leader in
+          sensible cannabis reform.
         </p>
       </div>
 
