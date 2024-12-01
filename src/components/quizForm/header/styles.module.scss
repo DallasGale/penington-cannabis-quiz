@@ -1,3 +1,4 @@
+@import "../../../styles/breakpoints.scss";
 .container {
   display: flex;
   align-items: center;
@@ -12,4 +13,26 @@
 .logo {
   width: 180px;
   height: 46px;
+}
+
+.backButton {
+  background: none;
+  z-index: 10;
+  position: absolute;
+  left: 24px;
+  width: 20px;
+  height: 20px;
+  color: var(--white);
+  font-size: 20px;
+  padding: 0 0 0 30px;
+  background: url("../../../assets/icons/back.svg") center left no-repeat;
+  background-size: 16px;
+  text-indent: -9999px;
+  @include respond-to(tablet) {
+    text-indent: 0;
+    left: 0;
+    text-align: left;
+    width: 200px;
+    justify-content: flex-start;
+  }
 }

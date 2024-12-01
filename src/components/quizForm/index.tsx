@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactEventHandler } from "react";
 import {
   hasAttemptedQuiz,
   recordAttempt,
@@ -49,7 +49,13 @@ const QuizForm = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleExitComplete = () => {
-    setCurrentQuestion(currentQuestion + 1);
+    if (isRevisiting) {
+      // If we're revisiting a question, don't increment but reset the flag
+      setIsRevisiting(false);
+    } else {
+      // Normal flow - go to next question
+      setCurrentQuestion(currentQuestion + 1);
+    }
     setIsTransitioning(false);
   };
 
@@ -57,7 +63,11 @@ const QuizForm = () => {
   const [completedQuestions, setCompletedQuestions] = useState<number[]>([]);
   const handleNextQuestion = (id: number) => {
     setHasAnswered(false);
-    setCompletedQuestions((prev) => [...prev, id]);
+    // Always update completedQuestions to reflect current progress
+    setCompletedQuestions((prev) => {
+      const filtered = prev.filter((qId) => qId < id);
+      return [...filtered, id];
+    });
     setIsTransitioning(true);
   };
   console.log({ completedQuestions });
@@ -267,21 +277,39 @@ const QuizForm = () => {
       setIsSubmitting(false);
     }
   };
+  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [isRevisiting, setIsRevisiting] = useState(false);
+  // Update completedQuestions to only include questions up to current
+  useEffect(() => {
+    setCompletedQuestions((prev) =>
+      prev.filter((questionId) => questionId < currentQuestion),
+    );
+  }, [currentQuestion]);
 
   const calculateResults = (id: number, answer: string) => {
     const question = quizData.find((q) => q.id === id);
     if (!question) return;
 
-    const results = question[answer === "yes" ? "ifYes" : "ifNo"];
+    const newAnswers = { ...answers, [id]: answer };
+    setAnswers(newAnswers);
 
-    console.log({ results });
+    const newResults = Object.entries(newAnswers).reduce(
+      (acc, [questionId, answer]) => {
+        const question = quizData.find((q) => q.id === Number(questionId));
+        if (!question) return acc;
+
+        const results = answer === "yes" ? question.ifYes : question.ifNo;
+        return {
+          r1: acc.r1 + results.penington,
+          r2: acc.r2 + results.victorians,
+        };
+      },
+      { r1: 0, r2: 0 },
+    );
 
     setFormData({
       ...formData,
-      results: {
-        r1: formData.results.r1 + results.penington,
-        r2: formData.results.r2 + results.victorians,
-      },
+      results: newResults,
     });
   };
 
@@ -291,6 +319,20 @@ const QuizForm = () => {
 
   console.log({ formData });
 
+  const handleGoBack = () => {
+    // Remove the answer for the current question
+    const newAnswers = { ...answers };
+    delete newAnswers[currentQuestion];
+    setAnswers(newAnswers);
+    // Remove all completed questions after the target question
+    const targetQuestion = currentQuestion - 1;
+    setCompletedQuestions((prev) => prev.filter((qId) => qId < targetQuestion));
+
+    setIsRevisiting(true);
+    setCurrentQuestion(targetQuestion);
+    setHasAnswered(false);
+  };
+
   return (
     <div className={styles.container}>
       <Progress
@@ -299,7 +341,7 @@ const QuizForm = () => {
         currentStep={currentQuestion}
         completedQuestions={completedQuestions}
       />
-      <Header />
+      <Header handleGoBack={handleGoBack} currentQuestion={currentQuestion} />
 
       {/* Questions */}
       {currentQuestion === quizData.length + 1 ? (
