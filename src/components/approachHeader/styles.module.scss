@@ -12,10 +12,8 @@
   width: 100%;
   padding: 24px;
   box-sizing: border-box;
-  background-color: transparent;
+  background: #fbfff9;
   z-index: 1;
-  @include respond-to(tablet) {
-  }
 }
 
 .logo {
