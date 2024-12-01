@@ -62,7 +62,7 @@ const YourResults = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const generateAndSetSharingUrl = (results: ResultsType) => {
+  const generateAndSetSharingUrl = async (results: ResultsType) => {
     const fmtResults = [
       {
         score: `${results.r1}%`,
@@ -73,14 +73,22 @@ const YourResults = () => {
         description: explanationData.victorians.description,
       },
     ];
-    const url = generateSharingUrl(fmtResults);
-    const image = generateSharingImage(fmtResults);
 
-    setSharingUrl(generateSharingUrl(fmtResults));
-    setSharingImage(generateSharingImage(fmtResults));
-    setSharingUrl(url);
-    setSharingImage(image);
-    return url;
+    try {
+      const [url, image] = await Promise.all([
+        generateSharingUrl(fmtResults),
+        generateSharingImage(fmtResults),
+      ]);
+
+      setSharingUrl(generateSharingUrl(fmtResults));
+      setSharingImage(generateSharingImage(fmtResults));
+      setSharingUrl(url);
+      setSharingImage(image);
+      return url;
+    } catch (error) {
+      console.error("Error generating sharing URL", error);
+      throw error;
+    }
   };
 
   const handleShareLink = async () => {
@@ -174,12 +182,14 @@ const YourResults = () => {
           />
         </div>
 
-        <ShareModal
-          open={toggleShareModal}
-          url={sharingUrl}
-          shareImage={sharingImage}
-          onClose={() => setToggleShareModal(false)}
-        />
+        {sharingImage && (
+          <ShareModal
+            open={toggleShareModal}
+            url={sharingUrl}
+            shareImage={sharingImage}
+            onClose={() => setToggleShareModal(false)}
+          />
+        )}
       </div>
     </>
   );

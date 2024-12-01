@@ -28,7 +28,10 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
                 <p className={`body2 ${styles.body2}`}>
                   You're <span className="display3">{result}</span>
                   <span className="display4">%</span> aligned
-                  <br /> with {dataSource}
+                  <br />{" "}
+                  {dataSource === "Penington"
+                    ? "with  Penington's approach"
+                    : "to other Victorians"}
                 </p>
               </div>
             }
@@ -45,7 +48,10 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
             <p className="body2">
               You're <span className="display3">{result}</span>
               <span className="display4">%</span> aligned
-              <br /> with {dataSource}
+              <br />{" "}
+              {dataSource === "Penington"
+                ? "with  Penington's approach"
+                : "to other Victorians"}
             </p>
           </div>
           <Accordion style={{ position: "relative" }}>

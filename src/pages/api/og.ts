@@ -167,7 +167,7 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
                   alignItems: "center",
                 },
               },
-              `I'm ${answer.result} aligned with ${answer.number === 1 ? "Penington" : "other Victorians"}`,
+              `You're ${answer.result} aligned ${answer.number === 1 ? "with Penington's approach" : "to other Victorians"}`,
             ),
           );
         }),
