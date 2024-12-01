@@ -182,14 +182,11 @@ const YourResults = () => {
           />
         </div>
 
-        {sharingImage && (
-          <ShareModal
-            open={toggleShareModal}
-            url={sharingUrl}
-            shareImage={sharingImage}
-            onClose={() => setToggleShareModal(false)}
-          />
-        )}
+        <ShareModal
+          open={toggleShareModal}
+          url={sharingUrl}
+          onClose={() => setToggleShareModal(false)}
+        />
       </div>
     </>
   );

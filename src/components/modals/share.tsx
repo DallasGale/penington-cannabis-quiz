@@ -1,14 +1,14 @@
 import { Modal } from "react-responsive-modal";
 import styles from "./styles.module.scss";
 import { useRef, useState } from "react";
+import Placeholder from "../../assets/images/shareImagePlaceholder.png";
 
 interface ShareModalProps {
   url: string;
   open: boolean;
   onClose: (open: boolean) => void;
-  shareImage: string;
 }
-const ShareModal = ({ url, open, onClose, shareImage }: ShareModalProps) => {
+const ShareModal = ({ url, open, onClose }: ShareModalProps) => {
   const myRef = useRef(null);
   return (
     <>
@@ -23,9 +23,8 @@ const ShareModal = ({ url, open, onClose, shareImage }: ShareModalProps) => {
         <div className={`${styles.modalContent} ${styles.shareModalContent}`}>
           <div
             className={styles.shareImage}
-            style={{ background: `url(${shareImage})` }}
+            style={{ background: `url(${Placeholder.src})` }}
           />
-          {/* </div> */}
           <p className={`color-primary ${styles.body}`}>
             Your results link copied!
           </p>
