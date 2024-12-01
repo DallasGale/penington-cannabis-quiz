@@ -12,7 +12,19 @@ import { ProtectedContent } from "../../components/protectedContent";
   }
 </script>
 
-<Layout>
+<script>
+  import { analyticsUtils } from "../../lib/firebase/config";
+  // Log page view on initial load
+  document.addEventListener("DOMContentLoaded", () => {
+    analyticsUtils.logPageView(window.location.pathname, document.title);
+  });
+
+  // Log page view on client-side navigation (if using View Transitions or client routing)
+  document.addEventListener("astro:page-load", () => {
+    analyticsUtils.logPageView(window.location.pathname, document.title);
+  });
+</script>
+<Layout title="The Penington Institute - Results">
   <ProtectedContent client:load>
     <ResultsHeader client:visible />
     <YourResults client:visible />

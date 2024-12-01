@@ -17,8 +17,23 @@ import Image4 from "../../assets/images/infographic-better_economy.png";
     window.location.replace("/?restricted=true");
   }
 </script>
+<script>
+  import { analyticsUtils } from "../../lib/firebase/config";
+  // Log page view on initial load
+  document.addEventListener("DOMContentLoaded", () => {
+    analyticsUtils.logPageView(window.location.pathname, document.title);
+  });
 
-<Layout unfixed={true} bodyClass={styles.body}>
+  // Log page view on client-side navigation (if using View Transitions or client routing)
+  document.addEventListener("astro:page-load", () => {
+    analyticsUtils.logPageView(window.location.pathname, document.title);
+  });
+</script>
+<Layout
+  title="The Penington Institute - Our Approach"
+  unfixed={true}
+  bodyClass={styles.body}
+>
   <ProtectedContent client:load>
     <Header />
     <div class="container">

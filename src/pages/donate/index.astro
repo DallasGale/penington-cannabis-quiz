@@ -11,7 +11,20 @@ import { ProtectedContent } from "../../components/protectedContent";
   }
 </script>
 <script src="https://donorbox.org/widget.js"></script>
-<Layout unfixed={true}>
+<script>
+  import { analyticsUtils } from "../../lib/firebase/config";
+  // Log page view on initial load
+  document.addEventListener("DOMContentLoaded", () => {
+    analyticsUtils.logPageView(window.location.pathname, document.title);
+  });
+
+  // Log page view on client-side navigation (if using View Transitions or client routing)
+  document.addEventListener("astro:page-load", () => {
+    analyticsUtils.logPageView(window.location.pathname, document.title);
+  });
+</script>
+
+<Layout unfixed={true} title="The Penington Institute - Donate">
   <ProtectedContent client:load>
     <ResultsHeader client:load />
     <div class="container">

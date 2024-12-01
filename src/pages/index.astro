@@ -2,30 +2,20 @@
 import Layout from "../components/layout.astro";
 import Header from "../components/header/index.tsx";
 import PrimaryCta from "../components/buttons/primaryCta";
-import Clock from "../assets/icons/clock.svg";
 import AgeModal from "../components/modals/age";
 import Titles from "../components/screens/home/titles";
 ---
 
 <script>
-  // Check localstorage for cookie acceptance
-
-  import { doc } from "firebase/firestore";
-
   function updateButtonVisibility() {
-    // const titles = document.querySelector(".content");
     const getStartedWrapper = document.getElementById("get-started");
     const ageVerified = localStorage.getItem("ageVerified");
     if (ageVerified === "true") {
       getStartedWrapper?.classList.remove("hide");
       getStartedWrapper?.classList.add("show");
-      // titles?.classList.add("show");
-      // titles?.classList.remove("hide");
     } else {
       getStartedWrapper?.classList.remove("show");
       getStartedWrapper?.classList.add("hide");
-      // titles?.classList.add("hide");
-      // titles?.classList.remove("show");
     }
   }
 
@@ -34,7 +24,19 @@ import Titles from "../components/screens/home/titles";
   updateButtonVisibility();
 </script>
 
-<Layout>
+<script>
+  import { analyticsUtils } from "../lib/firebase/config";
+  // Log page view on initial load
+  document.addEventListener("DOMContentLoaded", () => {
+    analyticsUtils.logPageView(window.location.pathname, document.title);
+  });
+
+  // Log page view on client-side navigation (if using View Transitions or client routing)
+  document.addEventListener("astro:page-load", () => {
+    analyticsUtils.logPageView(window.location.pathname, document.title);
+  });
+</script>
+<Layout title="The Penington Institute - Home">
   <Header client:load />
   <div class="content">
     <Titles client:load />

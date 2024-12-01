@@ -1,32 +1,43 @@
 ---
 interface Props {
-  ogImageUrl: string
-  hasResults: boolean
+  title: string;
+  ogImageUrl: string;
+  hasResults: boolean;
 }
 
-const { ogImageUrl, hasResults} = Astro.props
+const { title, ogImageUrl, hasResults } = Astro.props;
 
-
-console.log('DynamicHead Props:', {
+console.log("DynamicHead Props:", {
   ogImageUrl,
-  hasResults
+  hasResults,
 });
-
 ---
 
-
 <>
-<meta property="og:title" content={hasResults ? "My Quiz Results" : "Take the Quiz!"} />
-<meta property="og:image" content={ogImageUrl} />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:type" content="image/png" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content={ogImageUrl} />
-<meta property="og:description" content={hasResults ? "Check out my quiz results!" : "Test your knowledge with our quiz"} />
-<meta property="og:url" content="https://penington-cannabis-quiz.vercel.app/" />
-<meta property="og:type" content="Website" />
-<meta property="og:logo" content="https://penington-cannabis-quiz.vercel.app/default-og.jpg" />
+  <meta
+    property="og:title"
+    content={hasResults ? "My Quiz Results" : "Take the Quiz!"}
+  />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content={ogImageUrl} />
+  <meta
+    property="og:description"
+    content={hasResults
+      ? "Check out my quiz results!"
+      : "Test your knowledge with our quiz"}
+  />
+  <meta
+    property="og:url"
+    content="https://penington-cannabis-quiz.vercel.app/"
+  />
+  <meta property="og:type" content="Website" />
+  <meta
+    property="og:logo"
+    content="https://penington-cannabis-quiz.vercel.app/default-og.jpg"
+  />
+  <title>{title}</title>
 </>
-
-
