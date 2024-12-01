@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import Circles from "../circles";
 import { useIsTablet } from "../../../hooks/useIsTablet";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import Chevron from "../../../assets/icons/chevron.svg";
 
 interface ResultProps {
   result: number;
@@ -11,14 +12,13 @@ interface ResultProps {
 }
 
 const Result = ({ result, dataSource, explaination }: ResultProps) => {
-  const [toggleExplanation, setToggleExplanation] = useState(false);
   const isTablet = useIsTablet();
   return (
     <div className={styles.container}>
       {isTablet && (
         <Accordion>
           <AccordionItem
-            indicator={<div />}
+            indicator={<img src={Chevron.src} className={styles.indicator} />}
             key="1"
             aria-label="Accordion 1"
             className={styles.mobileAccordion}
@@ -51,7 +51,7 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
           <Accordion style={{ position: "relative" }}>
             <AccordionItem
               key="1"
-              indicator={<div />}
+              indicator={<img src={Chevron.src} className={styles.indicator} />}
               aria-label="Learn more"
               title="Learn More"
               className={styles.desktopAccordion}

@@ -24,7 +24,7 @@
 .resultGroup {
   display: flex;
   flex-direction: column;
-  gap: 52px;
+  gap: 40px;
   width: calc(100vw - 48px);
   height: calc(100vh - 404px);
   overflow: scroll;
@@ -32,6 +32,7 @@
     max-width: 690px;
     margin: 0 auto;
     display: grid;
+    gap: 52px;
     grid-template-columns: 305px 305px;
     flex-direction: row;
     justify-content: space-around;

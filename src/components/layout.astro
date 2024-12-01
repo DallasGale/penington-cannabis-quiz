@@ -47,6 +47,7 @@ const { unfixed, bodyClass = "" }: LayoutProps = Astro.props;
     --lightGreen: #d2fcbf;
     --faintGreen: #fbfff9;
     --grey: #f0f0f0;
+    --transition05: all 0.5s cubic-bezier(0.08, 0.75, 0.66, 0.93);
 
     --transition08: all 0.8s cubic-bezier(0.08, 0.75, 0.66, 0.93);
   }
@@ -173,8 +174,11 @@ const { unfixed, bodyClass = "" }: LayoutProps = Astro.props;
   }
   .display5 {
     font-weight: 400;
-    font-size: 40px;
+    font-size: 28px;
     line-height: 48px;
+    @include respond-to(desktop) {
+      font-size: 40px;
+    }
   }
   .display6 {
     font-weight: 400;
