@@ -39,12 +39,12 @@ export const quizData: QuizData[] = [
     ifYes: {
       answer: "We don’t think so.",
       penington: 0,
-      victorians: 20,
+      victorians: 0,
     },
     ifNo: {
       answer: "We don’t think so either",
       penington: 20,
-      victorians: 0,
+      victorians: 20,
     },
   },
   {
