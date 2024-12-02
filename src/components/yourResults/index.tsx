@@ -57,12 +57,12 @@ const YourResults = () => {
     // Set timer to hide loading after 3 seconds
     const timer = setTimeout(() => {
       setShowLoading(false);
-    }, 3000);
+    }, 2000);
     // Cleanup timer on component unmount
     return () => clearTimeout(timer);
   }, []);
 
-  const generateAndSetSharingUrl = async (results: ResultsType) => {
+  const generateAndSetSharingUrl = (results: ResultsType) => {
     const fmtResults = [
       {
         score: `${results.r1}%`,
@@ -74,21 +74,14 @@ const YourResults = () => {
       },
     ];
 
-    try {
-      const [url, image] = await Promise.all([
-        generateSharingUrl(fmtResults),
-        generateSharingImage(fmtResults),
-      ]);
+    const url = generateSharingUrl(fmtResults);
+    const image = generateSharingImage(fmtResults);
 
-      setSharingUrl(generateSharingUrl(fmtResults));
-      setSharingImage(generateSharingImage(fmtResults));
-      setSharingUrl(url);
-      setSharingImage(image);
-      return url;
-    } catch (error) {
-      console.error("Error generating sharing URL", error);
-      throw error;
-    }
+    setSharingUrl(generateSharingUrl(fmtResults));
+    setSharingImage(generateSharingImage(fmtResults));
+    setSharingUrl(url);
+    setSharingImage(image);
+    return url;
   };
 
   const handleShareLink = async () => {
@@ -149,17 +142,19 @@ const YourResults = () => {
         )}
       </AnimatePresence>
       <div className={styles.container}>
-        {results && (
+        {results && !showLoading && (
           <>
             {/* 1. Results */}
             <h1 className="display5">Your Results</h1>
             <div className={styles.resultGroup}>
               <Result
+                showReveal={!showLoading}
                 result={results.r1}
                 dataSource="Penington"
                 explaination={explanationData.penington.description}
               />
               <Result
+                showReveal={!showLoading}
                 result={results.r2}
                 dataSource="other Victorians"
                 explaination={explanationData.victorians.description}

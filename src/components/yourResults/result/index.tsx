@@ -4,14 +4,21 @@ import Circles from "../circles";
 import { useIsTablet } from "../../../hooks/useIsTablet";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import Chevron from "../../../assets/icons/chevron.svg";
+import RevealResult from "./revealResult";
 
 interface ResultProps {
   result: number;
   dataSource: string;
   explaination: string;
+  showReveal?: boolean;
 }
 
-const Result = ({ result, dataSource, explaination }: ResultProps) => {
+const Result = ({
+  result,
+  dataSource,
+  explaination,
+  showReveal,
+}: ResultProps) => {
   const isTablet = useIsTablet();
   return (
     <div className={styles.container}>
@@ -26,7 +33,7 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
               <div className={styles.button}>
                 <Circles result={result} />
                 <p className={`body2 ${styles.body2}`}>
-                  You're <span className="display3">{result}</span>
+                  You're {showReveal ? <RevealResult result={result} /> : null}
                   <span className="display4">%</span> aligned
                   <br />{" "}
                   {dataSource === "Penington"
@@ -46,7 +53,7 @@ const Result = ({ result, dataSource, explaination }: ResultProps) => {
           <div className={styles.button}>
             <Circles result={result} />
             <p className="body2">
-              You're <span className="display3">{result}</span>
+              You're {showReveal ? <RevealResult result={result} /> : null}
               <span className="display4">%</span> aligned
               <br />{" "}
               {dataSource === "Penington"

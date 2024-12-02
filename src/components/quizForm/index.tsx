@@ -22,11 +22,13 @@ import { quizData } from "../../data/quiz";
 import PrimaryCta from "../buttons/primaryCta";
 import Header from "./header";
 import { motion, AnimatePresence } from "motion/react";
+import Loading from "../yourResults/loading";
 
 type PostCodeInputType = string | number | readonly string[] | undefined;
 const title = "Enter your postcode to get your results.";
 
 const QuizForm = () => {
+  const [showLoading, setShowLoading] = useState(false);
   const titleWords = title.split(" ");
   const wordVariants = {
     hidden: { opacity: 0, y: 15 },
@@ -236,6 +238,7 @@ const QuizForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setShowLoading(true);
     setIsSubmitting(true);
     setSubmitStatus("submitting");
 
@@ -332,86 +335,123 @@ const QuizForm = () => {
     setCurrentQuestion(targetQuestion);
     setHasAnswered(false);
   };
+  const loadingVariants = {
+    hidden: {
+      opacity: 1,
+      transition: { type: "spring", bounce: 0.25, duration: 0.8 },
+    },
+    loading: {
+      opacity: 1,
+      transition: {
+        type: "spring",
+        bounce: 0.25,
+        duration: 0.8,
+      },
+    },
 
+    exit: {
+      opacity: 1,
+      transition: {
+        type: "spring",
+        bounce: 0.25,
+        duration: 0.8,
+      },
+    },
+  };
   return (
-    <div className={styles.container}>
-      <Progress
-        hasAnswered={hasAnswered}
-        steps={quizData.length}
-        currentStep={currentQuestion}
-        completedQuestions={completedQuestions}
-      />
-      <Header handleGoBack={handleGoBack} currentQuestion={currentQuestion} />
+    <>
+      <AnimatePresence mode="wait">
+        {showLoading && (
+          <motion.div
+            variants={loadingVariants}
+            animate={isSubmitting ? "loading" : "initial"}
+            initial="hidden"
+            exit="exit"
+            className={styles.loadingContainer}
+          >
+            <Loading />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <div className={styles.container}>
+        <Progress
+          hasAnswered={hasAnswered}
+          steps={quizData.length}
+          currentStep={currentQuestion}
+          completedQuestions={completedQuestions}
+        />
+        <Header handleGoBack={handleGoBack} currentQuestion={currentQuestion} />
 
-      {/* Questions */}
-      {currentQuestion === quizData.length + 1 ? (
-        <div className={styles.postCodeContainer}>
-          <AnimatePresence mode="wait">
-            <h1 className="display2">
-              {titleWords.map((word, i) => (
-                <motion.span
-                  key={i}
-                  custom={i}
-                  variants={wordVariants}
-                  initial="hidden"
-                  animate="visible"
-                  style={{ display: "inline-block", marginRight: "0.25em" }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </h1>
-          </AnimatePresence>
-          <form className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.postCodeWrapper}>
-              {postCodeValues.map((value, index) => (
-                <div className={styles.postCodeInputWrapper}>
-                  <input
-                    key={index}
-                    ref={inputRefs[index]}
-                    type="text"
-                    inputMode="numeric"
-                    value={value}
-                    maxLength={1}
-                    onChange={(e) => handlePostCodeChange(index, e)}
-                    onKeyDown={(e) => handleKeyDown(index, e)}
-                    onPaste={handlePaste}
-                  />
-                </div>
-              ))}
-            </div>
-            {postCodeValues.join("").length === 4 && (
-              <div className={styles.getResultsButton}>
-                <PrimaryCta type="submit" label="Get my results" />
+        {/* Questions */}
+        {currentQuestion === quizData.length + 1 ? (
+          <div className={styles.postCodeContainer}>
+            <AnimatePresence mode="wait">
+              <h1 className="display2">
+                {titleWords.map((word, i) => (
+                  <motion.span
+                    key={i}
+                    custom={i}
+                    variants={wordVariants}
+                    initial="hidden"
+                    animate="visible"
+                    style={{ display: "inline-block", marginRight: "0.25em" }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </h1>
+            </AnimatePresence>
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <div className={styles.postCodeWrapper}>
+                {postCodeValues.map((value, index) => (
+                  <div className={styles.postCodeInputWrapper}>
+                    <input
+                      key={index}
+                      ref={inputRefs[index]}
+                      type="text"
+                      inputMode="numeric"
+                      value={value}
+                      maxLength={1}
+                      onChange={(e) => handlePostCodeChange(index, e)}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
+                      onPaste={handlePaste}
+                    />
+                  </div>
+                ))}
               </div>
-            )}
-          </form>
-        </div>
-      ) : (
-        <div id="questions">
-          <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
-            {!isTransitioning && (
-              <motion.div
-                key={currentQuestion}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <QuestionAnswer
-                  {...quizData[currentQuestion - 1]}
-                  handleAnswerClick={(id: number, answer: string) => [
-                    calculateResults(id, answer),
-                    setHasAnswered(true),
-                  ]}
-                  setNextQuestion={handleNextQuestion}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      )}
-    </div>
+              {postCodeValues.join("").length === 4 && (
+                <div className={styles.getResultsButton}>
+                  <PrimaryCta type="submit" label="Get my results" />
+                </div>
+              )}
+            </form>
+          </div>
+        ) : (
+          <div id="questions">
+            <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
+              {!isTransitioning && (
+                <motion.div
+                  key={currentQuestion}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <QuestionAnswer
+                    {...quizData[currentQuestion - 1]}
+                    handleAnswerClick={(id: number, answer: string) => [
+                      calculateResults(id, answer),
+                      setHasAnswered(true),
+                    ]}
+                    setNextQuestion={handleNextQuestion}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

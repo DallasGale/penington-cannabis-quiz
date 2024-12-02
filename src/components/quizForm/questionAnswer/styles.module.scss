@@ -101,7 +101,7 @@ h3 {
 
 .questionFont {
   letter-spacing: -1px;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 8vw;
   line-height: 110%;
   @include respond-to(mobile) {
@@ -123,7 +123,7 @@ h3 {
 
 .answerFont {
   letter-spacing: 0px;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 5.8vw;
   line-height: 107%;
   @include respond-to(mobile) {
