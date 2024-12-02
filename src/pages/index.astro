@@ -11,11 +11,11 @@ import Titles from "../components/screens/home/titles";
     const getStartedWrapper = document.getElementById("get-started");
     const ageVerified = localStorage.getItem("ageVerified");
     if (ageVerified === "true") {
-      getStartedWrapper?.classList.remove("hide");
-      getStartedWrapper?.classList.add("show");
+      getStartedWrapper?.classList.remove("invisible");
+      getStartedWrapper?.classList.add("visible");
     } else {
-      getStartedWrapper?.classList.remove("show");
-      getStartedWrapper?.classList.add("hide");
+      getStartedWrapper?.classList.remove("visible");
+      getStartedWrapper?.classList.add("invisible");
     }
   }
 
@@ -40,7 +40,7 @@ import Titles from "../components/screens/home/titles";
   <Header client:load />
   <div class="content">
     <Titles client:load />
-    <div class="hide" id="get-started" style="width: 100%;">
+    <div class="invisible" id="get-started" style="width: 100%;">
       <PrimaryCta client:load label="Get Started" isLink link="/quiz" />
     </div>
   </div>
@@ -81,6 +81,13 @@ import Titles from "../components/screens/home/titles";
     display: flex;
   }
 
+  .invisible {
+    opacity: 0;
+  }
+
+  .visible {
+    opacity: 1;
+  }
   #get-started {
     max-width: 410px;
     margin: auto;
