@@ -62,7 +62,7 @@ const YourResults = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const generateAndSetSharingUrl = async (results: ResultsType) => {
+  const generateAndSetSharingUrl = (results: ResultsType) => {
     const fmtResults = [
       {
         score: `${results.r1}%`,
@@ -74,21 +74,14 @@ const YourResults = () => {
       },
     ];
 
-    try {
-      const [url, image] = await Promise.all([
-        generateSharingUrl(fmtResults),
-        generateSharingImage(fmtResults),
-      ]);
+    const url = generateSharingUrl(fmtResults);
+    const image = generateSharingImage(fmtResults);
 
-      setSharingUrl(generateSharingUrl(fmtResults));
-      setSharingImage(generateSharingImage(fmtResults));
-      setSharingUrl(url);
-      setSharingImage(image);
-      return url;
-    } catch (error) {
-      console.error("Error generating sharing URL", error);
-      throw error;
-    }
+    setSharingUrl(generateSharingUrl(fmtResults));
+    setSharingImage(generateSharingImage(fmtResults));
+    setSharingUrl(url);
+    setSharingImage(image);
+    return url;
   };
 
   const handleShareLink = async () => {
