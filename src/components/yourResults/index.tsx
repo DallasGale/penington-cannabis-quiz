@@ -148,11 +148,13 @@ const YourResults = () => {
             <h1 className="display5">Your Results</h1>
             <div className={styles.resultGroup}>
               <Result
+                showReveal={!showLoading}
                 result={results.r1}
                 dataSource="Penington"
                 explaination={explanationData.penington.description}
               />
               <Result
+                showReveal={!showLoading}
                 result={results.r2}
                 dataSource="other Victorians"
                 explaination={explanationData.victorians.description}
