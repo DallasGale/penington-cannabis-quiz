@@ -14,7 +14,7 @@ const Loading = () => {
         </div>
         <p className={styles.paragraph}>
           Did you know that most Victorians think it’s time for safe cannabis
-          regulation?.
+          regulation?
         </p>
       </div>
     </div>
