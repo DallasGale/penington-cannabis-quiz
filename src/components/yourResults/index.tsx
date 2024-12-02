@@ -142,7 +142,7 @@ const YourResults = () => {
         )}
       </AnimatePresence>
       <div className={styles.container}>
-        {results && (
+        {results && !showLoading && (
           <>
             {/* 1. Results */}
             <h1 className="display5">Your Results</h1>
