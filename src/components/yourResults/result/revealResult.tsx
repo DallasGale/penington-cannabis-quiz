@@ -13,7 +13,7 @@ const RevealResult = ({ result }: RevealResultProps) => {
         animate={{ y: "-100%" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <span className="display3">00</span>
+        <span className={`display3 ${styles.display3}`}>00</span>
       </motion.div>
       <motion.div
         className={styles.number}
@@ -21,7 +21,7 @@ const RevealResult = ({ result }: RevealResultProps) => {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <span className="display3"> {result}</span>
+        <span className={`display3 ${styles.display3}`}> {result}</span>
       </motion.div>
     </div>
   );
