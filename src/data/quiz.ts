@@ -109,6 +109,6 @@ export const explanationData = {
   victorians: {
     title: "Other Victorians",
     description:
-      "We polled a selection of people across Victoria, asking them the same questions you just responded to. You’re all helping us get a better idea of what safe regulation means to the community.",
+      "We polled a representative selection of people across Victoria, asking them the same questions you just responded to. You’re all helping us get a better idea of what safe regulation means to the community.",
   },
 };
