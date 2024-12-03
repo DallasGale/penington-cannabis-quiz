@@ -97,27 +97,33 @@ const refreshToken = async () => {
     console.log("Token refreshed with new claims");
   }
 };
-
 export async function exportCollection(collectionName: string) {
-  console.log({ collectionName });
+  console.log("Starting export for collection:", collectionName);
   try {
-    await refreshToken();
+    const functionUrl = `https://us-central1-${firebaseConfig.projectId}.cloudfunctions.net/exportFirestoreToCSV`;
+    console.log("Using function URL:", functionUrl);
 
-    const exportFunc = httpsCallable(functions, "exportFirestoreToCSV");
-    const result = (await exportFunc({ collection: collectionName })) as {
-      data: { csv: string };
-    };
+    const response = await fetch(`${functionUrl}?collection=${collectionName}`);
 
-    // Create and download the CSV file
-    const blob = new Blob([result.data.csv], { type: "text/csv" });
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Server error response:", errorText);
+      throw new Error(
+        `Export failed with status: ${response.status}. ${errorText}`,
+      );
+    }
+
+    const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = `${collectionName}.csv`;
     a.click();
     window.URL.revokeObjectURL(url);
+    console.log("Export completed successfully");
   } catch (error) {
     console.error("Export failed:", error);
+    throw error; // Re-throw to allow caller to handle the error
   }
 }
 

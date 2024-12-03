@@ -1,108 +1,129 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
-import * as json2csv from "json2csv";
+import { Parser } from "json2csv";
+import * as cors from "cors";
 
-if (!admin.apps.length) {
-  admin.initializeApp();
+// Initialize admin with explicit credential access
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+});
+
+const corsHandler = cors({ origin: true });
+
+/**
+ * Formats a Date object into a readable string using Melbourne timezone
+ * @param {Date} date - The date to format
+ * @return {string} Formatted date string in Melbourne time
+ */
+function formatDate(date: Date): string {
+  return date.toLocaleString("en-AU", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "Australia/Melbourne",
+  });
 }
 
-// ------------------------------
-// 1. Export Firestore data to CSV
-// ------------------------------
+/**
+ * Cloud Function that exports Firestore collection data to CSV format
+ * Orders documents by createdAt timestamp in descending order
+ * Converts timestamp fields to readable date formats in Melbourne timezone
+ * @param {functions.Request} req - The request object
+ * @param {functions.Response} res - The response object
+ * @return {void}
+ */
 export const exportFirestoreToCSV = functions
   .region("us-central1")
-  .runWith({
-    // enforceAppCheck: true, // Enable Firebase App Check
-  })
-  .https.onCall(async (data, context) => {
-    // Check if request is from an admin
-    if (!context.auth) {
-      throw new functions.https.HttpsError(
-        "unauthenticated",
-        "Must be authenticated.",
-      );
-    }
+  .https.onRequest((req, res) => {
+    corsHandler(req, res, async () => {
+      try {
+        const collection = req.query.collection as string;
+        console.log(`Attempting to access collection: ${collection}`);
 
-    // You can maintain a list of admin UIDs in your Firestore or environment config
-    const ADMIN_UIDS = [
-      "Z20R4whVL8UrHFFBOYwFA5Ks92z1",
-      "y1Zp297e69TVPKdoeCKy355ICAM2",
-    ]; // Replace with your Firebase UID
-    if (!ADMIN_UIDS.includes(context.auth.uid)) {
-      throw new functions.https.HttpsError(
-        "permission-denied",
-        "Must be an administrator.",
-      );
-    }
-
-    try {
-      const collection = data.collection;
-      if (!collection) {
-        throw new functions.https.HttpsError(
-          "invalid-argument",
-          "Missing collection parameter",
-        );
-      }
-      // Get documents ordered by submittedAt
-      const snapshot = await admin
-        .firestore()
-        .collection(collection)
-        .orderBy("submittedAt", "desc") // Change to 'asc' if you want oldest first
-        .get();
-
-      const documents = snapshot.docs.map((doc) => {
-        const data = doc.data();
-        // Format the timestamp for CSV
-        if (data.submittedAt) {
-          // Handle both Timestamp and date strings
-          const timestamp =
-            data.submittedAt instanceof admin.firestore.Timestamp
-              ? data.submittedAt.toDate()
-              : new Date(data.submittedAt);
-
-          data.submittedAt = timestamp.toISOString();
+        if (!collection) {
+          console.log("No collection specified");
+          res.status(400).send("Missing collection parameter");
+          return;
         }
 
-        return {
-          id: doc.id,
-          ...data,
-        };
-      });
+        console.log(`About to fetch documents from ${collection}`);
 
-      const csv = json2csv.parse(documents);
-      return { csv };
-    } catch (error) {
-      console.error("Error exporting Firestore data to CSV:", error);
-      throw new functions.https.HttpsError(
-        "internal",
-        "Error exporting Firestore data to CSV",
-      );
-    }
+        const collectionRef = admin
+          .firestore()
+          .collection(collection)
+          .orderBy("createdAt", "desc");
+        console.log(`Collection reference created for ${collection}`);
+
+        const snapshot = await collectionRef.get();
+        console.log(
+          `Snapshot obtained. Empty? ${snapshot.empty}. Size: ${snapshot.size}`,
+        );
+
+        if (snapshot.empty) {
+          console.log(`Collection ${collection} is empty`);
+          res
+            .status(404)
+            .send(`No documents found in collection ${collection}`);
+          return;
+        }
+
+        const firstDoc = snapshot.docs[0];
+        console.log("First document ID:", firstDoc.id);
+        console.log("First document fields:", Object.keys(firstDoc.data()));
+
+        const fields = new Set<string>();
+        snapshot.docs.forEach((doc) => {
+          Object.keys(doc.data()).forEach((key) => fields.add(key));
+        });
+        console.log("Fields found:", Array.from(fields));
+
+        const documents = snapshot.docs.map((doc) => {
+          const data = doc.data();
+
+          // Handle createdAt timestamp
+          if (data.createdAt && data.createdAt._seconds) {
+            const date = new Date(data.createdAt._seconds * 1000);
+            data.createdAt = formatDate(date);
+          }
+
+          // Handle submittedAt if it exists
+          if (data.submittedAt && data.submittedAt._seconds) {
+            const date = new Date(data.submittedAt._seconds * 1000);
+            data.submittedAt = formatDate(date);
+          }
+
+          return {
+            id: doc.id,
+            ...data,
+          };
+        });
+
+        console.log(`Processed ${documents.length} documents`);
+
+        const json2csvParser = new Parser({
+          fields: ["id", ...Array.from(fields)],
+          defaultValue: "",
+        });
+
+        const csv = json2csvParser.parse(documents);
+        console.log("CSV generated successfully");
+
+        res.header("Content-Type", "text/csv");
+        res.attachment(`${collection}.csv`);
+        res.send(csv);
+      } catch (error) {
+        console.error("Detailed error:", error);
+        if (error instanceof Error) {
+          console.error("Error stack:", error.stack);
+        }
+        res
+          .status(500)
+          .send(
+            `Error exporting data: ${error instanceof Error ? error.message : "Unknown error"}`,
+          );
+      }
+    });
   });
-
-// ------------------------------
-// 2. Assign Admin Role
-// ------------------------------
-export const setAdminRole = functions.https.onCall(async (data, context) => {
-  // Security check: Only authenticated users can call this function
-  if (!context.auth) {
-    throw new functions.https.HttpsError(
-      "unauthenticated",
-      "Only authenticated users can call this function",
-    );
-  }
-
-  const uid = data.uid;
-
-  try {
-    // Set the custom claim for the user
-    await admin.auth().setCustomUserClaims(uid, { admin: true });
-    return { message: `Admin role assigned to user ${uid}` };
-  } catch (error) {
-    throw new functions.https.HttpsError(
-      "internal",
-      "Error assigning admin role",
-      (error as any).message,
-    );
-  }
-});
