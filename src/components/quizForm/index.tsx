@@ -8,6 +8,7 @@ import {
 import { generateSharingUrl } from "../../lib/generateSharingUrl";
 import {
   saveQuizResult,
+  type AnswerType,
   type QuizTypes,
   type ResultsType,
 } from "../../lib/firebase/utils";
@@ -72,7 +73,6 @@ const QuizForm = () => {
     });
     setIsTransitioning(true);
   };
-  console.log({ completedQuestions });
 
   // ----------------------------------------------------------------
   // PostCode Form
@@ -162,10 +162,6 @@ const QuizForm = () => {
   const [previousResults, setPreviousResults] = useState<any>(null);
   const [statusMessage, setStatusMessage] = useState("");
 
-  const [peningtonResult, setPeningtonResult] = useState<number>(0);
-  const [keyExpertsResult, setKeyExpertsResult] = useState<number>(0);
-  const [otherVictoriansResult, setOtherVictoriansResult] = useState<number>(0);
-
   useEffect(() => {
     const checkPreviousAttempt = () => {
       console.log("checking");
@@ -192,45 +188,23 @@ const QuizForm = () => {
   const [formData, setFormData] = useState<QuizTypes>({
     createdAt: serverTimestamp(), // Use serverTimestamp() from firebase/firestore
     postCode: "",
+    answers: {
+      q1: null,
+      q2: null,
+      q3: null,
+      q4: null,
+      q5: null,
+    },
     results: {
       r1: 0,
       r2: 0,
     },
   });
 
-  const [cookieMessage, setCookieMessage] = useState("");
-
-  const makeAttempt = () => {
-    try {
-      recordAttempt(QUIZ_ID, formData.results);
-      setCookieMessage("Quiz has been attempted");
-    } catch (e) {
-      setCookieMessage("Error recording attempt");
-    }
-  };
-
-  const checkAttempt = () => {
-    const attempted = hasAttemptedQuiz(QUIZ_ID);
-    setQuizAttempted(attempted);
-    setCookieMessage(
-      attempted ? "Quiz has been attempted" : "Quiz has not been attempted",
-    );
-  };
-
-  const reset = () => {
-    try {
-      clearAttempts();
-      setCookieMessage("Cookies cleared");
-    } catch (e) {
-      setCookieMessage("Error clearing cookies");
-    }
-  };
-
   // ----------------------------------------------------------------
   // Form Submission
   // ----------------------------------------------------------------
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "submitting" | "success" | "error"
@@ -246,6 +220,13 @@ const QuizForm = () => {
       const submissionData = {
         postCode: postCodeValues.join(""),
         createdAt: serverTimestamp(), // Use serverTimestamp() from firebase/firestore
+        answers: {
+          q1: answers[1],
+          q2: answers[2],
+          q3: answers[3],
+          q4: answers[4],
+          q5: answers[5],
+        },
         results: {
           r1: formData.results.r1,
           r2: formData.results.r2,
@@ -280,7 +261,7 @@ const QuizForm = () => {
       setIsSubmitting(false);
     }
   };
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [answers, setAnswers] = useState<Record<number, AnswerType>>({});
   const [isRevisiting, setIsRevisiting] = useState(false);
   // Update completedQuestions to only include questions up to current
   useEffect(() => {
@@ -289,11 +270,11 @@ const QuizForm = () => {
     );
   }, [currentQuestion]);
 
-  const calculateResults = (id: number, answer: string) => {
+  const calculateResults = (id: number, answer: AnswerType) => {
     const question = quizData.find((q) => q.id === id);
     if (!question) return;
 
-    const newAnswers = { ...answers, [id]: answer };
+    const newAnswers: Record<number, AnswerType> = { ...answers, [id]: answer };
     setAnswers(newAnswers);
 
     const newResults = Object.entries(newAnswers).reduce(
@@ -310,15 +291,13 @@ const QuizForm = () => {
       { r1: 0, r2: 0 },
     );
 
+    console.log({ newResults });
+
     setFormData({
       ...formData,
       results: newResults,
     });
   };
-
-  // if (isLoading) {
-  //   return "Checking...";
-  // }
 
   console.log({ formData });
 

@@ -6,10 +6,19 @@ export type ResultsType = {
   r2: number;
 };
 
+export type AnswerType = "yes" | "no" | null;
+
 export interface QuizTypes {
   postCode: string;
   createdAt: any;
   results: ResultsType;
+  answers: {
+    q1: AnswerType;
+    q2: AnswerType;
+    q3: AnswerType;
+    q4: AnswerType;
+    q5: AnswerType;
+  };
 }
 export const saveQuizResult = async (data: QuizTypes) => {
   try {
