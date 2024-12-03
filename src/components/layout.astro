@@ -8,7 +8,7 @@ const decodedParams = new URLSearchParams(rawParams);
 const hasResults = decodedParams.has("r1");
 const ogImageUrl = hasResults
   ? `${fullUrl.origin}/api/og${fullUrl.search}`
-  : `${fullUrl.origin}/default-og.jpg`;
+  : `${fullUrl.origin}/default-og.png`;
 
 type LayoutProps = {
   unfixed?: boolean;
