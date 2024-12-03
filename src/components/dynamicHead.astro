@@ -7,10 +7,10 @@ interface Props {
 
 const { title, ogImageUrl, hasResults } = Astro.props;
 
-console.log("DynamicHead Props:", {
-  ogImageUrl,
-  hasResults,
-});
+// console.log("DynamicHead Props:", {
+//   ogImageUrl,
+//   hasResults,
+// });
 ---
 
 <>
@@ -34,14 +34,11 @@ console.log("DynamicHead Props:", {
       ? "Check out my quiz results!"
       : "Test your knowledge with our quiz"}
   />
-  <meta
-    property="og:url"
-    content="https://penington-cannabis-quiz.vercel.app/"
-  />
+  <meta property="og:url" content="https://www.regulateit.com.au/" />
   <meta property="og:type" content="Website" />
   <meta
     property="og:logo"
-    content="https://penington-cannabis-quiz.vercel.app/default-og.jpg"
+    content="https://www.regulateit.com.au/default-og.png"
   />
   <title>{title}</title>
 </>

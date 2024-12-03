@@ -8,7 +8,7 @@ const decodedParams = new URLSearchParams(rawParams);
 const hasResults = decodedParams.has("r1");
 const ogImageUrl = hasResults
   ? `${fullUrl.origin}/api/og${fullUrl.search}`
-  : `${fullUrl.origin}/default-og.jpg`;
+  : `${fullUrl.origin}/default-og.png`;
 
 type LayoutProps = {
   unfixed?: boolean;
@@ -248,7 +248,7 @@ const { title } = Astro.props;
     font-weight: 300;
     line-height: 140%;
     font-size: 16px;
-    letter-spacing: -1px;
+    letter-spacing: 0px;
     @include respond-to(tablet) {
       font-size: 20px;
       letter-spacing: -0.4px;

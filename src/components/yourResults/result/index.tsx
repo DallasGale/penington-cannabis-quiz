@@ -34,7 +34,7 @@ const Result = ({
                 <Circles result={result} />
                 <p className={`body2 ${styles.body2}`}>
                   You're {showReveal ? <RevealResult result={result} /> : null}
-                  <span className="display4">%</span> aligned
+                  <span className="display4">% </span> aligned
                   <br />{" "}
                   {dataSource === "Penington"
                     ? "with  Penington's approach"
@@ -54,7 +54,7 @@ const Result = ({
             <Circles result={result} />
             <p className="body2">
               You're {showReveal ? <RevealResult result={result} /> : null}
-              <span className="display4">%</span> aligned
+              <span className="display4">% </span> aligned
               <br />{" "}
               {dataSource === "Penington"
                 ? "with  Penington's approach"
