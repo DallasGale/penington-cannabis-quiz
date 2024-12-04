@@ -1,6 +1,6 @@
+$breakpoint-short: 650px;
 $breakpoint-mobile: 400px;
 $breakpoint-long-mobile: 430px;
-
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1200px;
 $breakpoint-widescreen: 1690px;
@@ -33,6 +33,10 @@ $breakpoint-huge: 1800px;
     }
   } @else if $media == huge {
     @media only screen and (min-width: $breakpoint-huge) {
+      @content;
+    }
+  } @else if $media == vertically-short {
+    @media only screen and (max-height: $breakpoint-short) {
       @content;
     }
   }

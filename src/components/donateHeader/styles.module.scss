@@ -15,7 +15,7 @@
   background-color: var(--primary);
   z-index: 1;
   @include respond-to(tablet) {
-    background-color: transparent;
+    // background-color: transparent;
   }
 }
 

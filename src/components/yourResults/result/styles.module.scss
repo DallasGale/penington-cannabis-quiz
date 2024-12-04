@@ -168,7 +168,7 @@
 .revealContainer {
   position: relative;
   height: 24px;
-  width: 30px;
+  width: 39px;
   overflow: hidden;
   display: inline-block;
   align-items: center;
@@ -176,15 +176,11 @@
 
   @include respond-to(mobile) {
     height: 28px;
-    width: 34px;
-  }
-  @include respond-to(long-phone) {
-    height: 28px;
     width: 45px;
   }
   @include respond-to(tablet) {
     height: 38px;
-    width: 50px;
+    width: 58px;
   }
 }
 

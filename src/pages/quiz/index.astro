@@ -4,6 +4,19 @@ import QuizForm from "../../components/quizForm";
 import { ProtectedContent } from "../../components/protectedContent";
 ---
 
+<!-- <script>
+  import { hasAttemptedQuiz, QUIZ_ID } from "@/lib/quizAttempts";
+  function checkForCookies() {
+    const check = hasAttemptedQuiz(QUIZ_ID);
+    console.log({ check });
+
+    if (check) {
+      window.location.href = "/results";
+    }
+  }
+
+  checkForCookies();
+</script> -->
 <script>
   // Immediate verification check
   if (localStorage.getItem("ageVerified") !== "true") {

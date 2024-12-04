@@ -36,7 +36,7 @@ import Titles from "../components/screens/home/titles";
     analyticsUtils.logPageView(window.location.pathname, document.title);
   });
 </script>
-<Layout title="The Penington Institute - Home">
+<Layout title="The Penington Institute - Home" homepage>
   <Header client:load />
   <div class="content">
     <Titles client:load />
@@ -72,6 +72,12 @@ import Titles from "../components/screens/home/titles";
 
   .footer {
     max-width: 670px;
+    position: absolute;
+    bottom: 0;
+    padding: 24px;
+    @include respond-to(vertically-short) {
+      position: relative;
+    }
   }
 
   .hide {
