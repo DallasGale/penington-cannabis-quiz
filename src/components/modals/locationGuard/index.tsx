@@ -1,6 +1,7 @@
+import React, { useEffect } from "react";
 import { Modal } from "react-responsive-modal";
 import styles from "../styles.module.scss";
-import React from "react";
+
 const LocationGuardModal = () => {
   return (
     <Modal
