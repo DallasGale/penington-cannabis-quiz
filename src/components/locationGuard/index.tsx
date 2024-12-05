@@ -18,7 +18,7 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
         const response = await fetch("https://ipapi.co/json/");
         const data = await response.json();
 
-        const isAustralia = data.country_code !== "AU";
+        const isAustralia = data.country_code === "AU";
 
         console.log({ data, isAustralia });
 
