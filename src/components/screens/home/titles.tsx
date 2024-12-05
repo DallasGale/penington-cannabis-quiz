@@ -45,7 +45,7 @@ const Titles = () => {
         <h1 className="display1">
           {titleWords.map((word, i) => (
             <motion.span
-              key={i}
+              key={`${i}${word}`}
               custom={i}
               variants={wordVariants}
               initial="hidden"
@@ -66,7 +66,7 @@ const Titles = () => {
           <p className="body">
             {paraWords.map((word, i) => (
               <motion.span
-                key={i}
+                key={`${i}${word}`}
                 custom={i}
                 variants={paraWordVariants}
                 initial="hidden"

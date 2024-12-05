@@ -18,7 +18,6 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
       try {
         // Using a free IP geolocation service - replace with your preferred provider
         const response = await fetch("http://ipwho.is/");
-        console.log({ response });
         const data = await response.json();
 
         const isAustralia = data.country_code === "AU";
@@ -29,6 +28,7 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
 
         setIsAllowed(isAustralia);
         if (!isAustralia) {
+          console.log({ data, isAustralia });
           setError("This content is only available inAustralia");
         }
       } catch (err) {
@@ -41,26 +41,26 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
     checkLocation();
   }, []);
 
-  // function updateButtonVisibility() {
-  //   const getStartedWrapper = document.getElementById("get-started");
-  //   const ageVerified = localStorage.getItem("ageVerified");
-  //   if (ageVerified === "true") {
-  //     console.log("ageVerified", "remove invisible");
-  //     getStartedWrapper?.classList.remove("invisible");
-  //     getStartedWrapper?.classList.add("visible");
-  //   } else {
-  //     getStartedWrapper?.classList.remove("visible");
-  //     getStartedWrapper?.classList.add("invisible");
-  //   }
-  // }
+  function updateButtonVisibility() {
+    const getStartedWrapper = document.getElementById("get-started");
+    const ageVerified = localStorage.getItem("ageVerified");
+    if (ageVerified === "true") {
+      console.log("ageVerified", "remove invisible");
+      getStartedWrapper?.classList.remove("invisible");
+      getStartedWrapper?.classList.add("visible");
+    } else {
+      getStartedWrapper?.classList.remove("visible");
+      getStartedWrapper?.classList.add("invisible");
+    }
+  }
 
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     updateButtonVisibility();
-  //     window.addEventListener("cookieAccepted", updateButtonVisibility);
-  //     window.addEventListener("storage", updateButtonVisibility);
-  //   }
-  // }, [isLoading]);
+  useEffect(() => {
+    if (!isLoading) {
+      updateButtonVisibility();
+      window.addEventListener("cookieAccepted", updateButtonVisibility);
+      window.addEventListener("storage", updateButtonVisibility);
+    }
+  }, [isLoading]);
 
   if (isLoading) {
     return <LoadAnimation />;
