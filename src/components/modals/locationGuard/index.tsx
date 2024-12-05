@@ -13,8 +13,9 @@ const LocationGuardModal = () => {
       <div className={styles.modalContent}>
         <h2 className="display3 color-primary">Sorry!</h2>
         <p className="body4 color-primary">
-          This website is currently available to Australian residents only. We
-          apologise for the inconvenience.
+          This website is currently available to Australian residents only.
+          <br />
+          We apologise for the inconvenience.
         </p>
       </div>
     </Modal>
