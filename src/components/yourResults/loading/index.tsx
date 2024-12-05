@@ -1,9 +1,12 @@
 import styles from "./styles.module.scss";
 import Logo from "../../../assets/identity/logo-white.svg";
 
-const Loading = () => {
+interface LoadingProps {
+  resultsPage?: boolean;
+}
+const Loading = ({ resultsPage = true }: LoadingProps) => {
   return (
-    <div className={styles.container}>
+    <>
       <a href="/" className={styles.logo}>
         <img className={styles.logo} src={Logo.src} alt="Penington Institute" />
       </a>
@@ -12,12 +15,14 @@ const Loading = () => {
           <small>Loading</small>
           <div className={styles.loader} />
         </div>
-        <p className={styles.paragraph}>
-          Did you know that most Victorians think it’s time for safe cannabis
-          regulation?
-        </p>
+        {resultsPage && (
+          <p className={styles.paragraph}>
+            Did you know that most Victorians think it’s time for safe cannabis
+            regulation?
+          </p>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 

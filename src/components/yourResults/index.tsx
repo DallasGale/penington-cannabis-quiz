@@ -46,6 +46,7 @@ const YourResults = () => {
 
         // No data found in either location
         setResults(null);
+        window.location.href = "/";
       } catch (error) {
         console.error("Error checking cookie", error);
         setResults(null);
@@ -137,7 +138,7 @@ const YourResults = () => {
             exit="exit"
             className={styles.loadingContainer}
           >
-            <Loading />
+            <Loading resultsPage />
           </motion.div>
         )}
       </AnimatePresence>

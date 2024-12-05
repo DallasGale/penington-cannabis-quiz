@@ -348,7 +348,7 @@ const QuizForm = () => {
             exit="exit"
             className={styles.loadingContainer}
           >
-            <Loading />
+            <Loading resultsPage />
           </motion.div>
         )}
       </AnimatePresence>

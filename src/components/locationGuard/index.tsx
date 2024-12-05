@@ -38,26 +38,26 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
     checkLocation();
   }, []);
 
-  function updateButtonVisibility() {
-    const getStartedWrapper = document.getElementById("get-started");
-    const ageVerified = localStorage.getItem("ageVerified");
-    if (ageVerified === "true") {
-      console.log("ageVerified", "remove invisible");
-      getStartedWrapper?.classList.remove("invisible");
-      getStartedWrapper?.classList.add("visible");
-    } else {
-      getStartedWrapper?.classList.remove("visible");
-      getStartedWrapper?.classList.add("invisible");
-    }
-  }
+  // function updateButtonVisibility() {
+  //   const getStartedWrapper = document.getElementById("get-started");
+  //   const ageVerified = localStorage.getItem("ageVerified");
+  //   if (ageVerified === "true") {
+  //     console.log("ageVerified", "remove invisible");
+  //     getStartedWrapper?.classList.remove("invisible");
+  //     getStartedWrapper?.classList.add("visible");
+  //   } else {
+  //     getStartedWrapper?.classList.remove("visible");
+  //     getStartedWrapper?.classList.add("invisible");
+  //   }
+  // }
 
-  useEffect(() => {
-    if (!isLoading) {
-      updateButtonVisibility();
-      window.addEventListener("cookieAccepted", updateButtonVisibility);
-      window.addEventListener("storage", updateButtonVisibility);
-    }
-  }, [isLoading]);
+  // useEffect(() => {
+  //   if (!isLoading) {
+  //     updateButtonVisibility();
+  //     window.addEventListener("cookieAccepted", updateButtonVisibility);
+  //     window.addEventListener("storage", updateButtonVisibility);
+  //   }
+  // }, [isLoading]);
 
   if (isLoading) {
     return <Loading />;
