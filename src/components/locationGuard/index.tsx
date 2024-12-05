@@ -2,6 +2,7 @@
 import LocationGuardModal from "../modals/locationGuard";
 import React, { useEffect, useState } from "react";
 import Loading from "../yourResults/loading";
+import LoadAnimation from "../loadAnimation";
 
 interface LocationGuardProps {
   children: React.ReactNode;
@@ -13,9 +14,11 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const checkLocation = async () => {
+      console.log("Checking location");
       try {
         // Using a free IP geolocation service - replace with your preferred provider
-        const response = await fetch("https://ipapi.co/json/");
+        const response = await fetch("http://ipwho.is/");
+        console.log({ response });
         const data = await response.json();
 
         const isAustralia = data.country_code === "AU";
@@ -60,7 +63,7 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
   }, [isLoading]);
 
   if (isLoading) {
-    return <Loading />;
+    return <LoadAnimation />;
   }
 
   if (!isAllowed) {
