@@ -1,6 +1,7 @@
 ---
 import DynamicHead from "./dynamicHead.astro";
 import "react-responsive-modal/styles.css";
+import LocationGuard from "./locationGuard";
 const requestUrl = Astro.request.url;
 const fullUrl = new URL(requestUrl);
 const rawParams = fullUrl.searchParams;
@@ -36,7 +37,9 @@ const { title } = Astro.props;
     <div
       class={`container ${unfixed ? "unfixed" : ""} ${homepage ? "homepage" : ""}`}
     >
-      <slot />
+      <LocationGuard client:load>
+        <slot />
+      </LocationGuard>
     </div>
   </body>
 </html>
