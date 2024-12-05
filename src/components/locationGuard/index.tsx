@@ -3,32 +3,59 @@ import LocationGuardModal from "../modals/locationGuard";
 import React, { useEffect, useState } from "react";
 import Loading from "../yourResults/loading";
 import LoadAnimation from "../loadAnimation";
+import { getCachedLocation, type LocationCache } from "@/lib/gerCachedLocation";
+import { checkRateLimit } from "@/lib/checkRateLimit";
 
 interface LocationGuardProps {
   children: React.ReactNode;
 }
 
+const cachDuration = 60;
+const maxCallsPerHour = 10;
 const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAllowed, setIsAllowed] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const setCachedLocation = (isAllowed: boolean) => {
+    const cache: LocationCache = {
+      timestamp: Date.now(),
+      isAllowed,
+    };
+    localStorage.setItem("locationCheckCache", JSON.stringify(cache));
+  };
+
   useEffect(() => {
     const checkLocation = async () => {
       console.log("Checking location");
       try {
+        const cached = getCachedLocation(cachDuration);
+        if (cached) {
+          console.log("Using cached location");
+          setIsAllowed(cached.isAllowed);
+          setIsLoading(false);
+          return;
+        }
+
+        checkRateLimit(maxCallsPerHour);
+
         // Using a free IP geolocation service - replace with your preferred provider
-        const response = await fetch("http://ipwho.is/");
+        const response = await fetch("https://ipwho.is/");
         const data = await response.json();
 
-        const isAustralia = data.country_code === "AU";
+        if (data.success === false) {
+          throw new Error(data.message || "Location check failed");
+        }
 
-        console.log({ data, isAustralia });
+        const isAustralianUser = data.country_code === "AU";
 
-        // Additional check for timezone
+        console.log({ data, isAustralia: isAustralianUser });
 
-        setIsAllowed(isAustralia);
-        if (!isAustralia) {
-          console.log({ data, isAustralia });
+        setCachedLocation(isAustralianUser);
+        setIsAllowed(isAustralianUser);
+
+        if (!isAustralianUser) {
+          console.log({ data, isAustralia: isAustralianUser });
           setError("This content is only available inAustralia");
         }
       } catch (err) {
