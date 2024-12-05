@@ -1,5 +1,6 @@
 import styles from "./styles.module.scss";
 import Logo from "../../../assets/identity/logo-white.svg";
+import LoadAnimation from "../../loadAnimation";
 
 interface LoadingProps {
   resultsPage?: boolean;
@@ -13,7 +14,7 @@ const Loading = ({ resultsPage = true }: LoadingProps) => {
       <div className={styles.textGroup}>
         <div className={styles.label}>
           <small>Loading</small>
-          <div className={styles.loader} />
+          <LoadAnimation />
         </div>
         {resultsPage && (
           <p className={styles.paragraph}>
