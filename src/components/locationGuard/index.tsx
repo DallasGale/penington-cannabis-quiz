@@ -3,7 +3,7 @@ import LocationGuardModal from "../modals/locationGuard";
 import React, { useEffect, useState } from "react";
 import Loading from "../yourResults/loading";
 import LoadAnimation from "../loadAnimation";
-import { getCachedLocation, type LocationCache } from "@/lib/gerCachedLocation";
+import { getCachedLocation, type LocationCache } from "@/lib/getCachedLocation";
 import { checkRateLimit } from "@/lib/checkRateLimit";
 
 interface LocationGuardProps {
