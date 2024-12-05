@@ -10,6 +10,8 @@ const AgeModal = () => {
   const [open, setOpen] = useState(false);
   const [cookieOpen, setCookieOpen] = useState(false);
 
+  console.log({ localStorage });
+
   useEffect(() => {
     setTimeout(() => {
       if (!isVerified) {
@@ -19,9 +21,15 @@ const AgeModal = () => {
         }
       } else {
         setOpen(false);
+        if (localStorage.getItem("cookieAccepted")) {
+          setCookieOpen(false);
+          console.log("we have storage");
+        } else {
+          console.log("we do not  have storage");
+          setCookieOpen(true);
+        }
       }
     }, 2250);
-    // ), 2000);
   }, [isVerified]);
 
   const handleRedirect = () => {
