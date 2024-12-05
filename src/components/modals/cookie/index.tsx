@@ -23,7 +23,9 @@ const CookieModal = ({ open, onClose, handleCtaClick }: CookieModalProps) => {
         closeOnOverlayClick={false}
         container={myRef.current}
       >
-        <div className={`${modalStyles.modalContent} ${styles.modalContent}`}>
+        <div
+          className={`${modalStyles.modalContent} ${styles.cookiesModalContent}`}
+        >
           <div className={styles.message}>
             <h2 className={`display3 color-primary ${styles.display3}`}>
               Cookie Settings

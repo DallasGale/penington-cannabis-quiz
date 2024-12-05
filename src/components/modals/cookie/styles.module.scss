@@ -1,10 +1,11 @@
 @import "../../../styles/breakpoints.scss";
 
-.modalContent {
+.cookiesModalContent {
   @include respond-to(desktop) {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 24px;
+    display: grid !important;
+    flex-direction: row !important;
+    grid-template-columns: 1fr 400px !important;
+    gap: 24px !important;
   }
 }
 
