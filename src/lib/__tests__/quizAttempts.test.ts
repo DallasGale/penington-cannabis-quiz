@@ -13,7 +13,6 @@ import Cookies from "js-cookie";
 import { recordAttempt, hasAttemptedQuiz } from "../quizAttempts";
 
 const COOKIE_NAME = "quiz_attempts";
-const COOKIE_EXPIRY_DAYS = 90;
 const QUIZ_ID = "cannabis";
 
 const results = {
