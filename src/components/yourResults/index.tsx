@@ -88,6 +88,8 @@ const YourResults = () => {
   const handleShareLink = async () => {
     if (results) {
       const url = generateAndSetSharingUrl(results);
+
+      console.log({ url });
       try {
         await navigator.clipboard.writeText(url);
         setToggleShareModal(true);

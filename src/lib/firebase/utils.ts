@@ -21,8 +21,10 @@ export interface QuizTypes {
   };
 }
 export const saveQuizResult = async (data: QuizTypes) => {
+  console.log({ db, data });
   try {
     const docRef = await addDoc(collection(db, "submissions"), data);
+    console.log({ docRef });
     return docRef.id;
   } catch (error) {
     console.error("Error saving quiz result:", error);

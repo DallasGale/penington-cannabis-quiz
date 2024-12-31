@@ -10,6 +10,8 @@ interface LocationGuardProps {
   children: React.ReactNode;
 }
 
+const api_key = import.meta.env.NEXT_PUBLIC_IP_WHOIS_API;
+
 const cachDuration = 60;
 const maxCallsPerHour = 10;
 const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
@@ -40,8 +42,10 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
         checkRateLimit(maxCallsPerHour);
 
         // Using a free IP geolocation service - replace with your preferred provider
-        const response = await fetch("https://ipwho.is/");
+        const response = await fetch(`https://ipwhois.pro/?key=${api_key}`);
+        console.log({ response });
         const data = await response.json();
+        console.log({ data });
 
         if (data.success === false) {
           throw new Error(data.message || "Location check failed");
