@@ -1,6 +1,7 @@
 ---
 import DynamicHead from "./dynamicHead.astro";
 import "react-responsive-modal/styles.css";
+import LocationGuard from "./locationGuard";
 const requestUrl = Astro.request.url;
 const fullUrl = new URL(requestUrl);
 const rawParams = fullUrl.searchParams;
@@ -8,55 +9,39 @@ const decodedParams = new URLSearchParams(rawParams);
 const hasResults = decodedParams.has("r1");
 const ogImageUrl = hasResults
   ? `${fullUrl.origin}/api/og${fullUrl.search}`
-  : `${fullUrl.origin}/default-og.jpg`;
+  : `${fullUrl.origin}/default-og.png`;
 
 type LayoutProps = {
   unfixed?: boolean;
+  bodyClass?: string;
+  homepage?: boolean;
 };
 
-const { unfixed }: LayoutProps = Astro.props;
+const { unfixed, bodyClass = "", homepage }: LayoutProps = Astro.props;
+const { title } = Astro.props;
 ---
 
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <DynamicHead ogImageUrl={ogImageUrl} hasResults={hasResults} />
+    <DynamicHead
+      ogImageUrl={ogImageUrl}
+      hasResults={hasResults}
+      title={title}
+    />
   </head>
-  <body>
-    <div class={`container ${unfixed ? "unfixed" : ""}`}>
-      <!-- <div id="debug"></div> -->
-
-      <slot />
+  <body class={`${bodyClass}`}>
+    <div
+      class={`container ${unfixed ? "unfixed" : ""} ${homepage ? "homepage" : ""}`}
+    >
+      <LocationGuard client:load>
+        <slot />
+      </LocationGuard>
     </div>
   </body>
 </html>
-
-<!-- <script define:vars={{ hasResults, ogImageUrl, requestUrl }}>
-  // Get the parameters before they're cleared
-  const currentUrl = new URL(window.location.href);
-  const params = currentUrl.searchParams;
-  
-  const debugInfo = {
-    serverSide: {
-      requestUrl,
-      hasResults,
-      ogImageUrl
-    },
-    clientSide: {
-      currentUrl: window.location.href,
-      searchString: window.location.search,
-      params: Object.fromEntries(params.entries()),
-      hasQ1: params.has('q1')
-    }
-  };
-
-  document.getElementById('debug').innerHTML = `
-    <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
-  `;
-</script> -->
 
 <style is:global lang="scss">
   @import "../styles/breakpoints.scss";
@@ -72,6 +57,7 @@ const { unfixed }: LayoutProps = Astro.props;
     --lightGreen: #d2fcbf;
     --faintGreen: #fbfff9;
     --grey: #f0f0f0;
+    --transition05: all 0.5s cubic-bezier(0.08, 0.75, 0.66, 0.93);
 
     --transition08: all 0.8s cubic-bezier(0.08, 0.75, 0.66, 0.93);
   }
@@ -101,6 +87,7 @@ const { unfixed }: LayoutProps = Astro.props;
     gap: 10px;
     overflow: hidden;
     text-decoration: none;
+    box-sizing: border-box;
   }
 
   h1,
@@ -117,7 +104,8 @@ const { unfixed }: LayoutProps = Astro.props;
     padding: 0 24px;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 60px);
+    min-height: -webkit-fill-available;
+    height: 100dvh;
     overflow: hidden;
     align-items: center;
     justify-content: center;
@@ -130,72 +118,148 @@ const { unfixed }: LayoutProps = Astro.props;
       position: relative;
       height: auto;
     }
+
     @include respond-to(tablet) {
       padding: 0 80px;
-      position: relative;
-      height: 100vh;
-      overflow: auto;
+      position: fixed;
+      overflow: hidden;
+      height: 100dvh;
     }
-  }
-
-  .footer {
-    position: absolute;
-    bottom: 0;
-    padding: 24px;
+    &.homepage {
+      @include respond-to(vertically-short) {
+        position: relative !important;
+        height: auto;
+        overflow: auto;
+        padding-top: 100px;
+      }
+    }
   }
 
   .display1 {
+    letter-spacing: -3px;
     font-size: 50px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 107%;
     @include respond-to(mobile) {
+      letter-spacing: -3.6px;
       font-size: 72px;
     }
     @include respond-to(tablet) {
+      letter-spacing: -5.2px;
       font-size: 104px;
     }
   }
 
   .display2 {
-    font-weight: 400;
-    font-size: 31px;
+    letter-spacing: -1.4px;
+    font-weight: 300;
+    font-size: 28px;
     line-height: 110%;
     @include respond-to(mobile) {
-      font-size: 40px;
+      font-size: 36px;
     }
 
     @include respond-to(tablet) {
+      letter-spacing: -2.8px;
       font-size: 56px;
     }
   }
 
   .display3 {
-    font-weight: 400;
-    font-size: 28px;
+    letter-spacing: -1px;
+    font-weight: 300;
+    font-size: 3.6vh;
     line-height: 107%;
+    @include respond-to(mobile) {
+      font-size: 3.2vh;
+    }
+
+    @include respond-to(tablet) {
+      letter-spacing: -2.2px;
+      font-size: 44px;
+    }
   }
 
   .display4 {
-    font-weight: 400;
+    font-weight: 300;
     font-size: 24px;
     line-height: 24px;
+    letter-spacing: -1.2px;
+  }
+  .display5 {
+    letter-spacing: -1.4px;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 48px;
+    @include respond-to(desktop) {
+      font-size: 40px;
+      letter-spacing: -2px;
+    }
+  }
+  .display6 {
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: -1px;
+    line-height: 24px;
+    @include respond-to(desktop) {
+      font-size: 24px;
+      letter-spacing: -1.2px;
+    }
+  }
+  .display7 {
+    font-weight: 300;
+    font-size: 62px;
+    line-height: 100%;
+    @include respond-to(desktop) {
+      font-size: 94px;
+    }
   }
 
   .body {
-    font-weight: 400;
+    letter-spacing: -1px;
+    font-weight: 300;
     font-size: 20px;
     line-height: 120%;
     @include respond-to(tablet) {
       font-size: 28px;
+      letter-spacing: -1.4px;
     }
   }
 
   .body2 {
-    font-weight: 400;
+    letter-spacing: -1px;
+    font-weight: 300;
     font-size: 20px;
     line-height: 120%;
     @include respond-to(tablet) {
       font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+  }
+
+  .body3 {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 300;
+    line-height: 120%;
+    font-size: 16px;
+    // letter-spacing: 0px;
+  }
+  .body4 {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 300;
+    line-height: 120%;
+    font-size: 20px;
+    letter-spacing: -1px;
+  }
+  .body5 {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 300;
+    line-height: 140%;
+    font-size: 16px;
+    letter-spacing: 0px;
+    @include respond-to(tablet) {
+      font-size: 20px;
+      letter-spacing: -0.4px;
     }
   }
 
@@ -203,7 +267,7 @@ const { unfixed }: LayoutProps = Astro.props;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     display: block;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 140%;
     font-family: "PT Sans", sans-serif;
     color: var(--primary50);
@@ -213,6 +277,12 @@ const { unfixed }: LayoutProps = Astro.props;
   }
   .color-primary {
     color: var(--primary);
+  }
+  .color-primary25 {
+    color: var(--primary25);
+  }
+  .color-black {
+    color: #000;
   }
   .react-responsive-modal-modal {
     width: calc(100% - 48px);
@@ -235,6 +305,19 @@ const { unfixed }: LayoutProps = Astro.props;
       bottom: 24px;
       top: auto;
     }
+    .react-responsive-modal-modal {
+      width: 100%;
+      max-width: 452px;
+      @include respond-to(desktop) {
+        max-width: 1135px;
+      }
+    }
+    .react-responsive-modal-container {
+      padding: 0 20px;
+      @include respond-to(desktop) {
+        padding: 0;
+      }
+    }
   }
 
   .about-modal-container {
@@ -247,5 +330,32 @@ const { unfixed }: LayoutProps = Astro.props;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
+  }
+
+  .share-modal-container {
+    .react-responsive-modal-modal {
+      background: var(--primary25);
+      top: 24px;
+      border-radius: 20px;
+      max-width: 414px;
+      padding: 14px;
+    }
+    .react-responsive-modal-overlay {
+      background: transparent;
+    }
+  }
+
+  .show {
+    opacity: 1;
+    height: auto;
+    visibility: visible;
+    transition: var(--transition08);
+  }
+
+  .hide {
+    opacity: 0;
+    height: 0;
+    visibility: hidden;
+    transition: var(--transition08);
   }
 </style>
