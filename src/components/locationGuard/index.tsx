@@ -31,21 +31,23 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
     const checkLocation = async () => {
       console.log("Checking location");
       try {
-        const cached = getCachedLocation(cachDuration);
-        if (cached) {
-          console.log("Using cached location");
-          setIsAllowed(cached.isAllowed);
-          setIsLoading(false);
-          return;
-        }
+        // const cached = getCachedLocation(cachDuration);
+        // if (cached) {
+        //   console.log("Using cached location");
+        //   setIsAllowed(cached.isAllowed);
+        //   setIsLoading(false);
+        //   return;
+        // }
 
-        checkRateLimit(maxCallsPerHour);
+        // checkRateLimit(maxCallsPerHour);
 
         // Using a free IP geolocation service - replace with your preferred provider
-        const response = await fetch(`https://ipwhois.pro/?key=${api_key}`);
-        console.log({ response });
+        const response = await fetch(
+          `https://ipwhois.pro/?key=${api_key}&rate=1`,
+        );
+        // console.log({ response });
         const data = await response.json();
-        console.log({ data });
+        // console.log({ data });
 
         if (data.success === false) {
           throw new Error(data.message || "Location check failed");
