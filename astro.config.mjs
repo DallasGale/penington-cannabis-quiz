@@ -16,7 +16,6 @@ export default defineConfig({
       enabled: true,
     },
     imageService: true,
-    devMode: false,
     functionPerRoute: false,
     includeFiles: ["**/*.{jpg,png,svg}"],
   }),
