@@ -3,6 +3,11 @@ import DynamicHead from "./dynamicHead.astro";
 import "react-responsive-modal/styles.css";
 import LocationGuard from "./locationGuard";
 
+console.log("Environment:", {
+  NODE_ENV: import.meta.env.PROD ? "production" : "development",
+  VERCEL_ENV: process.env.VERCEL_ENV,
+  VERCEL_URL: process.env.VERCEL_URL,
+});
 // Get raw URL data from Astro's URL
 const url = new URL(Astro.request.url);
 const hasParams = url.searchParams.has("r1"); // Changed from q1 to r1 to match your URL
