@@ -94,9 +94,9 @@ const { title } = Astro.props;
     <div
       class={`container ${unfixed ? "unfixed" : ""} ${homepage ? "homepage" : ""}`}
     >
-      <LocationGuard client:load>
+      <!-- <LocationGuard client:load> -->
         <slot />
-      </LocationGuard>
+      <!-- </LocationGuard> -->
     </div>
   </body>
 </html>
