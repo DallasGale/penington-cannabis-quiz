@@ -2,6 +2,12 @@
   "regions": [
     "syd1"
   ],
+  "functions": {
+    "api/*": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
   "build": {
     "env": {
       "ENABLE_FILE_SYSTEM_API": "1"
@@ -9,7 +15,7 @@
   },
   "headers": [
     {
-      "source": "/api/og",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

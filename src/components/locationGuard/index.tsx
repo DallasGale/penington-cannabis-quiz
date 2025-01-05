@@ -19,17 +19,16 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
   const [isAllowed, setIsAllowed] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const setCachedLocation = (isAllowed: boolean) => {
-    const cache: LocationCache = {
-      timestamp: Date.now(),
-      isAllowed,
-    };
-    localStorage.setItem("locationCheckCache", JSON.stringify(cache));
-  };
+  // const setCachedLocation = (isAllowed: boolean) => {
+  //   const cache: LocationCache = {
+  //     timestamp: Date.now(),
+  //     isAllowed,
+  //   };
+  //   localStorage.setItem("locationCheckCache", JSON.stringify(cache));
+  // };
 
   useEffect(() => {
     const checkLocation = async () => {
-      console.log({ api_key });
       console.log("Checking location");
       try {
         const cached = getCachedLocation(cachDuration);
@@ -58,7 +57,7 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
 
         console.log({ data, isAustralia: isAustralianUser });
 
-        setCachedLocation(isAustralianUser);
+        // setCachedLocation(isAustralianUser);
         setIsAllowed(isAustralianUser);
 
         if (!isAustralianUser) {
