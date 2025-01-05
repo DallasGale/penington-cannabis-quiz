@@ -13,12 +13,6 @@
       "ENABLE_FILE_SYSTEM_API": "1"
     }
   },
-  "routes": [
-    {
-      "src": "/api/og/(.*)",
-      "dest": "/api/og"
-    }
-  ],
   "headers": [
     {
       "source": "/api/og",
