@@ -20,7 +20,7 @@ const results = {
 
 // Important: Ensure OG image URL always includes parameters
 const ogImageUrl = hasParams
-  ? `${url.origin}/api/og${url.search}&t=${Date.now()}`
+  ? `${url.origin}/api/og${url.search}&t=${Date.now()}`.replace("/og/", "/og")
   : `${url.origin}/default-og.jpg`;
 
 // Add more descriptive metadata for social media
@@ -45,6 +45,17 @@ type LayoutProps = {
   homepage?: boolean;
 };
 
+
+// Generate a static fallback first
+const fallbackOgUrl = 'https://www.regulateit.com.au/default-og.jpg';
+
+// Then the dynamic URL
+const dynamicOgUrl = hasParams 
+  ? `https://www.regulateit.com.au/api/og${url.search}`
+  : fallbackOgUrl;
+
+  console.log("Dynamic OG URL:", dynamicOgUrl);
+
 const { unfixed, bodyClass = "", homepage }: LayoutProps = Astro.props;
 const { title } = Astro.props;
 ---
@@ -58,6 +69,25 @@ const { title } = Astro.props;
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:url" content="https://www.regulateit.com.au/" />
     <meta property="og:type" content="website" />
+     <!-- Static fallback first -->
+     <meta property="og:image" content={fallbackOgUrl} />
+    
+     <!-- Dynamic replacement script -->
+     {hasParams && (
+       <script define:vars={{ dynamicOgUrl }}>
+         // Replace OG image after a short delay
+         window.addEventListener('load', () => {
+           setTimeout(() => {
+             const metaTags = document.getElementsByTagName('meta');
+             for (let tag of metaTags) {
+               if (tag.getAttribute('property') === 'og:image') {
+                 tag.setAttribute('content', dynamicOgUrl);
+               }
+             }
+           }, 100);
+         });
+       </script>
+     )}
     <DynamicHead ogImageUrl={ogImageUrl} hasResults={hasParams} title={title} />
   </head>
   <body class={`${bodyClass}`}>

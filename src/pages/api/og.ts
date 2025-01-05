@@ -6,6 +6,29 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
   try {
     const url = new URL(request.url);
 
+    // Log the incoming request
+    console.log("OG API Request:", {
+      fullUrl: url.toString(),
+      path: url.pathname,
+      search: url.search,
+      params: Object.fromEntries(url.searchParams.entries()),
+    });
+
+    const cacheControl = "public, max-age=31536000, immutable";
+    const headers = {
+      "Content-Type": "image/png",
+      "Cache-Control": "public, max-age=31536000, stale-while-revalidate=60",
+      "CDN-Cache-Control": "public, max-age=31536000",
+      "Vercel-CDN-Cache-Control": "public, max-age=31536000",
+      "Edge-Cache-Tag": `og-image-${url.searchParams.toString()}`,
+    };
+
+    // Handle both /api/og and /api/og/ paths
+    if (!url.pathname.startsWith("/api/og")) {
+      console.error("Invalid path:", url.pathname);
+      return new Response("Invalid path", { status: 404 });
+    }
+
     const answers = Array.from({ length: 2 }, (_, i) => {
       const result = url.searchParams.get(`r${i + 1}`);
       if (!result) return null;
@@ -195,12 +218,12 @@ export const GET: APIRoute = async ({ request }): Promise<Response> => {
     return new ImageResponse(element, {
       width: 1200,
       height: 630,
+      headers,
     });
   } catch (error) {
-    console.error("Error generating image:", error);
-    return new Response("Error generating image", {
-      status: 500,
-      statusText: error instanceof Error ? error.message : "Unknown error",
-    });
+    return Response.redirect(
+      "https://www.regulateit.com.au/default-og.jpg",
+      302,
+    );
   }
 };

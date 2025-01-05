@@ -58,7 +58,7 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
 
         console.log({ data, isAustralia: isAustralianUser });
 
-        // setCachedLocation(isAustralianUser);
+        setCachedLocation(isAustralianUser);
         setIsAllowed(isAustralianUser);
 
         if (!isAustralianUser) {
