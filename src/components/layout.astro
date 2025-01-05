@@ -2,15 +2,38 @@
 import DynamicHead from "./dynamicHead.astro";
 import "react-responsive-modal/styles.css";
 import LocationGuard from "./locationGuard";
-const requestUrl = Astro.request.url;
-const fullUrl = new URL(requestUrl);
-const rawParams = fullUrl.searchParams;
-const decodedParams = new URLSearchParams(rawParams);
-const hasResults = decodedParams.has("r1");
-const ogImageUrl = hasResults
-  ? `${fullUrl.origin}/api/og${fullUrl.search}`
-  : `${fullUrl.origin}/default-og.png`;
 
+// Get raw URL data from Astro's URL
+const url = new URL(Astro.request.url);
+const hasParams = url.searchParams.has("r1"); // Changed from q1 to r1 to match your URL
+
+// Get all results for OG image
+const results = {
+  r1: url.searchParams.get("r1"),
+  r2: url.searchParams.get("r2"),
+};
+
+// Important: Ensure OG image URL always includes parameters
+const ogImageUrl = hasParams
+  ? `${url.origin}/api/og${url.search}&t=${Date.now()}`
+  : `${url.origin}/default-og.jpg`;
+
+// Add more descriptive metadata for social media
+const pageTitle = hasParams
+  ? `Quiz Results: ${results.r1} and ${results.r2}`
+  : "Take the Quiz!";
+
+// const pageDescription = hasParams
+//   ? `Check out my quiz results! I scored ${results.r1} on part 1 and ${results.r2} on part 2.`
+//   : 'Test your knowledge with our quiz';
+
+console.log("Server State:", {
+  url: url.toString(),
+  search: url.search,
+  params: Object.fromEntries(url.searchParams.entries()),
+  hasParams,
+  ogImageUrl,
+});
 type LayoutProps = {
   unfixed?: boolean;
   bodyClass?: string;
@@ -26,11 +49,7 @@ const { title } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <DynamicHead
-      ogImageUrl={ogImageUrl}
-      hasResults={hasResults}
-      title={title}
-    />
+    <DynamicHead ogImageUrl={ogImageUrl} hasResults={hasParams} title={title} />
   </head>
   <body class={`${bodyClass}`}>
     <div
