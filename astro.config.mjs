@@ -8,18 +8,7 @@ import react from "@astrojs/react";
 export default defineConfig({
   integrations: [react()],
   output: "server",
-  adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
-    speedInsights: {
-      enabled: true,
-    },
-    imageService: true,
-    functionPerRoute: false,
-    includeFiles: ["**/*.{jpg,png,svg}"],
-  }),
-
+  adapter: vercel(),
   vite: {
     envPrefix: "NEXT_PUBLIC_",
     ssr: {
