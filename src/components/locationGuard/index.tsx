@@ -32,15 +32,15 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
       console.log({ api_key });
       console.log("Checking location");
       try {
-        // const cached = getCachedLocation(cachDuration);
-        // if (cached) {
-        //   console.log("Using cached location");
-        //   setIsAllowed(cached.isAllowed);
-        //   setIsLoading(false);
-        //   return;
-        // }
+        const cached = getCachedLocation(cachDuration);
+        if (cached) {
+          console.log("Using cached location");
+          setIsAllowed(cached.isAllowed);
+          setIsLoading(false);
+          return;
+        }
 
-        // checkRateLimit(maxCallsPerHour);
+        checkRateLimit(maxCallsPerHour);
 
         // Using a free IP geolocation service - replace with your preferred provider
         const response = await fetch(
