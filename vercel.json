@@ -1,8 +1,21 @@
 {
-  "functions": {
-    "*": {
-      "memory": 3008,
-      "maxDuration": 10
+  "regions": [
+    "syd1"
+  ],
+  "build": {
+    "env": {
+      "ENABLE_FILE_SYSTEM_API": "1"
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
 }
