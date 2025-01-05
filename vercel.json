@@ -2,12 +2,6 @@
   "regions": [
     "syd1"
   ],
-  "functions": {
-    "api/og.ts": {
-      "memory": 3008,
-      "maxDuration": 10
-    }
-  },
   "build": {
     "env": {
       "ENABLE_FILE_SYSTEM_API": "1"
