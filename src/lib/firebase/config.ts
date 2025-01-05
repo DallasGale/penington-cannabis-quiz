@@ -24,9 +24,9 @@ declare global {
 type EventParams = {
   [key: string]: string | number | boolean;
 };
-console.log("import.meta.env", import.meta.env.NEXT_PUBLIC_FIREBASE_API_KEY);
-console.log("Env Mode:", import.meta.env.MODE);
-console.log("Project ID:", import.meta.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
+// console.log("import.meta.env", import.meta.env.NEXT_PUBLIC_FIREBASE_API_KEY);
+// console.log("Env Mode:", import.meta.env.MODE);
+// console.log("Project ID:", import.meta.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
 
 export const firebaseConfig = {
   apiKey: import.meta.env.NEXT_PUBLIC_FIREBASE_API_KEY,
