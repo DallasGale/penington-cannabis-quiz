@@ -1,25 +1,17 @@
 {
-  "regions": [
-    "syd1"
-  ],
   "functions": {
-    "src/pages/api/og.ts": {
+    "./.vercel/output/functions/api/og.func/**": {
       "memory": 3008,
       "maxDuration": 10
     }
   },
-  "build": {
-    "env": {
-      "ENABLE_FILE_SYSTEM_API": "1"
-    }
-  },
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/api/og",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     }
