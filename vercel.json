@@ -3,8 +3,8 @@
     "syd1"
   ],
   "functions": {
-    "api/*": {
-      "memory": 1024,
+    "src/pages/api/og.ts": {
+      "memory": 3008,
       "maxDuration": 10
     }
   },
