@@ -31,7 +31,6 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
 
   useEffect(() => {
     const checkLocation = async () => {
-      console.log({ api_key });
       console.log("Checking location");
       try {
         const cached = getCachedLocation(cachDuration);
