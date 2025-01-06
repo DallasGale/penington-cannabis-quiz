@@ -27,6 +27,8 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
     localStorage.setItem("locationCheckCache", JSON.stringify(cache));
   };
 
+  console.log({ isAllowed });
+
   useEffect(() => {
     const checkLocation = async () => {
       console.log({ api_key });
@@ -58,7 +60,7 @@ const LocationGuard: React.FC<LocationGuardProps> = ({ children }) => {
 
         console.log({ data, isAustralia: isAustralianUser });
 
-        // setCachedLocation(isAustralianUser);
+        setCachedLocation(isAustralianUser);
         setIsAllowed(isAustralianUser);
 
         if (!isAustralianUser) {
