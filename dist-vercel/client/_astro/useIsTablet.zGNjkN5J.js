@@ -1,0 +1,1 @@
+import{r as t}from"./index.By4mQp_K.js";const i=()=>{const[s,r]=t.useState(!1);return t.useEffect(()=>{const e=()=>{r(window.innerWidth<768)};return e(),window.addEventListener("resize",e),()=>window.removeEventListener("resize",e)},[]),s};export{i as u};

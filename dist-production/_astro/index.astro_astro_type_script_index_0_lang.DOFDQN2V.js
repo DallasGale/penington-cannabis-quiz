@@ -1,0 +1,1 @@
+import{d as t}from"./config.BXJrpnhT.js";document.addEventListener("DOMContentLoaded",()=>{t.logPageView(window.location.pathname,document.title)});document.addEventListener("astro:page-load",()=>{t.logPageView(window.location.pathname,document.title)});
