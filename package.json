@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "packageManager": "pnpm@9.1.4",
   "scripts": {
@@ -21,7 +21,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.3.0",
-    "@astrojs/vercel": "^8.1.5",
+    "@astrojs/vercel": "^8.2.2",
     "@nextui-org/accordion": "^2.0.40",
     "@nextui-org/react": "^2.4.8",
     "@resvg/resvg-js": "^2.6.2",
@@ -33,7 +33,7 @@
     "@types/react-dom": "^18.3.1",
     "@vercel/og": "^0.6.4",
     "@vitest/coverage-c8": "^0.33.0",
-    "astro": "^5.9.4",
+    "astro": "^5.11.1",
     "cors": "^2.8.5",
     "firebase": "^11.0.2",
     "firebase-functions": "^6.1.1",
